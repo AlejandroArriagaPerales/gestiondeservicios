@@ -2,32 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categoria;
-use App\Models\tab_categoria;
+use App\Models\tab_servicio;
 use Illuminate\Http\Request;
 
-class CategoriasController extends Controller
+class ServiciosController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-     /*
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }*/
-
-
     public function index()
     {
-        //Mostrar
-
-        return tab_categoria::all();
+        //
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -35,19 +23,15 @@ class CategoriasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-
     public function store(Request $request)
     {
-        //Registrar
-        $categoria = new tab_categoria();
-        $categoria->nombre = $request->nombreCategoria;
-        $categoria->icono = '0';
-        $categoria->save();
+        $servicio = new tab_servicio();
+        $servicio->nombre = $request->nombreServicio;
+        $servicio->categoria_id = $request->categoriaSeleccionada;
+        
+        $servicio->save();
 
-        return $categoria;
-
-
+        return $servicio;
     }
 
     /**
@@ -57,13 +41,6 @@ class CategoriasController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-/*
-    public function show($id)
-    {
-        //
-    }
-    */
-
     /**
      * Update the specified resource in storage.
      *
@@ -71,13 +48,9 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-
     public function update(Request $request, $id)
     {
-        // Editar
-
-
+        //
     }
 
     /**
@@ -86,12 +59,8 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-
     public function destroy($id)
     {
-        // Eliminar
-
-
+        //
     }
 }

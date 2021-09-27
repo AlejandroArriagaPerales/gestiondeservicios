@@ -1,12 +1,17 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PrestadoresController;
 use App\Http\Controllers\RegistroAdministradoresController;
 use App\Http\Controllers\RegistroCategoriaController;
 use App\Http\Controllers\RegistroClientesController;
 use App\Http\Controllers\RegistroPrestadoresController;
 use App\Http\Controllers\RegistroServiciosController;
+use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\TablaAdministradoresController;
 use App\Http\Controllers\TablaPrestadoresController;
 use Illuminate\Support\Facades\Route;
@@ -22,8 +27,8 @@ Route::get('dashboard', DashboardController::class)->name('dashboard');
 Route::post('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores');
 Route::get('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores');
 
-Route::post('registroadministradores', RegistroAdministradoresController::class)->name('registroadministradores');
-Route::get('registroadministradores', RegistroAdministradoresController::class)->name('registroadministradores');
+Route::post('registroadministradores', RegisterController::class)->name('registroadministradores');
+Route::get('registroadministradores', RegisterController::class)->name('registroadministradores');
 
 Route::post('registroclientes', RegistroClientesController::class)->name('registroclientes');
 Route::get('registroclientes', RegistroClientesController::class)->name('registroclientes');
@@ -43,11 +48,20 @@ Route::get('tabladministradores', TablaAdministradoresController::class)->name('
 
 
 
+
+
 Auth::routes();
 Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::apiResource('categorias','CategoriasController');
+Route::apiResource('tab_categorias',CategoriasController::class);
+Route::apiResource('tab_clientes',ClientesController::class);
+Route::apiResource('tab_prestadores',PrestadoresController::class);
+Route::apiResource('tab_servicios',ServiciosController::class);
+
+
+
+
 
 
 

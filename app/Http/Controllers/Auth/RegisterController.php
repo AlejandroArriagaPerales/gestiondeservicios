@@ -36,10 +36,14 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    
+    public function __invoke()
     {
-        $this->middleware('guest');
+        return view('auth/register');
     }
+    
+    
 
     /**
      * Get a validator for an incoming registration request.
@@ -70,4 +74,6 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    
 }

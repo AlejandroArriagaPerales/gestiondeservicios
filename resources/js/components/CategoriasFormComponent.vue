@@ -66,9 +66,13 @@
                     nombreCategoria: this.nombreCategoria
                     
                 };
-                axios.post('categorias',params).then((response) => console.log(response));
-                alert(this.nombreCategoria);
                 this.nombreCategoria='';
+                axios.post('tab_categorias',params).then((response) => {
+                  const categoria = response.data;
+                  this.$emit('new',categoria);
+                });
+             
+                
             }
         }
     }

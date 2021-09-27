@@ -45,8 +45,8 @@
           </li>
           <li>
             <a href="registroadministradores">
-              <i class="now-ui-icons location_map-big"></i>
-              <p>Registro de Administradores</p>
+              <i class="now-ui-icons education_atom"></i>
+              <p>Registro Administradores</p>
             </a>
           </li>
           <li>
