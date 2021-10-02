@@ -1,41 +1,33 @@
 <template>
+
     <div class="card-body">
-              <form action="" v-on:submit.prevent="newServicio()">
-
-                <div class="form-group">
-                  <label>Selecciona una categoria</label>
-
-                    <select class="form-control" v-on="Recibido()" v-model="categoriaSeleccionada" >
-                        <option :value="tab_categoria.id" v-for="(tab_categoria) in tab_categorias" :key="tab_categoria.id" >
-                          {{tab_categoria.nombre}}
-                        </option>
-                    </select>
-
-                     
-
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Nombre de Usuario
+                      </th>
+                      <th>
+                        Correo Electrónico
+                      </th>
+                      
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          Dakota Rice
+                        </td>
+                       
+                        <td>
+                          Oud-Turnhout@hotmail.com
+                        </td>
+                        
+                      </tr>
+                      
+                    </tbody>
+                  </table>
                 </div>
-
-                <br>
-
-                <div class="form-group">
-                  <label>Nombre(s)</label>
-                  <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreServicio">
-                </div>
- 
-                <br>
-                <br>
-                    
-                <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Agregar">
-
-                <br>  
-              </form>
-              <!--
-                <div v-for="tab_categoria in tab_categorias" v-bind:key="tab_categoria.id">
-                    {{tab_categorias}}
-                </div>
-              -->
-              
-            </div>
+              </div>
 
             
 </template>

@@ -1,19 +1,19 @@
 @extends('layouts.plantilla')
 
-@section('title', 'Tabla Prestadores')
+@section('title', 'Tabla Servicios')
 
 @section('content')
 
-@section('tituloBarra', 'Tabla Prestadores')
+@section('tituloBarra', 'Tabla Servicios')
 
-@section('tituloPagina', 'Tabla de Prestadores')
+@section('tituloPagina', 'Tabla de Servicios')
 
 <div class="content">
         <div class="row">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Prestadores de Servicios</h4>
+                <h4 class="card-title">Servicios</h4>
               </div>
 
               <tablaprestadores-component></tablaprestadores-component>

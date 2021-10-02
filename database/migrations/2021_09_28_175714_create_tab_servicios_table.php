@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTabPrestadoresTable extends Migration
+class CreateTabServiciosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateTabPrestadoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('tab_prestadores', function (Blueprint $table) {
+        Schema::create('tab_servicios', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('apellido');
-            $table->string('correo');
-            $table->string('ubicacion');
-            $table->string('telefono');
-            $table->integer('disponibilidad');
-            $table->string('imagen');
-            $table->string('contrasena');
+            $table->integer('categoria_id')->unsigned();
+            $table->foreign('categoria_id')->references('id')->on('tab_categorias');
             $table->timestamps();
         });
     }
@@ -34,6 +29,6 @@ class CreateTabPrestadoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tab_prestadores');
+        Schema::dropIfExists('tab_servicios');
     }
 }

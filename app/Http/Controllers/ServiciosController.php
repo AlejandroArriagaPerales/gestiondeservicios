@@ -14,7 +14,7 @@ class ServiciosController extends Controller
      */
     public function index()
     {
-        //
+        return tab_servicio::all();
     }
 
     /**

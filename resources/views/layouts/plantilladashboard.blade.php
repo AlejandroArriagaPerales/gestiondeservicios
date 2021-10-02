@@ -62,6 +62,30 @@
             </a>
           </li>
           <li>
+            <a href="registroproveedores">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Registro de Proveedores</p>
+            </a>
+          </li>
+          <li>
+            <a href="registrocontactoproveedores">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Registro de Contacto de Proveedor</p>
+            </a>
+          </li>
+          <li>
+            <a href="registrocategoriaproductos">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Registro de Categorias de Productos</p>
+            </a>
+          </li>
+          <li>
+            <a href="registroproductos">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Registro de Productos</p>
+            </a>
+          </li>
+          <li>
           <li>
               <a href="registroservicios">
                 <i class="now-ui-icons education_atom"></i>

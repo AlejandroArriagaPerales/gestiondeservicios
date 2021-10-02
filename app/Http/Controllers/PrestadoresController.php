@@ -14,7 +14,7 @@ class PrestadoresController extends Controller
      */
     public function index()
     {
-        //
+        return tab_prestadore::all();
     }
 
     /**
@@ -31,6 +31,8 @@ class PrestadoresController extends Controller
         $prestador->correo = $request->correoPrestador;
         $prestador->ubicacion = $request->ubicacionPrestador;
         $prestador->telefono = $request->telefonoPrestador;
+        $prestador->disponibilidad = $request->disponibilidadSeleccionada;
+        $prestador->imagen=0;
         $prestador->contrasena = $request->contrasenaPrestador;
         $prestador->save();
 

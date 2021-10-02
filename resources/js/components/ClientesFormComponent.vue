@@ -81,6 +81,7 @@
                 this.apellidoCliente='';
                 this.rfcCliente='';
                 this.contrasenaCliente='';
+                confirm('Cliente Agregado', 'Confirmación');
                 axios.post('tab_clientes',params).then((response) => {
                   const nombreCliente = response.data;
                   const apellidoCliente = response.data;

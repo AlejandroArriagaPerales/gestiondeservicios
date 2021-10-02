@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tab_cliente;
+use App\Models\tab_categoriaproducto;
 use Illuminate\Http\Request;
 
-class ClientesController extends Controller
+class CategoriaProductosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        return tab_cliente::all();
+        return tab_categoriaproducto::all();
     }
 
     /**
@@ -25,15 +25,13 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = new tab_cliente();
-        $cliente->nombre = $request->nombreCliente;
-        $cliente->apellido = $request->apellidoCliente;
-        $cliente->rfc = $request->rfcCliente;
-        $cliente->contrasena = $request->contrasenaCliente;
+        $contacto = new tab_categoriaproducto();
+        $contacto->nombre = $request->nombreCategoriaProducto;
+        $contacto->proveedore_id = $request->proveedorSeleccionado;
         
-        $cliente->save();
+        $contacto->save();
 
-        return $cliente;
+        return $contacto;
     }
 
     /**
@@ -42,6 +40,7 @@ class ClientesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
 
     /**
      * Update the specified resource in storage.

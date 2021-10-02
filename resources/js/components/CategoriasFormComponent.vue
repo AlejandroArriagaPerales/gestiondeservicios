@@ -50,6 +50,8 @@
 </template>
 
 <script>
+
+
     export default {
         data(){
             return {
@@ -67,10 +69,15 @@
                     
                 };
                 this.nombreCategoria='';
+                confirm('Categoria Agregada', 'Confirmación');
+                
+                
+                
                 axios.post('tab_categorias',params).then((response) => {
                   const categoria = response.data;
                   this.$emit('new',categoria);
                 });
+                
              
                 
             }

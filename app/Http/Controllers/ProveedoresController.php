@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tab_cliente;
+use App\Models\tab_prestadore;
+use App\Models\tab_proveedore;
 use Illuminate\Http\Request;
 
-class ClientesController extends Controller
+class ProveedoresController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        return tab_cliente::all();
+        return tab_proveedore::all();
     }
 
     /**
@@ -25,15 +26,17 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = new tab_cliente();
-        $cliente->nombre = $request->nombreCliente;
-        $cliente->apellido = $request->apellidoCliente;
-        $cliente->rfc = $request->rfcCliente;
-        $cliente->contrasena = $request->contrasenaCliente;
-        
-        $cliente->save();
+        $proveedor = new tab_proveedore();
+        $proveedor->nombre = $request->nombreProveedor;
+        $proveedor->direccion = $request->direccionProveedor;
+        $proveedor->rfc = $request->rfcProveedor;
+        $proveedor->telefono = $request->telefonoProveedor;
+        $proveedor->correo = $request->correoProveedor;
+        $proveedor->logo = '0';
+        $proveedor->save();
 
-        return $cliente;
+        return $proveedor;
+
     }
 
     /**
