@@ -11,9 +11,15 @@ Vue.component('serviciosform-component', require('./components/ServiciosFormComp
 Vue.component('proveedoresform-component', require('./components/ProveedoresFromComponent.vue').default);
 Vue.component('contactoproveedoresform-component', require('./components/ContactoProveedoresFormComponent.vue').default);
 Vue.component('categoriaproductosform-component', require('./components/CategoriaProductosFormComponent.vue').default);
+Vue.component('metodopagoform-component', require('./components/MetodoPagoFormComponent.vue').default);
+Vue.component('productosform-component', require('./components/ProductosFormComponent.vue').default);
+
 Vue.component('tablaadministradores-component', require('./components/TablaAdministradoresComponent.vue').default);
 Vue.component('tablaprestadores-component', require('./components/TablaPrestadoresComponent.vue').default);
-Vue.component('tablaprestadoresform-component', require('./components/TablaPrestadoresFormComponent.vue').default);
+Vue.component('tablaservicios-component', require('./components/TablaServiciosComponent.vue').default);
+Vue.component('tablaproveedores-component', require('./components/TablaProveedoresComponent.vue').default);
+Vue.component('tablacategoriaproductos-component', require('./components/TablaCategoriaProductosComponent.vue').default);
+Vue.component('tablaproductos-component', require('./components/TablaProductosComponent.vue').default);
 
 
 import Vue from "vue"

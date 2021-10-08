@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\tab_cliente;
+use App\Models\tab_contacto;
+use App\Models\tab_metodocliente;
 use Illuminate\Http\Request;
 
 class ClientesController extends Controller
@@ -15,6 +17,8 @@ class ClientesController extends Controller
     public function index()
     {
         return tab_cliente::all();
+        
+        /*return cliente :: where('') */
     }
 
     /**
@@ -29,11 +33,60 @@ class ClientesController extends Controller
         $cliente->nombre = $request->nombreCliente;
         $cliente->apellido = $request->apellidoCliente;
         $cliente->rfc = $request->rfcCliente;
+        $cliente->direccion = $request->direccionCliente;
         $cliente->contrasena = $request->contrasenaCliente;
+        
         
         $cliente->save();
 
-        return $cliente;
+       
+
+        
+        /*
+        $variable = new ClientesController();  
+        $variable -> tab_cliente::latest('id')->first('id');
+        
+        
+
+        
+
+        
+        */
+
+
+        /*
+        $PagosRecibidos = $request->PagosAgregados;
+        $CantidadPagos = sizeof($PagosRecibidos);
+        $clientemetodopago = new tab_metodocliente(array($CantidadPagos));
+        for ($i=0; $i < $CantidadPagos; $i++) {
+            $clientemetodopago -> cliente_id = tab_cliente::latest('id')->first('id')->id;
+            $clientemetodopago -> metodopago_id = $PagosRecibidos[$i];
+            $clientemetodopago -> save();
+            sleep(1);
+        }
+
+        
+        
+
+        
+
+        
+        */
+       
+        $PagosRecibidos = $request->PagosAgregados;
+        $CantidadPagos = sizeof($PagosRecibidos);
+        
+    
+        for ($i=0; $i < $CantidadPagos; $i++) {
+            $clientemetodopago = new tab_metodocliente;
+            $clientemetodopago -> cliente_id = tab_cliente::latest('id')->first('id')->id;
+            $clientemetodopago -> metodopago_id = $PagosRecibidos[$i];
+            $clientemetodopago -> save();
+        }
+
+      
+        return $PagosRecibidos;
+        
     }
 
     /**

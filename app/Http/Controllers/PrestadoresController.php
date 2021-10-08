@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\tab_categoria;
+use App\Models\tab_categoriaprestadorservicio;
 use App\Models\tab_prestadore;
+use App\Models\tab_servicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PrestadoresController extends Controller
 {
@@ -15,6 +19,7 @@ class PrestadoresController extends Controller
     public function index()
     {
         return tab_prestadore::all();
+        
     }
 
     /**
@@ -35,6 +40,20 @@ class PrestadoresController extends Controller
         $prestador->imagen=0;
         $prestador->contrasena = $request->contrasenaPrestador;
         $prestador->save();
+
+
+        $ServiciosRecibidos = $request->serviciosAgregados;
+        $CategoriasRecibidas = $request->categoriasAgregadas;
+        $CantidadServicios = sizeof($ServiciosRecibidos);
+
+        for ($i=0; $i < $CantidadServicios; $i++) {
+            $categoriaprestadorservicio = new tab_categoriaprestadorservicio();
+            $categoriaprestadorservicio -> prestador_id = tab_prestadore::latest('id')->first('id')->id;
+            $categoriaprestadorservicio -> categoria_id = $CategoriasRecibidas[$i];
+            $categoriaprestadorservicio -> servicio_id = $ServiciosRecibidos[$i];
+            $categoriaprestadorservicio -> save();
+        }
+
 
         return $prestador;
     }

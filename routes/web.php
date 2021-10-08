@@ -7,6 +7,7 @@ use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MetodoPagosController;
 use App\Http\Controllers\PrestadoresController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProveedoresController;
@@ -15,13 +16,18 @@ use App\Http\Controllers\RegistroCategoriaController;
 use App\Http\Controllers\RegistroCategoriaProductosController;
 use App\Http\Controllers\RegistroClientesController;
 use App\Http\Controllers\RegistroContactoProveedoresController;
+use App\Http\Controllers\RegistroMetodoPagoController;
 use App\Http\Controllers\RegistroPrestadoresController;
 use App\Http\Controllers\RegistroProductosController;
 use App\Http\Controllers\RegistroProveedorController;
 use App\Http\Controllers\RegistroServiciosController;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\TablaAdministradoresController;
+use App\Http\Controllers\TablaCategoriaProductosController;
 use App\Http\Controllers\TablaPrestadoresController;
+use App\Http\Controllers\TablaProductosController;
+use App\Http\Controllers\TablaProveedoresController;
+use App\Http\Controllers\TablaServiciosController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -59,12 +65,26 @@ Route::get('registrocategoriaproductos', RegistroCategoriaProductosController::c
 Route::post('registroproductos', RegistroProductosController::class)->name('registroproductos');
 Route::get('registroproductos', RegistroProductosController::class)->name('registroproductos');
 
+Route::post('registrometodopago', RegistroMetodoPagoController::class)->name('registrometodopago');
+Route::get('registrometodopago', RegistroMetodoPagoController::class)->name('registrometodopago');
+
 Route::post('tablaprestadores', TablaPrestadoresController::class)->name('tablaprestadores');
 Route::get('tablaprestadores', TablaPrestadoresController::class)->name('tablaprestadores');
 
 Route::post('tabladministradores', TablaAdministradoresController::class)->name('tabladministradores');
 Route::get('tabladministradores', TablaAdministradoresController::class)->name('tabladministradores');
 
+Route::post('tablaservicios', TablaServiciosController::class)->name('tablaservicios');
+Route::get('tablaservicios', TablaServiciosController::class)->name('tablaservicios');
+
+Route::post('tablaproveedores', TablaProveedoresController::class)->name('tablaproveedores');
+Route::get('tablaproveedores', TablaProveedoresController::class)->name('tablaproveedores');
+
+Route::post('tablacategoriaproductos', TablaCategoriaProductosController::class)->name('tablacategoriaproductos');
+Route::get('tablacategoriaproductos', TablaCategoriaProductosController::class)->name('tablacategoriaproductos');
+
+Route::post('tablaproductos', TablaProductosController::class)->name('tablaproductos');
+Route::get('tablaproductos', TablaProductosController::class)->name('tablaproductos');
 
 
 
@@ -82,6 +102,7 @@ Route::apiResource('tab_proveedores',ProveedoresController::class);
 Route::apiResource('tab_contactos',ContactosController::class);
 Route::apiResource('tab_categoriaproductos',CategoriaProductosController::class);
 Route::apiResource('tab_productos',ProductosController::class);
+Route::apiResource('tab_metodopagos',MetodoPagosController::class);
 
 
 

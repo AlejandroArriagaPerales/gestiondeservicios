@@ -108,8 +108,38 @@
                   </div>
                 </div>
 
+                <table class="tabla">
+                  <tr>
+                    <td>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Categoria</label>
+                              <select class="form-control" v-model="categoriaSeleccionada" @change="getServiciosCategorias()">
+                                <option :value="tab_categoria.id" v-for="(tab_categoria) in tab_categorias" :key="tab_categoria.id" >
+                                  {{tab_categoria.nombre}}
+                                </option>
+                              </select>
+                            </div>        
+                    </td>
+                    <td>      
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Servicio</label>
 
-                <tablaprestadoresform-component></tablaprestadoresform-component>
+                              <select class="form-control"  v-model="servicioSeleccionado" v-if="categoriaSeleccionada" @change="getServicio()">
+
+                                <option :value="tab_servicio.id" v-for="tab_servicio in tab_servicios" v-if="tab_servicio.categoria_id === categoriaSeleccionada" :key="tab_servicio.id" >
+                                  {{tab_servicio.nombre}}
+                                </option>
+                              </select>
+                            </div>               
+                    </td>
+                    <td>
+                            <button class="buttontabla" v-on:click.prevent="AgregarServicio()">Aceptar</button>   
+                    </td>
+                  </tr>
+                </table>
+
+
+                
                
 
                 
@@ -125,12 +155,10 @@
 
 <script>
 import axios from "axios";
-import TablaPrestadoresFormComponent from './TablaPrestadoresFormComponent.vue';
     export default {
-  components: { TablaPrestadoresFormComponent },
       created(){
         axios.get('tab_categorias').then(response => this.tab_categorias = response.data);
-        axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
+
       },
         data(){
             return {
@@ -140,9 +168,15 @@ import TablaPrestadoresFormComponent from './TablaPrestadoresFormComponent.vue';
                 ubicacionPrestador: '',
                 telefonoPrestador: '',
                 contrasenaPrestador: '',
+                categoriaSeleccionada: '',
+                servicioSeleccionado: '',
                 disponibilidadSeleccionada: '',
                 tab_categorias: [],
-                tab_servicios: []
+                tab_servicios: [],
+                serviciosAgregados: [],
+                cantidadServiciosAgregados: 0,
+                categoriasAgregadas: [],
+                cantidadCategoriasAgregadas: 0
             }
             
         },
@@ -158,7 +192,9 @@ import TablaPrestadoresFormComponent from './TablaPrestadoresFormComponent.vue';
                     ubicacionPrestador: this.ubicacionPrestador,
                     telefonoPrestador: this.telefonoPrestador,
                     contrasenaPrestador: this.contrasenaPrestador,
-                    disponibilidadSeleccionada: this.disponibilidadSeleccionada
+                    disponibilidadSeleccionada: this.disponibilidadSeleccionada,
+                    serviciosAgregados: this.serviciosAgregados,
+                    categoriasAgregadas: this.categoriasAgregadas
                 };
                 this.nombrePrestador='';
                 this.apellidoPrestador='';
@@ -176,6 +212,8 @@ import TablaPrestadoresFormComponent from './TablaPrestadoresFormComponent.vue';
                   const telefonoPrestador = response.data;
                   const contrasenaPrestador = response.data;
                   const disponibilidadSeleccionada = response.data;
+                  const serviciosAgregados = response.data;
+                  const categoriasAgregadas = response.data;
                   this.$emit('new',nombrePrestador);
                   this.$emit('new',apellidoPrestador);
                   this.$emit('new',correoPrestador);
@@ -183,10 +221,32 @@ import TablaPrestadoresFormComponent from './TablaPrestadoresFormComponent.vue';
                   this.$emit('new',telefonoPrestador);
                   this.$emit('new',disponibilidadSeleccionada);
                   this.$emit('new',contrasenaPrestador);
+                  this.$emit('new',serviciosAgregados);
+                  this.$emit('new',categoriasAgregadas);
                 });
-                confirm('Sali de Agregar Prestador', 'Confirmación');
+                
+
              
                 
+
+
+            },
+            AgregarServicio(){
+              this.categoriasAgregadas[this.cantidadCategoriasAgregadas] = this.categoriaSeleccionada;
+              this.cantidadCategoriasAgregadas = this.cantidadCategoriasAgregadas+1;
+              console.log(this.categoriasAgregadas);
+
+
+              this.serviciosAgregados[this.cantidadServiciosAgregados] = this.servicioSeleccionado;
+              this.cantidadServiciosAgregados = this.cantidadServiciosAgregados+1;
+              console.log(this.serviciosAgregados);
+                
+            },
+            getServiciosCategorias(){
+              axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
+            },
+            getServicio(){
+              
             }
         }
     }

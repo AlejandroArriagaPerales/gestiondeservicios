@@ -86,6 +86,11 @@
             </a>
           </li>
           <li>
+            <a href="registrometodopago">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Registro de Metodo Pago</p>
+            </a>
+          </li>
           <li>
               <a href="registroservicios">
                 <i class="now-ui-icons education_atom"></i>
@@ -93,6 +98,7 @@
               </a>
             </li>
           <li>
+           
             
             <a href="tablaprestadores">
               <i class="now-ui-icons ui-1_bell-53"></i>
@@ -105,7 +111,30 @@
               <p>Tabla de Administradores</p>
             </a>
           </li>
-          
+          <li>
+            <a href="tablaservicios">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Tabla de Servicios</p>
+            </a>
+          </li>
+          <li>
+            <a href="tablaproveedores">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Tabla de Proveedores</p>
+            </a>
+          </li>
+          <li>
+            <a href="tablacategoriaproductos">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Tabla de Categoria Productos</p>
+            </a>
+          </li>
+          <li>
+            <a href="tablaproductos">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Tabla de Productos</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

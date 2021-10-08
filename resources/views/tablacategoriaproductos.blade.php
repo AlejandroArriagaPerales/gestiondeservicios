@@ -1,22 +1,22 @@
 @extends('layouts.plantilla')
 
-@section('title', 'Tabla Servicios')
+@section('title', 'Tabla Categoria Productos')
 
 @section('content')
 
-@section('tituloBarra', 'Tabla Servicios')
+@section('tituloBarra', 'Tabla Categoria Productos')
 
-@section('tituloPagina', 'Tabla de Servicios')
+@section('tituloPagina', 'Tabla de Categoria de Productos')
 
 <div class="content">
         <div class="row">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Servicios</h4>
+                <h4 class="card-title">Categoria de Productos</h4>
               </div>
 
-              <tablaservicios-component></tablaservicios-component>
+              <tablacategoriaproductos-component></tablacategoriaproductos-component>
 
             </div>
           </div>

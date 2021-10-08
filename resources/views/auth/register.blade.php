@@ -76,7 +76,7 @@
 
                                <br>
                                 <button style="width: 120px; height: 50px;" type="submit" class="buttons">
-                                    {{ __('Register') }}
+                                    {{ __('Agregar') }}
                                 </button>
                                     
                             </form>
