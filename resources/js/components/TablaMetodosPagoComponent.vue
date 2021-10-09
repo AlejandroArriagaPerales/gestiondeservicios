@@ -1,7 +1,8 @@
 <template>
 
     <div class="card-body">
-              <div style="position:relative; float:right;" >           
+
+            <div style="position:relative; float:right;" >           
                 <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
                         <tr>
                           <td>
@@ -25,14 +26,11 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
-                      <th>
+                        <th>
                         ID
                       </th>
                       <th>
                         Nombre
-                      </th>
-                      <th>
-                        ID Categoria
                       </th>
                       
                       
@@ -40,17 +38,14 @@
                    
 
                     <tbody>
-                      <tr v-for="(tab_servicio) in tab_servicios" :key="tab_servicio.id">
+                      <tr v-for="(tab_metodopago) in tab_metodopagos" :key="tab_metodopago.id">
                         <td>
-                          {{tab_servicio.id}}
+                          {{tab_metodopago.id}}
                         </td>
                         <td>
-                          {{tab_servicio.nombre}}
+                          {{tab_metodopago.nombre}}
                         </td>
-                        <td>
-                          {{tab_servicio.categoria_id}}
-                        </td>
-                       
+                                                
                       </tr>
                         
                       
@@ -65,17 +60,18 @@
 <script>
 
   import axios from "axios";
-  import jsPDF from 'jspdf';
+
+   import jsPDF from 'jspdf';
     import 'jspdf-autotable';
     import XLSX from 'xlsx';
   
     export default {
       created(){
-        axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
+        axios.get('tab_metodopagos').then(response => this.tab_metodopagos = response.data);
       },
         data(){
             return {
-                tab_servicios: []
+                tab_metodopagos: []
             }
             
         },
@@ -91,37 +87,36 @@
                 var vm = this
                 var columns = [
                   {title: "ID", dataKey: "id"},
-                  {title: "Nombre", dataKey: "nombre"},
-                  {title: "Categoria", dataKey: "categoria_id"}
+                  {title: "Nombre", dataKey: "nombre"}
+                  
                 
                 ];
                 var doc = new jsPDF('p', 'pt');
-                doc.text('Reporte de Servicios', 40, 40);
-                doc.autoTable(columns, this.tab_servicios, {
+                doc.text('Reporte de Metodos de Pago', 40, 40);
+                doc.autoTable(columns, this.tab_metodopagos, {
                   margin: {top: 60},
                 });
-                doc.save('ReporteServicios.pdf');
+                doc.save('ReporteMetodosPago.pdf');
              
                 
             },
             GenerarXLS(){
 
-              let data = XLSX.utils.json_to_sheet(this.tab_servicios,
+              let data = XLSX.utils.json_to_sheet(this.tab_metodopagos,
               {
-                header: ['id','nombre','categoria_id','created_at','updated_at']
+                header: ['id','nombre','created_at','updated_at'],
                 
               }
               )
               data['A1'].v = 'ID'
-              data['B1'].v = 'Nombre'
-              data['C1'].v = 'Categoria'            
-              data['D1'].v = 'Fecha Creación'
-              data['E1'].v = 'Fecha Actualización'
+              data['B1'].v = 'Nombre'          
+              data['C1'].v = 'Fecha Creación'
+              data['D1'].v = 'Fecha Actualización'
               
               
               
               const workbook = XLSX.utils.book_new()
-              const filename = 'ReporteServicios'
+              const filename = 'ReporteMetodosPago'
               XLSX.utils.book_append_sheet(workbook, data, filename)
               XLSX.writeFile(workbook, `${filename}.xlsx`)
 
@@ -129,12 +124,3 @@
         }
     }
 </script>
-
-
-
-
-
-
-
-
-

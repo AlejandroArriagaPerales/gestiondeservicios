@@ -21,18 +21,23 @@
                 <br>
                 <br>
                 <br>
-
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
-                      <th>
+                        <th>
                         ID
                       </th>
                       <th>
                         Nombre
                       </th>
                       <th>
-                        ID Categoria
+                        Correo
+                      </th>
+                      <th>
+                        Telefono
+                      </th>
+                      <th>
+                        Proveedor
                       </th>
                       
                       
@@ -40,17 +45,23 @@
                    
 
                     <tbody>
-                      <tr v-for="(tab_servicio) in tab_servicios" :key="tab_servicio.id">
+                      <tr v-for="(tab_contacto) in tab_contactos" :key="tab_contacto.id">
                         <td>
-                          {{tab_servicio.id}}
+                          {{tab_contacto.id}}
                         </td>
                         <td>
-                          {{tab_servicio.nombre}}
+                          {{tab_contacto.nombre}}
                         </td>
                         <td>
-                          {{tab_servicio.categoria_id}}
+                          {{tab_contacto.correo}}
                         </td>
-                       
+                        <td>
+                          {{tab_contacto.telefono}}
+                        </td>
+                        <td>
+                          {{tab_contacto.proveedore_id}}
+                        </td>
+                                                
                       </tr>
                         
                       
@@ -71,11 +82,11 @@
   
     export default {
       created(){
-        axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
+        axios.get('tab_contactos').then(response => this.tab_contactos = response.data);
       },
         data(){
             return {
-                tab_servicios: []
+                tab_contactos: []
             }
             
         },
@@ -92,36 +103,40 @@
                 var columns = [
                   {title: "ID", dataKey: "id"},
                   {title: "Nombre", dataKey: "nombre"},
-                  {title: "Categoria", dataKey: "categoria_id"}
+                  {title: "Correo", dataKey: "correo"},
+                  {title: "Telefono", dataKey: "telefono"},
+                  {title: "Proveedor", dataKey: "proveedore_id"}
                 
                 ];
                 var doc = new jsPDF('p', 'pt');
-                doc.text('Reporte de Servicios', 40, 40);
-                doc.autoTable(columns, this.tab_servicios, {
+                doc.text('Reporte de Contactos', 40, 40);
+                doc.autoTable(columns, this.tab_contactos, {
                   margin: {top: 60},
                 });
-                doc.save('ReporteServicios.pdf');
+                doc.save('ReporteContactos.pdf');
              
                 
             },
             GenerarXLS(){
 
-              let data = XLSX.utils.json_to_sheet(this.tab_servicios,
+              let data = XLSX.utils.json_to_sheet(this.tab_contactos,
               {
-                header: ['id','nombre','categoria_id','created_at','updated_at']
+                header: ['id','nombre','correo','telefono','proveedore_id','created_at','updated_at'],
                 
               }
               )
               data['A1'].v = 'ID'
               data['B1'].v = 'Nombre'
-              data['C1'].v = 'Categoria'            
-              data['D1'].v = 'Fecha Creación'
-              data['E1'].v = 'Fecha Actualización'
+              data['C1'].v = 'Correo'
+              data['D1'].v = 'Telefono'
+              data['E1'].v = 'Proveedor'            
+              data['F1'].v = 'Fecha Creación'
+              data['G1'].v = 'Fecha Actualización'
               
               
               
               const workbook = XLSX.utils.book_new()
-              const filename = 'ReporteServicios'
+              const filename = 'ReportePrestadores'
               XLSX.utils.book_append_sheet(workbook, data, filename)
               XLSX.writeFile(workbook, `${filename}.xlsx`)
 
@@ -129,12 +144,3 @@
         }
     }
 </script>
-
-
-
-
-
-
-
-
-

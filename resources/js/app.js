@@ -20,7 +20,10 @@ Vue.component('tablaservicios-component', require('./components/TablaServiciosCo
 Vue.component('tablaproveedores-component', require('./components/TablaProveedoresComponent.vue').default);
 Vue.component('tablacategoriaproductos-component', require('./components/TablaCategoriaProductosComponent.vue').default);
 Vue.component('tablaproductos-component', require('./components/TablaProductosComponent.vue').default);
-
+Vue.component('tablaclientes-component', require('./components/TablaClientesComponent.vue').default);
+Vue.component('tablacategorias-component', require('./components/TablaCategoriasComponent.vue').default)
+Vue.component('tablacontactosproveedores-component', require('./components/TablaContactosProveedoresComponent.vue').default)
+Vue.component('tablametodospago-component', require('./components/TablaMetodosPagoComponent.vue').default)
 
 import Vue from "vue"
 import VueSimpleAlert from "vue-simple-alert";

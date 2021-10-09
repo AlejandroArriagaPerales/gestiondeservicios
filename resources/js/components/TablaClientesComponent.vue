@@ -1,7 +1,8 @@
 <template>
 
     <div class="card-body">
-              <div style="position:relative; float:right;" >           
+
+          <div style="position:relative; float:right;" >           
                 <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
                         <tr>
                           <td>
@@ -25,32 +26,43 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
-                      <th>
+                        <th>
                         ID
                       </th>
                       <th>
-                        Nombre
+                        Nombre(s)
                       </th>
                       <th>
-                        ID Categoria
+                        Apellidos
                       </th>
-                      
+                      <th>
+                        RFC
+                      </th>
+                      <th>
+                        Dirección
+                      </th>
                       
                     </thead>
                    
 
                     <tbody>
-                      <tr v-for="(tab_servicio) in tab_servicios" :key="tab_servicio.id">
+                      <tr v-for="(tab_cliente) in tab_clientes" :key="tab_cliente.id">
                         <td>
-                          {{tab_servicio.id}}
+                          {{tab_cliente.id}}
                         </td>
                         <td>
-                          {{tab_servicio.nombre}}
+                          {{tab_cliente.nombre}}
                         </td>
                         <td>
-                          {{tab_servicio.categoria_id}}
+                          {{tab_cliente.apellido}}
                         </td>
-                       
+                        <td>
+                          {{tab_cliente.rfc}}
+                        </td>
+                        <td>
+                          {{tab_cliente.direccion}}
+                        </td>
+                        
                       </tr>
                         
                       
@@ -71,11 +83,11 @@
   
     export default {
       created(){
-        axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
+        axios.get('tab_clientes').then(response => this.tab_clientes = response.data);
       },
         data(){
             return {
-                tab_servicios: []
+                tab_clientes: []
             }
             
         },
@@ -92,36 +104,41 @@
                 var columns = [
                   {title: "ID", dataKey: "id"},
                   {title: "Nombre", dataKey: "nombre"},
-                  {title: "Categoria", dataKey: "categoria_id"}
+                  {title: "Apellidos", dataKey: "apellido"},
+                  {title: "RFC", dataKey: "rfc"},
+                  {title: "Dirección", dataKey: "direccion"}
                 
                 ];
                 var doc = new jsPDF('p', 'pt');
-                doc.text('Reporte de Servicios', 40, 40);
-                doc.autoTable(columns, this.tab_servicios, {
+                doc.text('Reporte de Clientes', 40, 40);
+                doc.autoTable(columns, this.tab_clientes, {
                   margin: {top: 60},
                 });
-                doc.save('ReporteServicios.pdf');
+                doc.save('ReporteClientes.pdf');
              
                 
             },
             GenerarXLS(){
 
-              let data = XLSX.utils.json_to_sheet(this.tab_servicios,
+              let data = XLSX.utils.json_to_sheet(this.tab_clientes,
               {
-                header: ['id','nombre','categoria_id','created_at','updated_at']
+                header: ['id','nombre','apellido','rfc','direccion','contrasena','created_at','updated_at'],
                 
               }
               )
               data['A1'].v = 'ID'
               data['B1'].v = 'Nombre'
-              data['C1'].v = 'Categoria'            
-              data['D1'].v = 'Fecha Creación'
-              data['E1'].v = 'Fecha Actualización'
+              data['C1'].v = 'Apellidos'
+              data['D1'].v = 'RFC'
+              data['E1'].v = 'Dirección'
+              data['F1'].v = 'Contraseña'
+              data['G1'].v = 'Fecha Creación'
+              data['H1'].v = 'Fecha Actualización'
               
               
               
               const workbook = XLSX.utils.book_new()
-              const filename = 'ReporteServicios'
+              const filename = 'ReporteClientes'
               XLSX.utils.book_append_sheet(workbook, data, filename)
               XLSX.writeFile(workbook, `${filename}.xlsx`)
 

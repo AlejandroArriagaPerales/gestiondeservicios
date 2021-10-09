@@ -106,9 +106,21 @@
             </a>
           </li>
           <li>
-            <a href="tabladministradores">
+            <a href="tablaclientes">
               <i class="now-ui-icons users_single-02"></i>
-              <p>Tabla de Administradores</p>
+              <p>Tabla de Clientes</p>
+            </a>
+          </li>
+          <li>
+            <a href="tablametodospago">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Tabla de Métodos</p>
+            </a>
+          </li>
+          <li>
+            <a href="tablacategorias">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Tabla de Categorias</p>
             </a>
           </li>
           <li>
@@ -121,6 +133,12 @@
             <a href="tablaproveedores">
               <i class="now-ui-icons users_single-02"></i>
               <p>Tabla de Proveedores</p>
+            </a>
+          </li>
+          <li>
+            <a href="tablacontactosproveedores">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Tabla de Contactos</p>
             </a>
           </li>
           <li>

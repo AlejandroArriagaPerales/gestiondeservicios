@@ -24,6 +24,10 @@ use App\Http\Controllers\RegistroServiciosController;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\TablaAdministradoresController;
 use App\Http\Controllers\TablaCategoriaProductosController;
+use App\Http\Controllers\TablaCategoriasController;
+use App\Http\Controllers\TablaClientesController;
+use App\Http\Controllers\TablaContactosProveedoresController;
+use App\Http\Controllers\TablaMetodosPagoController;
 use App\Http\Controllers\TablaPrestadoresController;
 use App\Http\Controllers\TablaProductosController;
 use App\Http\Controllers\TablaProveedoresController;
@@ -86,6 +90,17 @@ Route::get('tablacategoriaproductos', TablaCategoriaProductosController::class)-
 Route::post('tablaproductos', TablaProductosController::class)->name('tablaproductos');
 Route::get('tablaproductos', TablaProductosController::class)->name('tablaproductos');
 
+Route::post('tablaclientes', TablaClientesController::class)->name('tablaclientes');
+Route::get('tablaclientes', TablaClientesController::class)->name('tablaclientes');
+
+Route::post('tablacategorias', TablaCategoriasController::class)->name('tablacategorias');
+Route::get('tablacategorias', TablaCategoriasController::class)->name('tablacategorias');
+
+Route::post('tablacontactosproveedores', TablaContactosProveedoresController::class)->name('tablacontactosproveedores');
+Route::get('tablacontactosproveedores', TablaContactosProveedoresController::class)->name('tablacontactosproveedores');
+
+Route::post('tablametodospago', TablaMetodosPagoController::class)->name('tablametodospago');
+Route::get('tablametodospago', TablaMetodosPagoController::class)->name('tablametodospago');
 
 
 
@@ -103,6 +118,7 @@ Route::apiResource('tab_contactos',ContactosController::class);
 Route::apiResource('tab_categoriaproductos',CategoriaProductosController::class);
 Route::apiResource('tab_productos',ProductosController::class);
 Route::apiResource('tab_metodopagos',MetodoPagosController::class);
+
 
 
 

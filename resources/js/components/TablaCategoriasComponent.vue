@@ -1,7 +1,7 @@
 <template>
 
     <div class="card-body">
-              <div style="position:relative; float:right;" >           
+            <div style="position:relative; float:right;" >           
                 <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
                         <tr>
                           <td>
@@ -25,14 +25,14 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
-                      <th>
+                        <th>
                         ID
                       </th>
                       <th>
                         Nombre
                       </th>
                       <th>
-                        ID Categoria
+                        Icono
                       </th>
                       
                       
@@ -40,17 +40,17 @@
                    
 
                     <tbody>
-                      <tr v-for="(tab_servicio) in tab_servicios" :key="tab_servicio.id">
+                      <tr v-for="(tab_categoria) in tab_categorias" :key="tab_categoria.id">
                         <td>
-                          {{tab_servicio.id}}
+                          {{tab_categoria.id}}
                         </td>
                         <td>
-                          {{tab_servicio.nombre}}
+                          {{tab_categoria.nombre}}
                         </td>
                         <td>
-                          {{tab_servicio.categoria_id}}
+                          {{tab_categoria.icono}}
                         </td>
-                       
+                                                
                       </tr>
                         
                       
@@ -71,11 +71,11 @@
   
     export default {
       created(){
-        axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
+        axios.get('tab_categorias').then(response => this.tab_categorias = response.data);
       },
         data(){
             return {
-                tab_servicios: []
+                tab_categorias: []
             }
             
         },
@@ -92,36 +92,36 @@
                 var columns = [
                   {title: "ID", dataKey: "id"},
                   {title: "Nombre", dataKey: "nombre"},
-                  {title: "Categoria", dataKey: "categoria_id"}
+                  {title: "Icono", dataKey: "icono"}
                 
                 ];
                 var doc = new jsPDF('p', 'pt');
-                doc.text('Reporte de Servicios', 40, 40);
-                doc.autoTable(columns, this.tab_servicios, {
+                doc.text('Reporte de Categorias', 40, 40);
+                doc.autoTable(columns, this.tab_categorias, {
                   margin: {top: 60},
                 });
-                doc.save('ReporteServicios.pdf');
+                doc.save('ReporteCategorias.pdf');
              
                 
             },
             GenerarXLS(){
 
-              let data = XLSX.utils.json_to_sheet(this.tab_servicios,
+              let data = XLSX.utils.json_to_sheet(this.tab_categorias,
               {
-                header: ['id','nombre','categoria_id','created_at','updated_at']
+                header: ['id','nombre','icono','created_at','updated_at'],
                 
               }
               )
               data['A1'].v = 'ID'
               data['B1'].v = 'Nombre'
-              data['C1'].v = 'Categoria'            
+              data['C1'].v = 'Icono'            
               data['D1'].v = 'Fecha Creación'
               data['E1'].v = 'Fecha Actualización'
               
               
               
               const workbook = XLSX.utils.book_new()
-              const filename = 'ReporteServicios'
+              const filename = 'ReporteCategorias'
               XLSX.utils.book_append_sheet(workbook, data, filename)
               XLSX.writeFile(workbook, `${filename}.xlsx`)
 
@@ -129,12 +129,3 @@
         }
     }
 </script>
-
-
-
-
-
-
-
-
-
