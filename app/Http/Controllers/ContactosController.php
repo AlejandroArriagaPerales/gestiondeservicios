@@ -53,7 +53,15 @@ class ContactosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $contacto = tab_contacto::find($id);
+        $contacto->nombre = $request->nombreActualizar;
+        $contacto->correo = $request->correoActualizar;
+        $contacto->telefono = $request->telefonoActualizar;
+        $contacto->proveedore_id = $request->proveedorSeleccionadoActualizar;
+
+        $contacto->save();
+
+        return $contacto;
     }
 
     /**

@@ -32,18 +32,45 @@
                       <th>
                         Nombre
                       </th>
+                      <th>
+                        
+                      </th>
                       
                       
                     </thead>
                    
 
                     <tbody>
-                      <tr v-for="(tab_metodopago) in tab_metodopagos" :key="tab_metodopago.id">
+                      <tr v-for="(tab_metodopago,index) in tab_metodopagos" :key="tab_metodopago.id">
                         <td>
                           {{tab_metodopago.id}}
                         </td>
+
                         <td>
-                          {{tab_metodopago.nombre}}
+                          <span v-if="verActualizar && idActualizar  == index">
+                            <!--    Formulario para actualizar -->
+                             <input v-model="nombreActualizar" type="text" class="form-control">
+                          </span>
+                           <span v-else>
+                        
+                                    {{tab_metodopago.nombre}}
+                                      </span>
+                          
+                        </td>
+
+                        <td>
+
+                          <span v-if="verActualizar && idActualizar == index">
+                            <!--    Formulario para actualizar -->
+                             <button  class="btn btn-success"  @click="Actualizar(index) ">Guardar</button>
+                             
+                          </span>
+                           <span v-else>
+                              <button class="btn btn-warning"  @click="verActualizar(index)">Editar</button>
+
+                                      </span>
+
+                         
                         </td>
                                                 
                       </tr>
@@ -71,7 +98,10 @@
       },
         data(){
             return {
-                tab_metodopagos: []
+              idActualizar: -1,
+              identificador:'',
+              nombreActualizar: '',
+              tab_metodopagos: []
             }
             
         },
@@ -120,6 +150,44 @@
               XLSX.utils.book_append_sheet(workbook, data, filename)
               XLSX.writeFile(workbook, `${filename}.xlsx`)
 
+            },
+            verActualizar: function (posicion_id) {
+                // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+                
+                this.idActualizar = posicion_id;
+                this.identificador = this.tab_metodopagos[posicion_id].id;
+                
+                this.nombreActualizar = this.tab_metodopagos[posicion_id].nombre;
+                // Mostramos el formulario
+                this. verActualizar = true;
+            },
+            Actualizar: function (posicion_id) {
+                // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+                this.idActualizar = posicion_id;
+
+
+                const params = {
+                    nombreActualizar: this.nombreActualizar
+                };
+
+                axios.put(`tab_metodopagos/${this.identificador}`,params).then((response) => {
+                  const nombreActualizar = response.data;
+          
+
+                  this.$emit('update',nombreActualizar);
+                
+
+                  
+                  confirm('Metodo de Pago Actualizado', 'Confirmación');
+
+                });
+                location.reload();
+                /*
+                this.nombreActualizar = this.pacientes[paciente_id].nombre;
+                this.edadActualizar = this.pacientes[paciente_id].edad;
+                // Mostramos el formulario
+                this.formActualizar = true;
+                */
             }
         }
     }

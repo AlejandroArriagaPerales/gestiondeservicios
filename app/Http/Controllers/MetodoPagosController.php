@@ -52,7 +52,13 @@ class MetodoPagosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $metodo = tab_metodopago::find($id);
+        $metodo->nombre = $request->nombreActualizar;
+        
+
+        $metodo->save();
+
+        return $metodo;
     }
 
     /**

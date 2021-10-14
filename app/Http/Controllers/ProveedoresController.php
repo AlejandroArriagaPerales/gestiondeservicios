@@ -32,6 +32,7 @@ class ProveedoresController extends Controller
         $proveedor->rfc = $request->rfcProveedor;
         $proveedor->telefono = $request->telefonoProveedor;
         $proveedor->correo = $request->correoProveedor;
+        $proveedor->estatus = '1';
         $proveedor->logo = '0';
         $proveedor->save();
 
@@ -55,7 +56,17 @@ class ProveedoresController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $proveedor = tab_proveedore::find($id);
+        $proveedor->nombre = $request->nombreActualizar;
+        $proveedor->direccion = $request->direccionActualizar;
+        $proveedor->rfc = $request->rfcActualizar;
+        $proveedor->telefono = $request->telefonoActualizar;
+        $proveedor->correo = $request->correoActualizar;
+        $proveedor->estatus = $request->estatusActualizar;
+
+        $proveedor->save();
+
+        return $proveedor;
     }
 
     /**

@@ -3405,6 +3405,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3416,10 +3455,18 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('tab_categoriaproductos').then(function (response) {
       return _this.tab_categoriaproductos = response.data;
     });
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('tab_proveedores').then(function (response) {
+      return _this.tab_proveedores = response.data;
+    });
   },
   data: function data() {
     return {
-      tab_categoriaproductos: []
+      idActualizar: -1,
+      identificador: '',
+      nombreActualizar: '',
+      tab_categoriaproductos: [],
+      proveedorSeleccionadoActualizar: '',
+      tab_proveedores: []
     };
   },
   mounted: function mounted() {},
@@ -3459,6 +3506,42 @@ __webpack_require__.r(__webpack_exports__);
       var filename = 'ReporteCategoriaProductos';
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().utils.book_append_sheet(workbook, data, filename);
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().writeFile(workbook, "".concat(filename, ".xlsx"));
+    },
+    verActualizar: function verActualizar(posicion_id) {
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      this.identificador = this.tab_categoriaproductos[posicion_id].id;
+      this.nombreActualizar = this.tab_categoriaproductos[posicion_id].nombre;
+      this.proveedorSeleccionadoActualizar = this.tab_categoriaproductos[posicion_id].proveedore_id; // Mostramos el formulario
+
+      this.verActualizar = true;
+    },
+    Actualizar: function Actualizar(posicion_id) {
+      var _this2 = this;
+
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      var params = {
+        nombreActualizar: this.nombreActualizar,
+        proveedorSeleccionadoActualizar: this.proveedorSeleccionadoActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_categoriaproductos/".concat(this.identificador), params).then(function (response) {
+        var nombreActualizar = response.data;
+        var proveedorSeleccionadoActualizar = response.data;
+
+        _this2.$emit('update', nombreActualizar);
+
+        _this2.$emit('update', proveedorSeleccionadoActualizar);
+
+        confirm('Categoria del Producto Actualizada', 'Confirmación');
+      });
+      location.reload();
+      /*
+      this.nombreActualizar = this.pacientes[paciente_id].nombre;
+      this.edadActualizar = this.pacientes[paciente_id].edad;
+      // Mostramos el formulario
+      this.formActualizar = true;
+      */
     }
   }
 });
@@ -3547,6 +3630,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3561,6 +3670,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      idActualizar: -1,
+      identificador: '',
+      nombreActualizar: '',
       tab_categorias: []
     };
   },
@@ -3601,6 +3713,37 @@ __webpack_require__.r(__webpack_exports__);
       var filename = 'ReporteCategorias';
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().utils.book_append_sheet(workbook, data, filename);
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().writeFile(workbook, "".concat(filename, ".xlsx"));
+    },
+    verActualizar: function verActualizar(posicion_id) {
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      this.identificador = this.tab_categorias[posicion_id].id;
+      this.nombreActualizar = this.tab_categorias[posicion_id].nombre; // Mostramos el formulario
+
+      this.verActualizar = true;
+    },
+    Actualizar: function Actualizar(posicion_id) {
+      var _this2 = this;
+
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      var params = {
+        nombreActualizar: this.nombreActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_categorias/".concat(this.identificador), params).then(function (response) {
+        var nombreActualizar = response.data;
+
+        _this2.$emit('update', nombreActualizar);
+
+        confirm('Categoria Actualizada', 'Confirmación');
+      });
+      location.reload();
+      /*
+      this.nombreActualizar = this.pacientes[paciente_id].nombre;
+      this.edadActualizar = this.pacientes[paciente_id].edad;
+      // Mostramos el formulario
+      this.formActualizar = true;
+      */
     }
   }
 });
@@ -3701,6 +3844,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3715,6 +3931,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      estatusActualizar: '',
+      idActualizar: -1,
+      identificador: '',
+      nombreActualizar: '',
+      apellidoActualizar: '',
+      rfcActualizar: '',
+      direccionActualizar: '',
       tab_clientes: []
     };
   },
@@ -3764,6 +3987,128 @@ __webpack_require__.r(__webpack_exports__);
       var filename = 'ReporteClientes';
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().utils.book_append_sheet(workbook, data, filename);
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().writeFile(workbook, "".concat(filename, ".xlsx"));
+    },
+    verActualizar: function verActualizar(posicion_id) {
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      this.identificador = this.tab_clientes[posicion_id].id;
+      this.nombreActualizar = this.tab_clientes[posicion_id].nombre;
+      this.apellidoActualizar = this.tab_clientes[posicion_id].apellido;
+      this.rfcActualizar = this.tab_clientes[posicion_id].rfc;
+      this.direccionActualizar = this.tab_clientes[posicion_id].direccion;
+      this.estatusActualizar = this.tab_clientes[posicion_id].estatus; // Mostramos el formulario
+
+      this.verActualizar = true;
+    },
+    Actualizar: function Actualizar(posicion_id) {
+      var _this2 = this;
+
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      var params = {
+        nombreActualizar: this.nombreActualizar,
+        apellidoActualizar: this.apellidoActualizar,
+        rfcActualizar: this.rfcActualizar,
+        direccionActualizar: this.direccionActualizar,
+        estatusActualizar: this.estatusActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_clientes/".concat(this.identificador), params).then(function (response) {
+        var nombreActualizar = response.data;
+        var apellidoActualizar = response.data;
+        var rfcActualizar = response.data;
+        var direccionActualizar = response.data;
+        var estatusActualizar = response.data;
+
+        _this2.$emit('update', nombreActualizar);
+
+        _this2.$emit('update', apellidoActualizar);
+
+        _this2.$emit('update', rfcActualizar);
+
+        _this2.$emit('update', direccionActualizar);
+
+        _this2.$emit('update', estatusActualizar);
+
+        confirm('Cliente Actualizado', 'Confirmación');
+      });
+      location.reload();
+      /*
+      this.nombreActualizar = this.pacientes[paciente_id].nombre;
+      this.edadActualizar = this.pacientes[paciente_id].edad;
+      // Mostramos el formulario
+      this.formActualizar = true;
+      */
+    },
+    Activar: function Activar(posicion_id) {
+      var _this3 = this;
+
+      this.identificador = this.tab_clientes[posicion_id].id;
+      this.nombreActualizar = this.tab_clientes[posicion_id].nombre;
+      this.apellidoActualizar = this.tab_clientes[posicion_id].apellido;
+      this.rfcActualizar = this.tab_clientes[posicion_id].rfc;
+      this.direccionActualizar = this.tab_clientes[posicion_id].direccion;
+      var params = {
+        estatusActualizar: '1',
+        nombreActualizar: this.nombreActualizar,
+        apellidoActualizar: this.apellidoActualizar,
+        rfcActualizar: this.rfcActualizar,
+        direccionActualizar: this.direccionActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_clientes/".concat(this.identificador), params).then(function (response) {
+        var estatusActualizar = response.data;
+        var nombreActualizar = response.data;
+        var apellidoActualizar = response.data;
+        var rfcActualizar = response.data;
+        var direccionActualizar = response.data;
+
+        _this3.$emit('update', estatusActualizar);
+
+        _this3.$emit('update', nombreActualizar);
+
+        _this3.$emit('update', apellidoActualizar);
+
+        _this3.$emit('update', rfcActualizar);
+
+        _this3.$emit('update', direccionActualizar);
+      });
+      location.reload();
+      confirm('Cliente Habilitado', 'Confirmación');
+    },
+    Desactivar: function Desactivar(posicion_id) {
+      var _this4 = this;
+
+      this.identificador = this.tab_clientes[posicion_id].id;
+      this.nombreActualizar = this.tab_clientes[posicion_id].nombre;
+      this.apellidoActualizar = this.tab_clientes[posicion_id].apellido;
+      this.rfcActualizar = this.tab_clientes[posicion_id].rfc;
+      this.direccionActualizar = this.tab_clientes[posicion_id].direccion;
+      var params = {
+        estatusActualizar: '0',
+        nombreActualizar: this.nombreActualizar,
+        apellidoActualizar: this.apellidoActualizar,
+        rfcActualizar: this.rfcActualizar,
+        direccionActualizar: this.direccionActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_clientes/".concat(this.identificador), params).then(function (response) {
+        var estatusActualizar = response.data;
+        var nombreActualizar = response.data;
+        var apellidoActualizar = response.data;
+        var rfcActualizar = response.data;
+        var direccionActualizar = response.data;
+
+        _this4.$emit('update', estatusActualizar);
+
+        _this4.$emit('update', nombreActualizar);
+
+        _this4.$emit('update', apellidoActualizar);
+
+        _this4.$emit('update', rfcActualizar);
+
+        _this4.$emit('update', direccionActualizar);
+
+        location.reload();
+        confirm('Cliente Deshabilitado', 'Confirmación');
+      });
     }
   }
 });
@@ -3863,6 +4208,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3874,10 +4278,20 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('tab_contactos').then(function (response) {
       return _this.tab_contactos = response.data;
     });
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('tab_proveedores').then(function (response) {
+      return _this.tab_proveedores = response.data;
+    });
   },
   data: function data() {
     return {
-      tab_contactos: []
+      idActualizar: -1,
+      identificador: '',
+      nombreActualizar: '',
+      correoActualizar: '',
+      telefonoActualizar: '',
+      tab_contactos: [],
+      proveedorSeleccionadoActualizar: '',
+      tab_proveedores: []
     };
   },
   mounted: function mounted() {},
@@ -3925,6 +4339,52 @@ __webpack_require__.r(__webpack_exports__);
       var filename = 'ReportePrestadores';
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().utils.book_append_sheet(workbook, data, filename);
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().writeFile(workbook, "".concat(filename, ".xlsx"));
+    },
+    verActualizar: function verActualizar(posicion_id) {
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      this.identificador = this.tab_contactos[posicion_id].id;
+      this.nombreActualizar = this.tab_contactos[posicion_id].nombre;
+      this.correoActualizar = this.tab_contactos[posicion_id].correo;
+      this.telefonoActualizar = this.tab_contactos[posicion_id].telefono;
+      this.proveedorSeleccionadoActualizar = this.tab_contactos[posicion_id].proveedore_id; // Mostramos el formulario
+
+      this.verActualizar = true;
+    },
+    Actualizar: function Actualizar(posicion_id) {
+      var _this2 = this;
+
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      var params = {
+        nombreActualizar: this.nombreActualizar,
+        correoActualizar: this.correoActualizar,
+        telefonoActualizar: this.telefonoActualizar,
+        proveedorSeleccionadoActualizar: this.proveedorSeleccionadoActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_contactos/".concat(this.identificador), params).then(function (response) {
+        var nombreActualizar = response.data;
+        var correoActualizar = response.data;
+        var telefonoActualizar = response.data;
+        var proveedorSeleccionadoActualizar = response.data;
+
+        _this2.$emit('update', nombreActualizar);
+
+        _this2.$emit('update', correoActualizar);
+
+        _this2.$emit('update', telefonoActualizar);
+
+        _this2.$emit('update', proveedorSeleccionadoActualizar);
+
+        confirm('Contacto Actualizado', 'Confirmación');
+      });
+      location.reload();
+      /*
+      this.nombreActualizar = this.pacientes[paciente_id].nombre;
+      this.edadActualizar = this.pacientes[paciente_id].edad;
+      // Mostramos el formulario
+      this.formActualizar = true;
+      */
     }
   }
 });
@@ -4008,6 +4468,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4022,6 +4509,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      idActualizar: -1,
+      identificador: '',
+      nombreActualizar: '',
       tab_metodopagos: []
     };
   },
@@ -4058,6 +4548,37 @@ __webpack_require__.r(__webpack_exports__);
       var filename = 'ReporteMetodosPago';
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().utils.book_append_sheet(workbook, data, filename);
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().writeFile(workbook, "".concat(filename, ".xlsx"));
+    },
+    verActualizar: function verActualizar(posicion_id) {
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      this.identificador = this.tab_metodopagos[posicion_id].id;
+      this.nombreActualizar = this.tab_metodopagos[posicion_id].nombre; // Mostramos el formulario
+
+      this.verActualizar = true;
+    },
+    Actualizar: function Actualizar(posicion_id) {
+      var _this2 = this;
+
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      var params = {
+        nombreActualizar: this.nombreActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_metodopagos/".concat(this.identificador), params).then(function (response) {
+        var nombreActualizar = response.data;
+
+        _this2.$emit('update', nombreActualizar);
+
+        confirm('Metodo de Pago Actualizado', 'Confirmación');
+      });
+      location.reload();
+      /*
+      this.nombreActualizar = this.pacientes[paciente_id].nombre;
+      this.edadActualizar = this.pacientes[paciente_id].edad;
+      // Mostramos el formulario
+      this.formActualizar = true;
+      */
     }
   }
 });
@@ -4162,6 +4683,101 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4176,6 +4792,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      idActualizar: -1,
+      identificador: '',
+      nombreActualizar: '',
+      apellidoActualizar: '',
+      correoActualizar: '',
+      ubicacionActualizar: '',
+      telefonoActualizar: '',
+      estatusActualizar: '',
       tab_prestadores: []
     };
   },
@@ -4230,6 +4854,143 @@ __webpack_require__.r(__webpack_exports__);
       var filename = 'ReportePrestadores';
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().utils.book_append_sheet(workbook, data, filename);
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().writeFile(workbook, "".concat(filename, ".xlsx"));
+    },
+    verActualizar: function verActualizar(posicion_id) {
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      this.identificador = this.tab_prestadores[posicion_id].id;
+      this.nombreActualizar = this.tab_prestadores[posicion_id].nombre;
+      this.apellidoActualizar = this.tab_prestadores[posicion_id].apellido;
+      this.correoActualizar = this.tab_prestadores[posicion_id].correo;
+      this.ubicacionActualizar = this.tab_prestadores[posicion_id].ubicacion;
+      this.telefonoActualizar = this.tab_prestadores[posicion_id].telefono;
+      this.estatusActualizar = this.tab_prestadores[posicion_id].estatus; // Mostramos el formulario
+
+      this.verActualizar = true;
+    },
+    Actualizar: function Actualizar(posicion_id) {
+      var _this2 = this;
+
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      var params = {
+        nombreActualizar: this.nombreActualizar,
+        apellidoActualizar: this.apellidoActualizar,
+        correoActualizar: this.correoActualizar,
+        ubicacionActualizar: this.ubicacionActualizar,
+        telefonoActualizar: this.telefonoActualizar,
+        estatusActualizar: this.estatusActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_prestadores/".concat(this.identificador), params).then(function (response) {
+        var nombreActualizar = response.data;
+        var apellidoActualizar = response.data;
+        var correoActualizar = response.data;
+        var ubicacionActualizar = response.data;
+        var telefonoActualizar = response.data;
+        var estatusActualizar = response.data;
+
+        _this2.$emit('update', nombreActualizar);
+
+        _this2.$emit('update', apellidoActualizar);
+
+        _this2.$emit('update', correoActualizar);
+
+        _this2.$emit('update', ubicacionActualizar);
+
+        _this2.$emit('update', telefonoActualizar);
+
+        _this2.$emit('update', estatusActualizar);
+
+        confirm('Prestador Actualizado', 'Confirmación');
+      });
+      location.reload();
+      /*
+      this.nombreActualizar = this.pacientes[paciente_id].nombre;
+      this.edadActualizar = this.pacientes[paciente_id].edad;
+      // Mostramos el formulario
+      this.formActualizar = true;
+      */
+    },
+    Activar: function Activar(posicion_id) {
+      var _this3 = this;
+
+      this.identificador = this.tab_prestadores[posicion_id].id;
+      this.nombreActualizar = this.tab_prestadores[posicion_id].nombre;
+      this.apellidoActualizar = this.tab_prestadores[posicion_id].apellido;
+      this.correoActualizar = this.tab_prestadores[posicion_id].correo;
+      this.ubicacionActualizar = this.tab_prestadores[posicion_id].ubicacion;
+      this.telefonoActualizar = this.tab_prestadores[posicion_id].telefono;
+      var params = {
+        estatusActualizar: '1',
+        nombreActualizar: this.nombreActualizar,
+        apellidoActualizar: this.apellidoActualizar,
+        correoActualizar: this.correoActualizar,
+        ubicacionActualizar: this.ubicacionActualizar,
+        telefonoActualizar: this.telefonoActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_prestadores/".concat(this.identificador), params).then(function (response) {
+        var estatusActualizar = response.data;
+        var nombreActualizar = response.data;
+        var apellidoActualizar = response.data;
+        var correoActualizar = response.data;
+        var ubicacionActualizar = response.data;
+        var telefonoActualizar = response.data;
+
+        _this3.$emit('update', estatusActualizar);
+
+        _this3.$emit('update', nombreActualizar);
+
+        _this3.$emit('update', apellidoActualizar);
+
+        _this3.$emit('update', correoActualizar);
+
+        _this3.$emit('update', ubicacionActualizar);
+
+        _this3.$emit('update', telefonoActualizar);
+      });
+      location.reload();
+      confirm('Cliente Habilitado', 'Confirmación');
+    },
+    Desactivar: function Desactivar(posicion_id) {
+      var _this4 = this;
+
+      this.identificador = this.tab_prestadores[posicion_id].id;
+      this.nombreActualizar = this.tab_prestadores[posicion_id].nombre;
+      this.apellidoActualizar = this.tab_prestadores[posicion_id].apellido;
+      this.correoActualizar = this.tab_prestadores[posicion_id].correo;
+      this.ubicacionActualizar = this.tab_prestadores[posicion_id].ubicacion;
+      this.telefonoActualizar = this.tab_prestadores[posicion_id].telefono;
+      var params = {
+        estatusActualizar: '0',
+        nombreActualizar: this.nombreActualizar,
+        apellidoActualizar: this.apellidoActualizar,
+        correoActualizar: this.correoActualizar,
+        ubicacionActualizar: this.ubicacionActualizar,
+        telefonoActualizar: this.telefonoActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_prestadores/".concat(this.identificador), params).then(function (response) {
+        var estatusActualizar = response.data;
+        var nombreActualizar = response.data;
+        var apellidoActualizar = response.data;
+        var correoActualizar = response.data;
+        var ubicacionActualizar = response.data;
+        var telefonoActualizar = response.data;
+
+        _this4.$emit('update', estatusActualizar);
+
+        _this4.$emit('update', nombreActualizar);
+
+        _this4.$emit('update', apellidoActualizar);
+
+        _this4.$emit('update', correoActualizar);
+
+        _this4.$emit('update', ubicacionActualizar);
+
+        _this4.$emit('update', telefonoActualizar);
+
+        location.reload();
+        confirm('Cliente Deshabilitado', 'Confirmación');
+      });
     }
   }
 });
@@ -4327,6 +5088,71 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4338,10 +5164,20 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('tab_productos').then(function (response) {
       return _this.tab_productos = response.data;
     });
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('tab_categoriaproductos').then(function (response) {
+      return _this.tab_categoriaproductos = response.data;
+    });
   },
   data: function data() {
     return {
-      tab_productos: []
+      idActualizar: -1,
+      identificador: '',
+      nombreActualizar: '',
+      precioActualizar: '',
+      tab_productos: [],
+      categoriaProductoSeleccionadaActualizar: '',
+      estatusActualizar: '',
+      tab_categoriaproductos: []
     };
   },
   mounted: function mounted() {},
@@ -4388,6 +5224,112 @@ __webpack_require__.r(__webpack_exports__);
       var filename = 'ReporteProductos';
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().utils.book_append_sheet(workbook, data, filename);
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().writeFile(workbook, "".concat(filename, ".xlsx"));
+    },
+    verActualizar: function verActualizar(posicion_id) {
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      this.identificador = this.tab_productos[posicion_id].id;
+      this.nombreActualizar = this.tab_productos[posicion_id].nombre;
+      this.precioActualizar = this.tab_productos[posicion_id].precio;
+      this.categoriaProductoSeleccionadaActualizar = this.tab_productos[posicion_id].categoriaProducto_id;
+      this.estatusActualizar = this.tab_clientes[posicion_id].estatus; // Mostramos el formulario
+
+      this.verActualizar = true;
+    },
+    Actualizar: function Actualizar(posicion_id) {
+      var _this2 = this;
+
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      var params = {
+        nombreActualizar: this.nombreActualizar,
+        precioActualizar: this.precioActualizar,
+        categoriaProductoSeleccionadaActualizar: this.categoriaProductoSeleccionadaActualizar,
+        estatusActualizar: this.estatusActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_productos/".concat(this.identificador), params).then(function (response) {
+        var nombreActualizar = response.data;
+        var precioActualizar = response.data;
+        var categoriaProductoSeleccionadaActualizar = response.data;
+        var estatusActualizar = response.data;
+
+        _this2.$emit('update', nombreActualizar);
+
+        _this2.$emit('update', precioActualizar);
+
+        _this2.$emit('update', categoriaProductoSeleccionadaActualizar);
+
+        _this2.$emit('update', estatusActualizar);
+
+        confirm('Producto Actualizado', 'Confirmación');
+      });
+      location.reload();
+      /*
+      this.nombreActualizar = this.pacientes[paciente_id].nombre;
+      this.edadActualizar = this.pacientes[paciente_id].edad;
+      // Mostramos el formulario
+      this.formActualizar = true;
+      */
+    },
+    Activar: function Activar(posicion_id) {
+      var _this3 = this;
+
+      this.identificador = this.tab_productos[posicion_id].id;
+      this.nombreActualizar = this.tab_productos[posicion_id].nombre;
+      this.precioActualizar = this.tab_productos[posicion_id].precio;
+      this.categoriaProductoSeleccionadaActualizar = this.tab_productos[posicion_id].categoriaProducto_id;
+      var params = {
+        estatusActualizar: '1',
+        nombreActualizar: this.nombreActualizar,
+        precioActualizar: this.precioActualizar,
+        categoriaProductoSeleccionadaActualizar: this.categoriaProductoSeleccionadaActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_productos/".concat(this.identificador), params).then(function (response) {
+        var estatusActualizar = response.data;
+        var nombreActualizar = response.data;
+        var precioActualizar = response.data;
+        var categoriaProductoSeleccionadaActualizar = response.data;
+
+        _this3.$emit('update', estatusActualizar);
+
+        _this3.$emit('update', nombreActualizar);
+
+        _this3.$emit('update', precioActualizar);
+
+        _this3.$emit('update', categoriaProductoSeleccionadaActualizar);
+      });
+      location.reload();
+      confirm('Cliente Habilitado', 'Confirmación');
+    },
+    Desactivar: function Desactivar(posicion_id) {
+      var _this4 = this;
+
+      this.identificador = this.tab_productos[posicion_id].id;
+      this.nombreActualizar = this.tab_productos[posicion_id].nombre;
+      this.precioActualizar = this.tab_productos[posicion_id].precio;
+      this.categoriaProductoSeleccionadaActualizar = this.tab_productos[posicion_id].categoriaProducto_id;
+      var params = {
+        estatusActualizar: '0',
+        nombreActualizar: this.nombreActualizar,
+        precioActualizar: this.precioActualizar,
+        categoriaProductoSeleccionadaActualizar: this.categoriaProductoSeleccionadaActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_productos/".concat(this.identificador), params).then(function (response) {
+        var estatusActualizar = response.data;
+        var nombreActualizar = response.data;
+        var precioActualizar = response.data;
+        var categoriaProductoSeleccionadaActualizar = response.data;
+
+        _this4.$emit('update', estatusActualizar);
+
+        _this4.$emit('update', nombreActualizar);
+
+        _this4.$emit('update', precioActualizar);
+
+        _this4.$emit('update', categoriaProductoSeleccionadaActualizar);
+      });
+      location.reload();
+      confirm('Cliente Habilitado', 'Confirmación');
     }
   }
 });
@@ -4497,6 +5439,91 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4511,6 +5538,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      idActualizar: -1,
+      identificador: '',
+      nombreActualizar: '',
+      direccionActualizar: '',
+      rfcActualizar: '',
+      telefonoActualizar: '',
+      correoActualizar: '',
+      estatusActualizar: '',
       tab_proveedores: []
     };
   },
@@ -4567,6 +5602,142 @@ __webpack_require__.r(__webpack_exports__);
       var filename = 'ReporteProveedores';
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().utils.book_append_sheet(workbook, data, filename);
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().writeFile(workbook, "".concat(filename, ".xlsx"));
+    },
+    verActualizar: function verActualizar(posicion_id) {
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      this.identificador = this.tab_proveedores[posicion_id].id;
+      this.nombreActualizar = this.tab_proveedores[posicion_id].nombre;
+      this.direccionActualizar = this.tab_proveedores[posicion_id].direccion;
+      this.rfcActualizar = this.tab_proveedores[posicion_id].rfc;
+      this.telefonoActualizar = this.tab_proveedores[posicion_id].telefono;
+      this.correoActualizar = this.tab_proveedores[posicion_id].correo;
+      this.estatusActualizar = this.tab_proveedores[posicion_id].estatus; // Mostramos el formulario
+
+      this.verActualizar = true;
+    },
+    Actualizar: function Actualizar(posicion_id) {
+      var _this2 = this;
+
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      var params = {
+        nombreActualizar: this.nombreActualizar,
+        direccionActualizar: this.direccionActualizar,
+        rfcActualizar: this.rfcActualizar,
+        telefonoActualizar: this.telefonoActualizar,
+        correoActualizar: this.correoActualizar,
+        estatusActualizar: this.estatusActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_proveedores/".concat(this.identificador), params).then(function (response) {
+        var nombreActualizar = response.data;
+        var direccionActualizar = response.data;
+        var rfcActualizar = response.data;
+        var telefonoActualizar = response.data;
+        var correoActualizar = response.data;
+        var estatusActualizar = response.data;
+
+        _this2.$emit('update', nombreActualizar);
+
+        _this2.$emit('update', direccionActualizar);
+
+        _this2.$emit('update', rfcActualizar);
+
+        _this2.$emit('update', telefonoActualizar);
+
+        _this2.$emit('update', correoActualizar);
+
+        _this2.$emit('update', estatusActualizar);
+
+        confirm('Proveedor Actualizado', 'Confirmación');
+      });
+      location.reload();
+      /*
+      this.nombreActualizar = this.pacientes[paciente_id].nombre;
+      this.edadActualizar = this.pacientes[paciente_id].edad;
+      // Mostramos el formulario
+      this.formActualizar = true;
+      */
+    },
+    Activar: function Activar(posicion_id) {
+      var _this3 = this;
+
+      this.identificador = this.tab_proveedores[posicion_id].id;
+      this.nombreActualizar = this.tab_proveedores[posicion_id].nombre;
+      this.direccionActualizar = this.tab_proveedores[posicion_id].direccion;
+      this.rfcActualizar = this.tab_proveedores[posicion_id].rfc;
+      this.telefonoActualizar = this.tab_proveedores[posicion_id].telefono;
+      this.correoActualizar = this.tab_proveedores[posicion_id].correo;
+      var params = {
+        estatusActualizar: '1',
+        nombreActualizar: this.nombreActualizar,
+        direccionActualizar: this.direccionActualizar,
+        rfcActualizar: this.rfcActualizar,
+        telefonoActualizar: this.telefonoActualizar,
+        correoActualizar: this.correoActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_proveedores/".concat(this.identificador), params).then(function (response) {
+        var estatusActualizar = response.data;
+        var nombreActualizar = response.data;
+        var direccionActualizar = response.data;
+        var rfcActualizar = response.data;
+        var telefonoActualizar = response.data;
+        var correoActualizar = response.data;
+
+        _this3.$emit('update', estatusActualizar);
+
+        _this3.$emit('update', nombreActualizar);
+
+        _this3.$emit('update', direccionActualizar);
+
+        _this3.$emit('update', rfcActualizar);
+
+        _this3.$emit('update', telefonoActualizar);
+
+        _this3.$emit('update', correoActualizar);
+      });
+      location.reload();
+      confirm('Cliente Habilitado', 'Confirmación');
+    },
+    Desactivar: function Desactivar(posicion_id) {
+      var _this4 = this;
+
+      this.identificador = this.tab_proveedores[posicion_id].id;
+      this.nombreActualizar = this.tab_proveedores[posicion_id].nombre;
+      this.direccionActualizar = this.tab_proveedores[posicion_id].direccion;
+      this.rfcActualizar = this.tab_proveedores[posicion_id].rfc;
+      this.telefonoActualizar = this.tab_proveedores[posicion_id].telefono;
+      this.correoActualizar = this.tab_proveedores[posicion_id].correo;
+      var params = {
+        estatusActualizar: '0',
+        nombreActualizar: this.nombreActualizar,
+        direccionActualizar: this.direccionActualizar,
+        rfcActualizar: this.rfcActualizar,
+        telefonoActualizar: this.telefonoActualizar,
+        correoActualizar: this.correoActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_proveedores/".concat(this.identificador), params).then(function (response) {
+        var estatusActualizar = response.data;
+        var nombreActualizar = response.data;
+        var direccionActualizar = response.data;
+        var rfcActualizar = response.data;
+        var telefonoActualizar = response.data;
+        var correoActualizar = response.data;
+
+        _this4.$emit('update', estatusActualizar);
+
+        _this4.$emit('update', nombreActualizar);
+
+        _this4.$emit('update', direccionActualizar);
+
+        _this4.$emit('update', rfcActualizar);
+
+        _this4.$emit('update', telefonoActualizar);
+
+        _this4.$emit('update', correoActualizar);
+      });
+      location.reload();
+      confirm('Cliente Habilitado', 'Confirmación');
     }
   }
 });
@@ -4655,6 +5826,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4666,10 +5875,18 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('tab_servicios').then(function (response) {
       return _this.tab_servicios = response.data;
     });
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('tab_categorias').then(function (response) {
+      return _this.tab_categorias = response.data;
+    });
   },
   data: function data() {
     return {
-      tab_servicios: []
+      idActualizar: -1,
+      identificador: '',
+      nombreActualizar: '',
+      tab_servicios: [],
+      categoriaSeleccionadaActualizar: '',
+      tab_categorias: []
     };
   },
   mounted: function mounted() {},
@@ -4709,6 +5926,42 @@ __webpack_require__.r(__webpack_exports__);
       var filename = 'ReporteServicios';
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().utils.book_append_sheet(workbook, data, filename);
       xlsx__WEBPACK_IMPORTED_MODULE_3___default().writeFile(workbook, "".concat(filename, ".xlsx"));
+    },
+    verActualizar: function verActualizar(posicion_id) {
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      this.identificador = this.tab_servicios[posicion_id].id;
+      this.nombreActualizar = this.tab_servicios[posicion_id].nombre;
+      this.categoriaSeleccionadaActualizar = this.tab_servicios[posicion_id].categoria_id; // Mostramos el formulario
+
+      this.verActualizar = true;
+    },
+    Actualizar: function Actualizar(posicion_id) {
+      var _this2 = this;
+
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = posicion_id;
+      var params = {
+        nombreActualizar: this.nombreActualizar,
+        categoriaSeleccionadaActualizar: this.categoriaSeleccionadaActualizar
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("tab_servicios/".concat(this.identificador), params).then(function (response) {
+        var nombreActualizar = response.data;
+        var categoriaSeleccionadaActualizar = response.data;
+
+        _this2.$emit('update', nombreActualizar);
+
+        _this2.$emit('update', categoriaSeleccionadaActualizar);
+
+        confirm('Servicio Actualizado', 'Confirmación');
+      });
+      location.reload();
+      /*
+      this.nombreActualizar = this.pacientes[paciente_id].nombre;
+      this.edadActualizar = this.pacientes[paciente_id].edad;
+      // Mostramos el formulario
+      this.formActualizar = true;
+      */
     }
   }
 });
@@ -47932,7 +49185,7 @@ var render = function() {
         _c("input", {
           staticClass: "buttons",
           staticStyle: { width: "120px", height: "50px" },
-          attrs: { type: "submit", name: "", value: "Agregar" }
+          attrs: { type: "submit", name: "", value: "Guardar" }
         })
       ]
     )
@@ -48654,7 +49907,10 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.tab_categoriaproductos, function(tab_categoriaproducto) {
+          _vm._l(_vm.tab_categoriaproductos, function(
+            tab_categoriaproducto,
+            index
+          ) {
             return _c("tr", { key: tab_categoriaproducto.id }, [
               _c("td", [
                 _vm._v(
@@ -48665,19 +49921,129 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_categoriaproducto.nombre) +
-                    "\n                    "
-                )
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.nombreActualizar,
+                            expression: "nombreActualizar"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.nombreActualizar },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.nombreActualizar = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  : _c("span", [
+                      _vm._v(
+                        "\n                    \n                                " +
+                          _vm._s(tab_categoriaproducto.nombre) +
+                          "\n                                  "
+                      )
+                    ])
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_categoriaproducto.proveedore_id) +
-                    "\n                    "
-                )
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.proveedorSeleccionadoActualizar,
+                              expression: "proveedorSeleccionadoActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.proveedorSeleccionadoActualizar = $event
+                                .target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        _vm._l(_vm.tab_proveedores, function(tab_proveedore) {
+                          return _c(
+                            "option",
+                            {
+                              key: tab_proveedore.id,
+                              domProps: { value: tab_proveedore.id }
+                            },
+                            [
+                              _vm._v(
+                                "\n                              " +
+                                  _vm._s(tab_proveedore.nombre) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ])
+                  : _c("span", [
+                      _vm._v(
+                        "\n                    \n                                " +
+                          _vm._s(tab_categoriaproducto.proveedore_id) +
+                          "\n                                  "
+                      )
+                    ])
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success",
+                          on: {
+                            click: function($event) {
+                              return _vm.Actualizar(index)
+                            }
+                          }
+                        },
+                        [_vm._v("Guardar")]
+                      )
+                    ])
+                  : _c("span", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-warning",
+                          on: {
+                            click: function($event) {
+                              return _vm.verActualizar(index)
+                            }
+                          }
+                        },
+                        [_vm._v("Editar")]
+                      )
+                    ])
               ])
             ])
           }),
@@ -48699,7 +50065,9 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [
         _vm._v("\n                    ID Proveedor\n                  ")
-      ])
+      ]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]
@@ -48799,7 +50167,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.tab_categorias, function(tab_categoria) {
+          _vm._l(_vm.tab_categorias, function(tab_categoria, index) {
             return _c("tr", { key: tab_categoria.id }, [
               _c("td", [
                 _vm._v(
@@ -48810,11 +50178,37 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_categoria.nombre) +
-                    "\n                    "
-                )
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.nombreActualizar,
+                            expression: "nombreActualizar"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.nombreActualizar },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.nombreActualizar = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  : _c("span", [
+                      _vm._v(
+                        "\n                    \n                                " +
+                          _vm._s(tab_categoria.nombre) +
+                          "\n                                  "
+                      )
+                    ])
               ]),
               _vm._v(" "),
               _c("td", [
@@ -48823,6 +50217,38 @@ var render = function() {
                     _vm._s(tab_categoria.icono) +
                     "\n                    "
                 )
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success",
+                          on: {
+                            click: function($event) {
+                              return _vm.Actualizar(index)
+                            }
+                          }
+                        },
+                        [_vm._v("Guardar")]
+                      )
+                    ])
+                  : _c("span", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-warning",
+                          on: {
+                            click: function($event) {
+                              return _vm.verActualizar(index)
+                            }
+                          }
+                        },
+                        [_vm._v("Editar")]
+                      )
+                    ])
               ])
             ])
           }),
@@ -48842,7 +50268,9 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("\n                    Nombre\n                  ")]),
       _vm._v(" "),
-      _c("th", [_vm._v("\n                    Icono\n                  ")])
+      _c("th", [_vm._v("\n                    Icono\n                  ")]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]
@@ -48942,48 +50370,225 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.tab_clientes, function(tab_cliente) {
-            return _c("tr", { key: tab_cliente.id }, [
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_cliente.id) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_cliente.nombre) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_cliente.apellido) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_cliente.rfc) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_cliente.direccion) +
-                    "\n                    "
-                )
-              ])
-            ])
+          _vm._l(_vm.tab_clientes, function(tab_cliente, index) {
+            return _c(
+              "tr",
+              {
+                key: tab_cliente.id,
+                style: tab_cliente.estatus == "0" ? "color: #CCCACA" : ""
+              },
+              [
+                _c("td", [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(tab_cliente.id) +
+                      "\n                      "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.nombreActualizar,
+                              expression: "nombreActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.nombreActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.nombreActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(tab_cliente.nombre) +
+                            "\n                                      "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.apellidoActualizar,
+                              expression: "apellidoActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.apellidoActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.apellidoActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(tab_cliente.apellido) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.rfcActualizar,
+                              expression: "rfcActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.rfcActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.rfcActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                                 " +
+                            _vm._s(tab_cliente.rfc) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.direccionActualizar,
+                              expression: "direccionActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.direccionActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.direccionActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(tab_cliente.direccion) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  tab_cliente.estatus == "1"
+                    ? _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            staticStyle: { background: "#AD290B" },
+                            on: {
+                              click: function($event) {
+                                return _vm.Desactivar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Desactivar")]
+                        )
+                      ])
+                    : _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            staticStyle: { background: "#169344" },
+                            on: {
+                              click: function($event) {
+                                return _vm.Activar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Activar")]
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            on: {
+                              click: function($event) {
+                                return _vm.Actualizar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Guardar")]
+                        )
+                      ])
+                    : _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-warning",
+                            on: {
+                              click: function($event) {
+                                return _vm.verActualizar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Editar")]
+                        )
+                      ])
+                ])
+              ]
+            )
           }),
           0
         )
@@ -49005,7 +50610,11 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("\n                    RFC\n                  ")]),
       _vm._v(" "),
-      _c("th", [_vm._v("\n                    Dirección\n                  ")])
+      _c("th", [_vm._v("\n                    Dirección\n                  ")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("\n                    Estatus\n                  ")]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]
@@ -49105,7 +50714,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.tab_contactos, function(tab_contacto) {
+          _vm._l(_vm.tab_contactos, function(tab_contacto, index) {
             return _c("tr", { key: tab_contacto.id }, [
               _c("td", [
                 _vm._v(
@@ -49116,35 +50725,197 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_contacto.nombre) +
-                    "\n                    "
-                )
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.nombreActualizar,
+                            expression: "nombreActualizar"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.nombreActualizar },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.nombreActualizar = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  : _c("span", [
+                      _vm._v(
+                        "\n                    \n                                " +
+                          _vm._s(tab_contacto.nombre) +
+                          "\n                                  "
+                      )
+                    ])
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_contacto.correo) +
-                    "\n                    "
-                )
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.correoActualizar,
+                            expression: "correoActualizar"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.correoActualizar },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.correoActualizar = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  : _c("span", [
+                      _vm._v(
+                        "\n                    \n                                " +
+                          _vm._s(tab_contacto.correo) +
+                          "\n                                  "
+                      )
+                    ])
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_contacto.telefono) +
-                    "\n                    "
-                )
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.telefonoActualizar,
+                            expression: "telefonoActualizar"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.telefonoActualizar },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.telefonoActualizar = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  : _c("span", [
+                      _vm._v(
+                        "\n                    \n                                " +
+                          _vm._s(tab_contacto.telefono) +
+                          "\n                                  "
+                      )
+                    ])
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_contacto.proveedore_id) +
-                    "\n                    "
-                )
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.proveedorSeleccionadoActualizar,
+                              expression: "proveedorSeleccionadoActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.proveedorSeleccionadoActualizar = $event
+                                .target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        _vm._l(_vm.tab_proveedores, function(tab_proveedore) {
+                          return _c(
+                            "option",
+                            {
+                              key: tab_proveedore.id,
+                              domProps: { value: tab_proveedore.id }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(tab_proveedore.nombre) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ])
+                  : _c("span", [
+                      _vm._v(
+                        "\n                    \n                                " +
+                          _vm._s(tab_contacto.proveedore_id) +
+                          "\n                                  "
+                      )
+                    ])
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success",
+                          on: {
+                            click: function($event) {
+                              return _vm.Actualizar(index)
+                            }
+                          }
+                        },
+                        [_vm._v("Guardar")]
+                      )
+                    ])
+                  : _c("span", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-warning",
+                          on: {
+                            click: function($event) {
+                              return _vm.verActualizar(index)
+                            }
+                          }
+                        },
+                        [_vm._v("Editar")]
+                      )
+                    ])
               ])
             ])
           }),
@@ -49168,7 +50939,9 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("\n                    Telefono\n                  ")]),
       _vm._v(" "),
-      _c("th", [_vm._v("\n                    Proveedor\n                  ")])
+      _c("th", [_vm._v("\n                    Proveedor\n                  ")]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]
@@ -49268,7 +51041,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.tab_metodopagos, function(tab_metodopago) {
+          _vm._l(_vm.tab_metodopagos, function(tab_metodopago, index) {
             return _c("tr", { key: tab_metodopago.id }, [
               _c("td", [
                 _vm._v(
@@ -49279,11 +51052,69 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_metodopago.nombre) +
-                    "\n                    "
-                )
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.nombreActualizar,
+                            expression: "nombreActualizar"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.nombreActualizar },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.nombreActualizar = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  : _c("span", [
+                      _vm._v(
+                        "\n                    \n                                " +
+                          _vm._s(tab_metodopago.nombre) +
+                          "\n                                  "
+                      )
+                    ])
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success",
+                          on: {
+                            click: function($event) {
+                              return _vm.Actualizar(index)
+                            }
+                          }
+                        },
+                        [_vm._v("Guardar")]
+                      )
+                    ])
+                  : _c("span", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-warning",
+                          on: {
+                            click: function($event) {
+                              return _vm.verActualizar(index)
+                            }
+                          }
+                        },
+                        [_vm._v("Editar")]
+                      )
+                    ])
               ])
             ])
           }),
@@ -49301,7 +51132,9 @@ var staticRenderFns = [
     return _c("thead", { staticClass: " text-primary" }, [
       _c("th", [_vm._v("\n                    ID\n                  ")]),
       _vm._v(" "),
-      _c("th", [_vm._v("\n                    Nombre\n                  ")])
+      _c("th", [_vm._v("\n                    Nombre\n                  ")]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]
@@ -49401,56 +51234,259 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.tab_prestadores, function(tab_prestadore) {
-            return _c("tr", { key: tab_prestadore.id }, [
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_prestadore.id) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_prestadore.nombre) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_prestadore.apellido) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_prestadore.correo) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_prestadore.ubicacion) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_prestadore.telefono) +
-                    "\n                    "
-                )
-              ])
-            ])
+          _vm._l(_vm.tab_prestadores, function(tab_prestadore, index) {
+            return _c(
+              "tr",
+              {
+                key: tab_prestadore.id,
+                style: tab_prestadore.estatus == "0" ? "color: #CCCACA" : ""
+              },
+              [
+                _c("td", [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(tab_prestadore.id) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.nombreActualizar,
+                              expression: "nombreActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.nombreActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.nombreActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                    \n                                " +
+                            _vm._s(tab_prestadore.nombre) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.apellidoActualizar,
+                              expression: "apellidoActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.apellidoActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.apellidoActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                              \n                                " +
+                            _vm._s(tab_prestadore.apellido) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.correoActualizar,
+                              expression: "correoActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.correoActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.correoActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                           \n                                 " +
+                            _vm._s(tab_prestadore.correo) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.ubicacionActualizar,
+                              expression: "ubicacionActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.ubicacionActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.ubicacionActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                               \n                                " +
+                            _vm._s(tab_prestadore.ubicacion) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.telefonoActualizar,
+                              expression: "telefonoActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.telefonoActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.telefonoActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                               \n                                 " +
+                            _vm._s(tab_prestadore.telefono) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  tab_prestadore.estatus == "1"
+                    ? _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            staticStyle: { background: "#AD290B" },
+                            on: {
+                              click: function($event) {
+                                return _vm.Desactivar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Desactivar")]
+                        )
+                      ])
+                    : _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            staticStyle: { background: "#169344" },
+                            on: {
+                              click: function($event) {
+                                return _vm.Activar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Activar")]
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            on: {
+                              click: function($event) {
+                                return _vm.Actualizar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Guardar")]
+                        )
+                      ])
+                    : _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-warning",
+                            on: {
+                              click: function($event) {
+                                return _vm.verActualizar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Editar")]
+                        )
+                      ])
+                ])
+              ]
+            )
           }),
           0
         )
@@ -49464,7 +51500,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: " text-primary" }, [
-      _c("th", [_vm._v("\n                    ID\n                  ")]),
+      _c("th", [_vm._v("\n\n                    ID\n                  ")]),
       _vm._v(" "),
       _c("th", [_vm._v("\n                    Nombre(s)\n                  ")]),
       _vm._v(" "),
@@ -49476,7 +51512,11 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("\n                    Ubicación\n                  ")]),
       _vm._v(" "),
-      _c("th", [_vm._v("\n                    Teléfono\n                  ")])
+      _c("th", [_vm._v("\n                    Teléfono\n                  ")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("\n                    Estatus\n                  ")]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]
@@ -49570,48 +51610,229 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.tab_productos, function(tab_producto) {
-            return _c("tr", { key: tab_producto.id }, [
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_producto.id) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_producto.nombre) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_producto.precio) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_producto.categoriaProducto_id) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_producto.created_at) +
-                    "\n                    "
-                )
-              ])
-            ])
+          _vm._l(_vm.tab_productos, function(tab_producto, index) {
+            return _c(
+              "tr",
+              {
+                key: tab_producto.id,
+                style: tab_producto.estatus == "0" ? "color: #CCCACA" : ""
+              },
+              [
+                _c("td", [
+                  _vm._v(
+                    "\n                      " +
+                      _vm._s(tab_producto.id) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.nombreActualizar,
+                              expression: "nombreActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.nombreActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.nombreActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                    \n                                " +
+                            _vm._s(tab_producto.nombre) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.precioActualizar,
+                              expression: "precioActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.precioActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.precioActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                    \n                                " +
+                            _vm._s(tab_producto.precio) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value:
+                                  _vm.categoriaProductoSeleccionadaActualizar,
+                                expression:
+                                  "categoriaProductoSeleccionadaActualizar"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.categoriaProductoSeleccionadaActualizar = $event
+                                  .target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          _vm._l(_vm.tab_categoriaproductos, function(
+                            tab_categoriaproducto
+                          ) {
+                            return _c(
+                              "option",
+                              {
+                                key: tab_categoriaproducto.id,
+                                domProps: { value: tab_categoriaproducto.id }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(tab_categoriaproducto.nombre) +
+                                    "\n                              "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                    \n                                " +
+                            _vm._s(tab_producto.categoriaProducto_id) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    "\n                      " +
+                      _vm._s(tab_producto.updated_at) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  tab_producto.estatus == "1"
+                    ? _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            staticStyle: { background: "#AD290B" },
+                            on: {
+                              click: function($event) {
+                                return _vm.Desactivar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Desactivar")]
+                        )
+                      ])
+                    : _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            staticStyle: { background: "#169344" },
+                            on: {
+                              click: function($event) {
+                                return _vm.Activar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Activar")]
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            on: {
+                              click: function($event) {
+                                return _vm.Actualizar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Guardar")]
+                        )
+                      ])
+                    : _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-warning",
+                            on: {
+                              click: function($event) {
+                                return _vm.verActualizar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Editar")]
+                        )
+                      ])
+                ])
+              ]
+            )
           }),
           0
         )
@@ -49639,9 +51860,13 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [
         _vm._v(
-          "\n                    Fecha Creacion Precio\n                  "
+          "\n                    Fecha de Actualizacion del Precio\n                  "
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c("th", [_vm._v("\n                    Estatus\n                  ")]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]
@@ -49741,56 +51966,267 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.tab_proveedores, function(tab_proveedore) {
-            return _c("tr", { key: tab_proveedore.id }, [
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_proveedore.nombre) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_proveedore.direccion) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_proveedore.rfc) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_proveedore.telefono) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_proveedore.correo) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_proveedore.logo) +
-                    "\n                    "
-                )
-              ])
-            ])
+          _vm._l(_vm.tab_proveedores, function(tab_proveedore, index) {
+            return _c(
+              "tr",
+              {
+                key: tab_proveedore.id,
+                style: tab_proveedore.estatus == "0" ? "color: #CCCACA" : ""
+              },
+              [
+                _c("td", [
+                  _vm._v(
+                    "\n                      " +
+                      _vm._s(tab_proveedore.id) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.nombreActualizar,
+                              expression: "nombreActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.nombreActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.nombreActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                    \n                                " +
+                            _vm._s(tab_proveedore.nombre) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.direccionActualizar,
+                              expression: "direccionActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.direccionActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.direccionActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                    \n                                " +
+                            _vm._s(tab_proveedore.direccion) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.rfcActualizar,
+                              expression: "rfcActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.rfcActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.rfcActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                    \n                                " +
+                            _vm._s(tab_proveedore.rfc) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.telefonoActualizar,
+                              expression: "telefonoActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.telefonoActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.telefonoActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                    \n                                " +
+                            _vm._s(tab_proveedore.telefono) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.correoActualizar,
+                              expression: "correoActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.correoActualizar },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.correoActualizar = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                    \n                                " +
+                            _vm._s(tab_proveedore.correo) +
+                            "\n                                  "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    "\n                      \n                      " +
+                      _vm._s(tab_proveedore.logo) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  tab_proveedore.estatus == "1"
+                    ? _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            staticStyle: { background: "#AD290B" },
+                            on: {
+                              click: function($event) {
+                                return _vm.Desactivar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Desactivar")]
+                        )
+                      ])
+                    : _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            staticStyle: { background: "#169344" },
+                            on: {
+                              click: function($event) {
+                                return _vm.Activar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Activar")]
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm.verActualizar && _vm.idActualizar == index
+                    ? _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            on: {
+                              click: function($event) {
+                                return _vm.Actualizar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Guardar")]
+                        )
+                      ])
+                    : _c("span", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-warning",
+                            on: {
+                              click: function($event) {
+                                return _vm.verActualizar(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Editar")]
+                        )
+                      ])
+                ])
+              ]
+            )
           }),
           0
         )
@@ -49804,6 +52240,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: " text-primary" }, [
+      _c("th", [_vm._v("\n                    ID\n                  ")]),
+      _vm._v(" "),
       _c("th", [_vm._v("\n                    Nombre\n                  ")]),
       _vm._v(" "),
       _c("th", [_vm._v("\n                    Direccion\n                  ")]),
@@ -49814,7 +52252,11 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("\n                    Correo\n                  ")]),
       _vm._v(" "),
-      _c("th", [_vm._v("\n                    Logo\n                  ")])
+      _c("th", [_vm._v("\n                    Logo\n                  ")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("\n                    Estatus\n                  ")]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]
@@ -49914,7 +52356,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.tab_servicios, function(tab_servicio) {
+          _vm._l(_vm.tab_servicios, function(tab_servicio, index) {
             return _c("tr", { key: tab_servicio.id }, [
               _c("td", [
                 _vm._v(
@@ -49925,19 +52367,129 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_servicio.nombre) +
-                    "\n                    "
-                )
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.nombreActualizar,
+                            expression: "nombreActualizar"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.nombreActualizar },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.nombreActualizar = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  : _c("span", [
+                      _vm._v(
+                        "\n                    \n                                " +
+                          _vm._s(tab_servicio.nombre) +
+                          "\n                                  "
+                      )
+                    ])
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  "\n                      " +
-                    _vm._s(tab_servicio.categoria_id) +
-                    "\n                    "
-                )
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.categoriaSeleccionadaActualizar,
+                              expression: "categoriaSeleccionadaActualizar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.categoriaSeleccionadaActualizar = $event
+                                .target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        _vm._l(_vm.tab_categorias, function(tab_categoria) {
+                          return _c(
+                            "option",
+                            {
+                              key: tab_categoria.id,
+                              domProps: { value: tab_categoria.id }
+                            },
+                            [
+                              _vm._v(
+                                "\n                              " +
+                                  _vm._s(tab_categoria.nombre) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ])
+                  : _c("span", [
+                      _vm._v(
+                        "\n                    \n                                " +
+                          _vm._s(tab_servicio.categoria_id) +
+                          "\n                                  "
+                      )
+                    ])
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _vm.verActualizar && _vm.idActualizar == index
+                  ? _c("span", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success",
+                          on: {
+                            click: function($event) {
+                              return _vm.Actualizar(index)
+                            }
+                          }
+                        },
+                        [_vm._v("Guardar")]
+                      )
+                    ])
+                  : _c("span", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-warning",
+                          on: {
+                            click: function($event) {
+                              return _vm.verActualizar(index)
+                            }
+                          }
+                        },
+                        [_vm._v("Editar")]
+                      )
+                    ])
               ])
             ])
           }),
@@ -49959,7 +52511,9 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [
         _vm._v("\n                    ID Categoria\n                  ")
-      ])
+      ]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]

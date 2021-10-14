@@ -19,6 +19,7 @@ class CreateTabClientesTable extends Migration
             $table->string('apellido');
             $table->string('rfc');
             $table->string('direccion');
+            $table->string('estatus');
             $table->string('contrasena');
             $table->timestamps();
         });

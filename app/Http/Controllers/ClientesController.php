@@ -34,6 +34,7 @@ class ClientesController extends Controller
         $cliente->apellido = $request->apellidoCliente;
         $cliente->rfc = $request->rfcCliente;
         $cliente->direccion = $request->direccionCliente;
+        $cliente->estatus = '1';
         $cliente->contrasena = $request->contrasenaCliente;
         
         
@@ -105,7 +106,17 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cliente= tab_cliente::find($id);
+        $cliente->nombre = $request->nombreActualizar;
+        $cliente->apellido = $request->apellidoActualizar;
+        $cliente->rfc = $request->rfcActualizar;
+        $cliente->direccion = $request->direccionActualizar;
+        $cliente->estatus = $request->estatusActualizar;
+        $cliente->save();
+
+
+        return $cliente;
+
     }
 
     /**

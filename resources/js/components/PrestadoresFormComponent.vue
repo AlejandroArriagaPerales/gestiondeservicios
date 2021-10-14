@@ -147,7 +147,7 @@
                 <br>           
                 <br>
                 <br>
-                <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Agregar">
+                <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Guardar">
                         
               </form>
             </div>

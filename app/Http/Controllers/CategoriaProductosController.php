@@ -51,7 +51,13 @@ class CategoriaProductosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $categoriaproducto = tab_categoriaproducto::find($id);
+        $categoriaproducto->nombre = $request->nombreActualizar;
+        $categoriaproducto->proveedore_id = $request->proveedorSeleccionadoActualizar;
+
+        $categoriaproducto->save();
+
+        return $categoriaproducto;
     }
 
     /**

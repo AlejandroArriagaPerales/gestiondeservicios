@@ -26,7 +26,7 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
-                        <th>
+                      <th>
                         ID
                       </th>
                       <th>
@@ -41,27 +41,100 @@
                       <th>
                         Dirección
                       </th>
+                      <th>
+                        Estatus
+                      </th>
+                      <th>
+                        
+                      </th>
                       
                     </thead>
                    
 
                     <tbody>
-                      <tr v-for="(tab_cliente) in tab_clientes" :key="tab_cliente.id">
+                      
+                      <tr v-for="(tab_cliente,index) in tab_clientes" :key="tab_cliente.id" v-bind:style="tab_cliente.estatus == '0' ? 'color: #CCCACA':''"  >
+                       <!-- <span v-if="tab_cliente.estatus =='1'"> -->
+                         
+                        
+                          
+                          <td>
+                            {{tab_cliente.id}}
+                          </td>
+      
+                            <td>
+                              <span v-if="verActualizar && idActualizar  == index">
+                                <!--    Formulario para actualizar -->
+                                <input v-model="nombreActualizar" type="text" class="form-control">
+                              </span>
+                              <span v-else>
+                                        {{tab_cliente.nombre}}
+                                          </span>
+                            </td>
+
+
+
                         <td>
-                          {{tab_cliente.id}}
+                           <span v-if="verActualizar && idActualizar  == index">
+                            <!--    Formulario para actualizar -->
+                             <input v-model="apellidoActualizar" type="text" class="form-control">
+                          </span>
+                           <span v-else>
+                                    {{tab_cliente.apellido}}
+                                      </span>
+                          
                         </td>
+
+
                         <td>
-                          {{tab_cliente.nombre}}
+                           <span v-if="verActualizar && idActualizar  == index">
+                            <!--    Formulario para actualizar -->
+                             <input v-model="rfcActualizar" type="text" class="form-control">
+                          </span>
+                           <span v-else>
+                                     {{tab_cliente.rfc}}
+                                      </span>
                         </td>
+
                         <td>
-                          {{tab_cliente.apellido}}
+                            <span v-if="verActualizar && idActualizar  == index">
+                            <!--    Formulario para actualizar -->
+                             <input v-model="direccionActualizar" type="text" class="form-control">
+                          </span>
+                           <span v-else>
+                                    {{tab_cliente.direccion}}
+                                      </span>
                         </td>
+
                         <td>
-                          {{tab_cliente.rfc}}
+                          
+                          <span v-if="tab_cliente.estatus =='1'">
+                            <button class="btn btn-success" style="background: #AD290B"  @click="Desactivar(index)">Desactivar</button>
+
+                          </span> <span v-else>
+                            <button  class="btn btn-success" style="background: #169344" @click="Activar(index) ">Activar</button>
+                             </span> 
+                             
+                      
                         </td>
+
+
+                        
                         <td>
-                          {{tab_cliente.direccion}}
+
+                          <span v-if="verActualizar && idActualizar == index">
+                            <!--    Formulario para actualizar -->
+                             <button  class="btn btn-success"  @click="Actualizar(index) ">Guardar</button>
+                             
+                          </span>
+                           <span v-else>
+                              <button class="btn btn-warning"  @click="verActualizar(index)">Editar</button>
+
+                                      </span>
+
+                         
                         </td>
+                                        
                         
                       </tr>
                         
@@ -87,7 +160,14 @@
       },
         data(){
             return {
-                tab_clientes: []
+               estatusActualizar: '',
+               idActualizar: -1,
+               identificador:'',
+               nombreActualizar: '',
+               apellidoActualizar: '',
+               rfcActualizar: '',
+               direccionActualizar: '',
+              tab_clientes: []
             }
             
         },
@@ -142,6 +222,131 @@
               XLSX.utils.book_append_sheet(workbook, data, filename)
               XLSX.writeFile(workbook, `${filename}.xlsx`)
 
+            },
+            verActualizar: function (posicion_id) {
+                // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+                
+                this.idActualizar = posicion_id;
+                this.identificador = this.tab_clientes[posicion_id].id;
+                
+                this.nombreActualizar = this.tab_clientes[posicion_id].nombre;
+                this.apellidoActualizar = this.tab_clientes[posicion_id].apellido;
+                this.rfcActualizar = this.tab_clientes[posicion_id].rfc;
+                this.direccionActualizar = this.tab_clientes[posicion_id].direccion;
+                this.estatusActualizar = this.tab_clientes[posicion_id].estatus;
+                // Mostramos el formulario
+                this. verActualizar = true;
+            },
+            Actualizar: function (posicion_id) {
+                // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+                this.idActualizar = posicion_id;
+
+
+                const params = {
+                    nombreActualizar: this.nombreActualizar,
+                    apellidoActualizar: this.apellidoActualizar,
+                    rfcActualizar: this.rfcActualizar,
+                    direccionActualizar: this.direccionActualizar,
+                    estatusActualizar: this.estatusActualizar
+                };
+
+                axios.put(`tab_clientes/${this.identificador}`,params).then((response) => {
+                  const nombreActualizar = response.data;
+                  const apellidoActualizar = response.data;
+                  const rfcActualizar = response.data;
+                  const direccionActualizar = response.data;
+                  const estatusActualizar = response.data;
+
+                  this.$emit('update',nombreActualizar);
+                  this.$emit('update',apellidoActualizar);
+                  this.$emit('update',rfcActualizar);
+                  this.$emit('update',direccionActualizar);
+                  this.$emit('update',estatusActualizar);
+
+                  
+                  confirm('Cliente Actualizado', 'Confirmación');
+
+                });
+                location.reload();
+                /*
+                this.nombreActualizar = this.pacientes[paciente_id].nombre;
+                this.edadActualizar = this.pacientes[paciente_id].edad;
+                // Mostramos el formulario
+                this.formActualizar = true;
+                */
+            },
+            Activar: function (posicion_id) {
+                 
+              
+                this.identificador = this.tab_clientes[posicion_id].id;
+                this.nombreActualizar = this.tab_clientes[posicion_id].nombre;
+                this.apellidoActualizar = this.tab_clientes[posicion_id].apellido;
+                this.rfcActualizar = this.tab_clientes[posicion_id].rfc;
+                this.direccionActualizar = this.tab_clientes[posicion_id].direccion;
+                
+              
+                const params = {
+                    estatusActualizar: '1',
+                    nombreActualizar: this.nombreActualizar,
+                    apellidoActualizar: this.apellidoActualizar,
+                    rfcActualizar: this.rfcActualizar,
+                    direccionActualizar: this.direccionActualizar
+                };
+
+                axios.put(`tab_clientes/${this.identificador}`,params).then((response) => {
+                  const estatusActualizar = response.data;
+                  const nombreActualizar = response.data;
+                  const apellidoActualizar = response.data;
+                  const rfcActualizar = response.data;
+                  const direccionActualizar = response.data;
+                  this.$emit('update',estatusActualizar);
+                  this.$emit('update',nombreActualizar);
+                  this.$emit('update',apellidoActualizar);
+                  this.$emit('update',rfcActualizar);
+                  this.$emit('update',direccionActualizar);
+
+                });
+                location.reload();
+                confirm('Cliente Habilitado', 'Confirmación');
+
+
+            },
+            Desactivar: function (posicion_id){
+                
+                
+                this.identificador = this.tab_clientes[posicion_id].id;
+                this.nombreActualizar = this.tab_clientes[posicion_id].nombre;
+                this.apellidoActualizar = this.tab_clientes[posicion_id].apellido;
+                this.rfcActualizar = this.tab_clientes[posicion_id].rfc;
+                this.direccionActualizar = this.tab_clientes[posicion_id].direccion;
+                
+              
+                const params = {
+                    estatusActualizar: '0',
+                    nombreActualizar: this.nombreActualizar,
+                    apellidoActualizar: this.apellidoActualizar,
+                    rfcActualizar: this.rfcActualizar,
+                    direccionActualizar: this.direccionActualizar
+                };
+
+                axios.put(`tab_clientes/${this.identificador}`,params).then((response) => {
+                  const estatusActualizar = response.data;
+                  const nombreActualizar = response.data;
+                  const apellidoActualizar = response.data;
+                  const rfcActualizar = response.data;
+                  const direccionActualizar = response.data;
+                  this.$emit('update',estatusActualizar);
+                  this.$emit('update',nombreActualizar);
+                  this.$emit('update',apellidoActualizar);
+                  this.$emit('update',rfcActualizar);
+                  this.$emit('update',direccionActualizar);
+                  location.reload();
+                  confirm('Cliente Deshabilitado', 'Confirmación');
+
+                });
+                
+
+                
             }
         }
     }

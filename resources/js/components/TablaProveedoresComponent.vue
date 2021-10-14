@@ -29,6 +29,9 @@
                   <table class="table">
                     <thead class=" text-primary">
                       <th>
+                        ID
+                      </th>
+                      <th>
                         Nombre
                       </th>
                       <th>
@@ -43,8 +46,14 @@
                       <th>
                         Correo
                       </th>
-                       <th>
+                      <th>
                         Logo
+                      </th>
+                      <th>
+                        Estatus
+                      </th>
+                      <th>
+                        
                       </th>
                       
                       
@@ -52,24 +61,100 @@
                    
 
                     <tbody>
-                      <tr v-for="(tab_proveedore) in tab_proveedores" :key="tab_proveedore.id">
+                      <tr v-for="(tab_proveedore,index) in tab_proveedores" :key="tab_proveedore.id" v-bind:style="tab_proveedore.estatus == '0' ? 'color: #CCCACA':''">
                         <td>
-                          {{tab_proveedore.nombre}}
+                          {{tab_proveedore.id}}
                         </td>
                         <td>
-                          {{tab_proveedore.direccion}}
+                          <span v-if="verActualizar && idActualizar  == index">
+                            <!--    Formulario para actualizar -->
+                             <input v-model="nombreActualizar" type="text" class="form-control">
+                          </span>
+                           <span v-else>
+                        
+                                    {{tab_proveedore.nombre}}
+                                      </span>
+                          
                         </td>
+
                         <td>
-                          {{tab_proveedore.rfc}}
+                          <span v-if="verActualizar && idActualizar  == index">
+                            <!--    Formulario para actualizar -->
+                             <input v-model="direccionActualizar" type="text" class="form-control">
+                          </span>
+                           <span v-else>
+                        
+                                    {{tab_proveedore.direccion}}
+                                      </span>
+                          
                         </td>
+
                         <td>
-                          {{tab_proveedore.telefono}}
+                          <span v-if="verActualizar && idActualizar  == index">
+                            <!--    Formulario para actualizar -->
+                             <input v-model="rfcActualizar" type="text" class="form-control">
+                          </span>
+                           <span v-else>
+                        
+                                    {{tab_proveedore.rfc}}
+                                      </span>
+                          
                         </td>
+
                         <td>
-                          {{tab_proveedore.correo}}
+                          <span v-if="verActualizar && idActualizar  == index">
+                            <!--    Formulario para actualizar -->
+                             <input v-model="telefonoActualizar" type="text" class="form-control">
+                          </span>
+                           <span v-else>
+                        
+                                    {{tab_proveedore.telefono}}
+                                      </span>
+                          
                         </td>
+
                         <td>
+                          <span v-if="verActualizar && idActualizar  == index">
+                            <!--    Formulario para actualizar -->
+                             <input v-model="correoActualizar" type="text" class="form-control">
+                          </span>
+                           <span v-else>
+                        
+                                    {{tab_proveedore.correo}}
+                                      </span>
+                          
+                        </td>
+
+                        <td>
+                          
                           {{tab_proveedore.logo}}
+                        </td>
+
+                        <td>
+                          
+                          <span v-if="tab_proveedore.estatus =='1'">
+                            <button class="btn btn-success" style="background: #AD290B"  @click="Desactivar(index)">Desactivar</button>
+
+                          </span> <span v-else>
+                            <button  class="btn btn-success" style="background: #169344" @click="Activar(index) ">Activar</button>
+                             </span> 
+                             
+                      
+                        </td>
+
+                        <td>
+
+                          <span v-if="verActualizar && idActualizar == index">
+                            <!--    Formulario para actualizar -->
+                             <button  class="btn btn-success"  @click="Actualizar(index) ">Guardar</button>
+                             
+                          </span>
+                           <span v-else>
+                              <button class="btn btn-warning"  @click="verActualizar(index)">Editar</button>
+
+                                      </span>
+
+                         
                         </td>
                        
                       </tr>
@@ -99,7 +184,15 @@
       },
         data(){
             return {
-                tab_proveedores: []
+              idActualizar: -1,
+              identificador:'',
+              nombreActualizar: '',
+              direccionActualizar: '',
+              rfcActualizar: '',
+              telefonoActualizar: '',
+              correoActualizar: '',
+              estatusActualizar: '',
+              tab_proveedores: []
             }
             
         },
@@ -154,6 +247,142 @@
               const filename = 'ReporteProveedores'
               XLSX.utils.book_append_sheet(workbook, data, filename)
               XLSX.writeFile(workbook, `${filename}.xlsx`)
+
+            },
+            verActualizar: function (posicion_id) {
+                // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+                
+                this.idActualizar = posicion_id;
+                this.identificador = this.tab_proveedores[posicion_id].id;
+                
+                this.nombreActualizar = this.tab_proveedores[posicion_id].nombre;
+                this.direccionActualizar = this.tab_proveedores[posicion_id].direccion;
+                this.rfcActualizar = this.tab_proveedores[posicion_id].rfc;
+                this.telefonoActualizar = this.tab_proveedores[posicion_id].telefono;
+                this.correoActualizar = this.tab_proveedores[posicion_id].correo;
+                this.estatusActualizar = this.tab_proveedores[posicion_id].estatus;
+                // Mostramos el formulario
+                this. verActualizar = true;
+            },
+            Actualizar: function (posicion_id) {
+                // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+                this.idActualizar = posicion_id;
+
+
+                const params = {
+                    nombreActualizar: this.nombreActualizar,
+                    direccionActualizar: this.direccionActualizar,
+                    rfcActualizar: this.rfcActualizar,
+                    telefonoActualizar: this.telefonoActualizar,
+                    correoActualizar: this.correoActualizar,
+                    estatusActualizar: this.estatusActualizar
+                };
+
+                axios.put(`tab_proveedores/${this.identificador}`,params).then((response) => {
+                  const nombreActualizar = response.data;
+                  const direccionActualizar = response.data;
+                  const rfcActualizar = response.data;
+                  const telefonoActualizar = response.data;
+                  const correoActualizar = response.data;
+                  const estatusActualizar = response.data;
+
+                  this.$emit('update',nombreActualizar);
+                  this.$emit('update',direccionActualizar);
+                  this.$emit('update',rfcActualizar);
+                  this.$emit('update',telefonoActualizar);
+                  this.$emit('update',correoActualizar);
+                  this.$emit('update',estatusActualizar);
+
+                  
+                  confirm('Proveedor Actualizado', 'Confirmación');
+
+                });
+                location.reload();
+                /*
+                this.nombreActualizar = this.pacientes[paciente_id].nombre;
+                this.edadActualizar = this.pacientes[paciente_id].edad;
+                // Mostramos el formulario
+                this.formActualizar = true;
+                */
+            },
+            Activar: function (posicion_id) {
+                 
+              
+                this.identificador = this.tab_proveedores[posicion_id].id;
+                this.nombreActualizar = this.tab_proveedores[posicion_id].nombre;
+                this.direccionActualizar = this.tab_proveedores[posicion_id].direccion;
+                this.rfcActualizar = this.tab_proveedores[posicion_id].rfc;
+                this.telefonoActualizar = this.tab_proveedores[posicion_id].telefono;
+                this.correoActualizar = this.tab_proveedores[posicion_id].correo;
+                
+              
+                const params = {
+                    estatusActualizar: '1',
+                    nombreActualizar: this.nombreActualizar,
+                    direccionActualizar: this.direccionActualizar,
+                    rfcActualizar: this.rfcActualizar,
+                    telefonoActualizar: this.telefonoActualizar,
+                    correoActualizar: this.correoActualizar
+                };
+
+                axios.put(`tab_proveedores/${this.identificador}`,params).then((response) => {
+                  const estatusActualizar = response.data;
+                  const nombreActualizar = response.data;
+                  const direccionActualizar = response.data;
+                  const rfcActualizar = response.data;
+                  const telefonoActualizar = response.data;
+                  const correoActualizar = response.data;
+                  this.$emit('update',estatusActualizar);
+                  this.$emit('update',nombreActualizar);
+                  this.$emit('update',direccionActualizar);
+                  this.$emit('update',rfcActualizar);
+                  this.$emit('update',telefonoActualizar);
+                  this.$emit('update',correoActualizar);
+
+                });
+                location.reload();
+                confirm('Cliente Habilitado', 'Confirmación');
+
+
+            },
+            Desactivar: function (posicion_id) {
+                 
+              
+                this.identificador = this.tab_proveedores[posicion_id].id;
+                this.nombreActualizar = this.tab_proveedores[posicion_id].nombre;
+                this.direccionActualizar = this.tab_proveedores[posicion_id].direccion;
+                this.rfcActualizar = this.tab_proveedores[posicion_id].rfc;
+                this.telefonoActualizar = this.tab_proveedores[posicion_id].telefono;
+                this.correoActualizar = this.tab_proveedores[posicion_id].correo;
+                
+              
+                const params = {
+                    estatusActualizar: '0',
+                    nombreActualizar: this.nombreActualizar,
+                    direccionActualizar: this.direccionActualizar,
+                    rfcActualizar: this.rfcActualizar,
+                    telefonoActualizar: this.telefonoActualizar,
+                    correoActualizar: this.correoActualizar
+                };
+
+                axios.put(`tab_proveedores/${this.identificador}`,params).then((response) => {
+                  const estatusActualizar = response.data;
+                  const nombreActualizar = response.data;
+                  const direccionActualizar = response.data;
+                  const rfcActualizar = response.data;
+                  const telefonoActualizar = response.data;
+                  const correoActualizar = response.data;
+                  this.$emit('update',estatusActualizar);
+                  this.$emit('update',nombreActualizar);
+                  this.$emit('update',direccionActualizar);
+                  this.$emit('update',rfcActualizar);
+                  this.$emit('update',telefonoActualizar);
+                  this.$emit('update',correoActualizar);
+
+                });
+                location.reload();
+                confirm('Cliente Habilitado', 'Confirmación');
+
 
             }
         }

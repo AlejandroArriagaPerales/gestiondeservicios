@@ -22,6 +22,7 @@ class CreateTabPrestadoresTable extends Migration
             $table->string('telefono');
             $table->integer('disponibilidad');
             $table->string('imagen');
+            $table->string('estatus');
             $table->string('contrasena');
             $table->timestamps();
         });

@@ -37,7 +37,8 @@ class PrestadoresController extends Controller
         $prestador->ubicacion = $request->ubicacionPrestador;
         $prestador->telefono = $request->telefonoPrestador;
         $prestador->disponibilidad = $request->disponibilidadSeleccionada;
-        $prestador->imagen=0;
+        $prestador->imagen = '0';
+        $prestador->estatus = '1';
         $prestador->contrasena = $request->contrasenaPrestador;
         $prestador->save();
 
@@ -74,7 +75,18 @@ class PrestadoresController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $prestador = tab_prestadore::find($id);
+        $prestador->nombre = $request->nombreActualizar;
+        $prestador->apellido = $request->apellidoActualizar;
+        $prestador->correo = $request->correoActualizar;
+        $prestador->ubicacion = $request->ubicacionActualizar;
+        $prestador->telefono = $request->telefonoActualizar;
+        $prestador->estatus = $request->estatusActualizar;
+        
+
+        $prestador->save();
+
+        return $prestador;
     }
 
     /**

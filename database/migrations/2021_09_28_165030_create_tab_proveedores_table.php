@@ -21,6 +21,7 @@ class CreateTabProveedoresTable extends Migration
             $table->string('telefono');
             $table->string('correo');
             $table->longText('logo');
+            $table->string('estatus');
             $table->timestamps();
         });
     }

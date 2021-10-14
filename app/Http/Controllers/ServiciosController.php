@@ -50,7 +50,13 @@ class ServiciosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $servicio = tab_servicio::find($id);
+        $servicio->nombre = $request->nombreActualizar;
+        $servicio->categoria_id = $request->categoriaSeleccionadaActualizar;
+
+        $servicio->save();
+
+        return $servicio;
     }
 
     /**

@@ -18,6 +18,7 @@ class CreateTabProductosTable extends Migration
             $table->string('nombre');
             $table->string('precio');
             $table->integer('categoriaProducto_id')->unsigned();
+            $table->string('estatus');
             $table->foreign('categoriaProducto_id')->references('id')->on('tab_categoriaproductos');
             $table->timestamps();
         });

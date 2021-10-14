@@ -29,6 +29,7 @@ class ProductosController extends Controller
         $proveedor->nombre = $request->nombreProducto;
         $proveedor->precio = $request->precioProducto;
         $proveedor->categoriaProducto_id = $request->categoriaProductoSeleccionada;
+        $proveedor->estatus = '1';
         $proveedor->save();
 
         return $proveedor;
@@ -51,7 +52,15 @@ class ProductosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $producto = tab_producto::find($id);
+        $producto->nombre = $request->nombreActualizar;
+        $producto->precio = $request->precioActualizar;
+        $producto->categoriaProducto_id = $request->categoriaProductoSeleccionadaActualizar;
+        $producto->estatus = $request->estatusActualizar;
+
+        $producto->save();
+
+        return $producto;
     }
 
     /**

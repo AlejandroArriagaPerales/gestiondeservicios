@@ -75,9 +75,11 @@ class CategoriasController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Editar
+        $categoria = tab_categoria::find($id);
+        $categoria->nombre = $request->nombreActualizar;
+        $categoria->save();
 
-
+        return $categoria;
     }
 
     /**

@@ -4,6 +4,7 @@ require('./bootstrap');
 window.Vue = require('vue').default;
 
 
+
 Vue.component('categoriasform-component', require('./components/CategoriasFormComponent.vue').default);
 Vue.component('clientesform-component', require('./components/ClientesFormComponent.vue').default);
 Vue.component('prestadoresform-component', require('./components/PrestadoresFormComponent.vue').default);
@@ -28,8 +29,12 @@ Vue.component('tablametodospago-component', require('./components/TablaMetodosPa
 import Vue from "vue"
 import VueSimpleAlert from "vue-simple-alert";
 
+
+
 Vue.use(VueSimpleAlert);
 
+
 const app = new Vue({
-    el: '#app',
+    el: '#app'
+    
 });
