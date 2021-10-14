@@ -341,7 +341,7 @@
 
                 });
                 location.reload();
-                confirm('Cliente Habilitado', 'Confirmación');
+                confirm('Proveedor Habilitado', 'Confirmación');
 
 
             },
@@ -381,7 +381,7 @@
 
                 });
                 location.reload();
-                confirm('Cliente Habilitado', 'Confirmación');
+                confirm('Proveedor Deshabilitado', 'Confirmación');
 
 
             }

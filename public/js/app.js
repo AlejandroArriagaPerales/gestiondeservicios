@@ -4949,7 +4949,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.$emit('update', telefonoActualizar);
       });
       location.reload();
-      confirm('Cliente Habilitado', 'Confirmación');
+      confirm('Prestador Habilitado', 'Confirmación');
     },
     Desactivar: function Desactivar(posicion_id) {
       var _this4 = this;
@@ -4989,7 +4989,7 @@ __webpack_require__.r(__webpack_exports__);
         _this4.$emit('update', telefonoActualizar);
 
         location.reload();
-        confirm('Cliente Deshabilitado', 'Confirmación');
+        confirm('Prestador Deshabilitado', 'Confirmación');
       });
     }
   }
@@ -5299,7 +5299,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.$emit('update', categoriaProductoSeleccionadaActualizar);
       });
       location.reload();
-      confirm('Cliente Habilitado', 'Confirmación');
+      confirm('Producto Habilitado', 'Confirmación');
     },
     Desactivar: function Desactivar(posicion_id) {
       var _this4 = this;
@@ -5329,7 +5329,7 @@ __webpack_require__.r(__webpack_exports__);
         _this4.$emit('update', categoriaProductoSeleccionadaActualizar);
       });
       location.reload();
-      confirm('Cliente Habilitado', 'Confirmación');
+      confirm('Producto Deshabilitado', 'Confirmación');
     }
   }
 });
@@ -5697,7 +5697,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.$emit('update', correoActualizar);
       });
       location.reload();
-      confirm('Cliente Habilitado', 'Confirmación');
+      confirm('Proveedor Habilitado', 'Confirmación');
     },
     Desactivar: function Desactivar(posicion_id) {
       var _this4 = this;
@@ -5737,7 +5737,7 @@ __webpack_require__.r(__webpack_exports__);
         _this4.$emit('update', correoActualizar);
       });
       location.reload();
-      confirm('Cliente Habilitado', 'Confirmación');
+      confirm('Proveedor Deshabilitado', 'Confirmación');
     }
   }
 });

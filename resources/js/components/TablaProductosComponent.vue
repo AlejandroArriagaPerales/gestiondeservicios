@@ -288,7 +288,7 @@
                   this.$emit('update',categoriaProductoSeleccionadaActualizar);
                 });
                 location.reload();
-                confirm('Cliente Habilitado', 'Confirmación');
+                confirm('Producto Habilitado', 'Confirmación');
 
 
             },
@@ -319,7 +319,7 @@
                   this.$emit('update',categoriaProductoSeleccionadaActualizar);
                 });
                 location.reload();
-                confirm('Cliente Habilitado', 'Confirmación');
+                confirm('Producto Deshabilitado', 'Confirmación');
 
 
             }

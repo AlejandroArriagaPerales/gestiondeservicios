@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoriaProductosController;
 use App\Http\Controllers\CategoriasController;
@@ -32,6 +33,7 @@ use App\Http\Controllers\TablaPrestadoresController;
 use App\Http\Controllers\TablaProductosController;
 use App\Http\Controllers\TablaProveedoresController;
 use App\Http\Controllers\TablaServiciosController;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
 
@@ -41,6 +43,9 @@ Route::get('/', HomeController::class);
 
 Route::post('dashboard', DashboardController::class)->name('dashboard');
 Route::get('dashboard', DashboardController::class)->name('dashboard');
+
+Route::get('/logout', 'Auth\LoginController@logout');
+Route::post('/logout', 'Auth\LoginController@logout');
 
 Route::post('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores');
 Route::get('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores');

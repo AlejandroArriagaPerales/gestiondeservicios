@@ -350,7 +350,7 @@
 
                 });
                 location.reload();
-                confirm('Cliente Habilitado', 'Confirmación');
+                confirm('Prestador Habilitado', 'Confirmación');
 
 
             },
@@ -388,7 +388,7 @@
                   this.$emit('update',ubicacionActualizar);
                   this.$emit('update',telefonoActualizar);
                   location.reload();
-                  confirm('Cliente Deshabilitado', 'Confirmación');
+                  confirm('Prestador Deshabilitado', 'Confirmación');
 
                 });
                 
