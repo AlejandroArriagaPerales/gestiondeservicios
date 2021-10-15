@@ -11,7 +11,7 @@
   <div class="main-panel" id="main-panel">
     <div class="content">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-lg-8">
           <div class="card">
 
             <div class="card-header">

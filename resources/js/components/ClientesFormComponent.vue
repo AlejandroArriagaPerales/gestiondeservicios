@@ -38,22 +38,6 @@
                   </div>
                 </div>
 
-                
-
-                <div class="form-group">
-                  <label>Selecciona tus metodos de pago</label>
-
-                    <select class="form-control" v-model="PagosSeleccionado" >
-                        <option :value="tab_metodopago.id" v-for="(tab_metodopago) in tab_metodopagos" :key="tab_metodopago.id" >
-                          {{tab_metodopago.nombre}}
-                        </option>
-                    </select>
-
-                    <button class="buttontabla" v-on:click.prevent="AgregarMetodoPago()">Aceptar</button>   
-                </div>
-
-                
-
                 <div class="">
                   <div class="">
                     <div class="form-group">
@@ -71,7 +55,28 @@
                     </div>
                   </div>
                 </div>
+                <div></div>
+                <table class="tabla">
+                  <tr>
+                    <td>
+                      <label>Selecciona tus metodos de pago</label>
+                            <div class="form-group">
+                              <select class="form-control" v-model="PagosSeleccionado" >
+                                  <option :value="tab_metodopago.id" v-for="(tab_metodopago) in tab_metodopagos" :key="tab_metodopago.id" >
+                                    {{tab_metodopago.nombre}}
+                                  </option>
+                              </select>
+                            </div>        
+                    </td>
+                    
+                    <td>
+                            <button class="buttontabla" v-on:click.prevent="AgregarMetodoPago()">Aceptar</button>    
+                    </td>
+                  </tr>
+                </table>
 
+                <br><br>
+                <br>
                 <br>
                 <input style="width: 120px; height: 50px; background:#F96332;" class="buttons" type="submit" name="" value="Agregar">
                               

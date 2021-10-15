@@ -9,8 +9,9 @@
                     </div>
                   </div>
                 </div>
+              
 
-                <div class="">
+                <div class="espacio">
                   <div class="">
                     <div class="form-group">
                       <label>Apellidos</label>
@@ -18,8 +19,9 @@
                     </div>
                   </div>
                 </div>
+               
 
-                <div class="">
+                <div class="espacio">
                   <div class="">
                     <div class="form-group">
                       <label>Correo Electrónico</label>
@@ -28,7 +30,7 @@
                   </div>
                 </div>
 
-                <div class="">
+                <div class="espacio">
                   <div class="">
                     <div class="form-group">
                       <label>Dirección</label>
@@ -37,7 +39,7 @@
                   </div>
                 </div>
 
-                <div class="">
+                <div class="espacio">
                   <div class="">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Teléfono</label>
@@ -46,7 +48,7 @@
                   </div>
                 </div>
 
-                <div class="">
+                <div class="espacio">
                   <div class="">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Seleccione una imagen</label>
@@ -78,7 +80,7 @@
                         -->
 
                 
-                <div class="">
+                <div class="espacio">
                   <div class="">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Disponiblidad</label>
@@ -90,7 +92,7 @@
                   </div>
                 </div>
 
-                <div class="">
+                <div class="espacio">
                   <div class="">
                     <div class="form-group">
                       <label>Contraseña</label>
@@ -99,7 +101,7 @@
                   </div>
                 </div>
                   
-                <div class="">
+                <div class="espacio">
                   <div class="">
                     <div class="form-group">
                       <label>Confirmar Contraseña</label>
@@ -107,6 +109,8 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="espacio"></div>
 
                 <table class="tabla">
                   <tr>
@@ -133,17 +137,11 @@
                             </div>               
                     </td>
                     <td>
-                            <button class="buttontabla" v-on:click.prevent="AgregarServicio()">Aceptar</button>   
+                            <button class="buttontabla" style="width: 10px;" v-on:click.prevent="AgregarServicio()">Aceptar</button>   
                     </td>
                   </tr>
                 </table>
-
-
-                
-               
-
-                
-                
+                 <br>  
                 <br>           
                 <br>
                 <br>

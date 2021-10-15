@@ -2337,6 +2337,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {
@@ -2610,8 +2615,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
 //
 //
 //
@@ -48355,71 +48358,6 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Selecciona tus metodos de pago")]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.PagosSeleccionado,
-                  expression: "PagosSeleccionado"
-                }
-              ],
-              staticClass: "form-control",
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.PagosSeleccionado = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
-              }
-            },
-            _vm._l(_vm.tab_metodopagos, function(tab_metodopago) {
-              return _c(
-                "option",
-                {
-                  key: tab_metodopago.id,
-                  domProps: { value: tab_metodopago.id }
-                },
-                [
-                  _vm._v(
-                    "\n                      " +
-                      _vm._s(tab_metodopago.nombre) +
-                      "\n                    "
-                  )
-                ]
-              )
-            }),
-            0
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "buttontabla",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.AgregarMetodoPago()
-                }
-              }
-            },
-            [_vm._v("Aceptar")]
-          )
-        ]),
-        _vm._v(" "),
         _c("div", {}, [
           _c("div", {}, [
             _c("div", { staticClass: "form-group" }, [
@@ -48451,6 +48389,86 @@ var render = function() {
         ]),
         _vm._v(" "),
         _vm._m(0),
+        _vm._v(" "),
+        _c("div"),
+        _vm._v(" "),
+        _c("table", { staticClass: "tabla" }, [
+          _c("tr", [
+            _c("td", [
+              _c("label", [_vm._v("Selecciona tus metodos de pago")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.PagosSeleccionado,
+                        expression: "PagosSeleccionado"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.PagosSeleccionado = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  _vm._l(_vm.tab_metodopagos, function(tab_metodopago) {
+                    return _c(
+                      "option",
+                      {
+                        key: tab_metodopago.id,
+                        domProps: { value: tab_metodopago.id }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(tab_metodopago.nombre) +
+                            "\n                              "
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "buttontabla",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.AgregarMetodoPago()
+                    }
+                  }
+                },
+                [_vm._v("Aceptar")]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _c("br"),
+        _vm._v(" "),
+        _c("br"),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
@@ -48813,7 +48831,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", {}, [
+        _c("div", { staticClass: "espacio" }, [
           _c("div", {}, [
             _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Apellidos")]),
@@ -48843,7 +48861,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", {}, [
+        _c("div", { staticClass: "espacio" }, [
           _c("div", {}, [
             _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Correo Electrónico")]),
@@ -48873,7 +48891,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", {}, [
+        _c("div", { staticClass: "espacio" }, [
           _c("div", {}, [
             _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Dirección")]),
@@ -48903,7 +48921,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", {}, [
+        _c("div", { staticClass: "espacio" }, [
           _c("div", {}, [
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "exampleInputEmail1" } }, [
@@ -48950,7 +48968,7 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _c("div", {}, [
+        _c("div", { staticClass: "espacio" }, [
           _c("div", {}, [
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "exampleInputEmail1" } }, [
@@ -48999,7 +49017,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", {}, [
+        _c("div", { staticClass: "espacio" }, [
           _c("div", {}, [
             _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Contraseña")]),
@@ -49030,6 +49048,8 @@ var render = function() {
         ]),
         _vm._v(" "),
         _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "espacio" }),
         _vm._v(" "),
         _c("table", { staticClass: "tabla" }, [
           _c("tr", [
@@ -49163,6 +49183,7 @@ var render = function() {
                 "button",
                 {
                   staticClass: "buttontabla",
+                  staticStyle: { width: "10px" },
                   on: {
                     click: function($event) {
                       $event.preventDefault()
@@ -49175,6 +49196,8 @@ var render = function() {
             ])
           ])
         ]),
+        _vm._v(" "),
+        _c("br"),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
@@ -49196,7 +49219,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", {}, [
+    return _c("div", { staticClass: "espacio" }, [
       _c("div", {}, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "exampleInputEmail1" } }, [
@@ -49210,7 +49233,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", {}, [
+    return _c("div", { staticClass: "espacio" }, [
       _c("div", {}, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", [_vm._v("Confirmar Contraseña")]),
@@ -49862,7 +49885,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("PDF")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" PDF")
+                  ]
                 )
               ])
             ]),
@@ -49886,7 +49912,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("XLS")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v("XLS")
+                  ]
                 )
               ])
             ])
@@ -50122,7 +50151,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("PDF")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" PDF")
+                  ]
                 )
               ])
             ]),
@@ -50146,7 +50178,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("XLS")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" XLS")
+                  ]
                 )
               ])
             ])
@@ -50325,7 +50360,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("PDF")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" PDF")
+                  ]
                 )
               ])
             ]),
@@ -50349,7 +50387,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("XLS")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" XLS")
+                  ]
                 )
               ])
             ])
@@ -50669,7 +50710,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("PDF")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" PDF")
+                  ]
                 )
               ])
             ]),
@@ -50693,7 +50737,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("XLS")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" XLS")
+                  ]
                 )
               ])
             ])
@@ -50996,7 +51043,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("PDF")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" PDF")
+                  ]
                 )
               ])
             ]),
@@ -51020,7 +51070,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("XLS")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" XLS")
+                  ]
                 )
               ])
             ])
@@ -51189,7 +51242,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("PDF")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" PDF")
+                  ]
                 )
               ])
             ]),
@@ -51213,7 +51269,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("XLS")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" XLS")
+                  ]
                 )
               ])
             ])
@@ -51571,7 +51630,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("PDF")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" PDF")
+                  ]
                 )
               ])
             ]),
@@ -51595,7 +51657,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("XLS")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" XLS")
+                  ]
                 )
               ])
             ])
@@ -51921,7 +51986,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("PDF")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" PDF")
+                  ]
                 )
               ])
             ]),
@@ -51945,7 +52013,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("XLS")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v("XLS")
+                  ]
                 )
               ])
             ])
@@ -52311,7 +52382,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("PDF")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" PDF")
+                  ]
                 )
               ])
             ]),
@@ -52335,7 +52409,10 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("XLS")]
+                  [
+                    _c("i", { staticClass: "fa-solid fa-download" }),
+                    _vm._v(" XLS")
+                  ]
                 )
               ])
             ])

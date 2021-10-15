@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>@yield('title')</title>
   
@@ -13,148 +14,90 @@
   <!-- CSS Files -->
   <link href="css/bootstrap.min.css" rel="stylesheet" />
   <link href="css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
-  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" /> 
+  <link href="css/estilo.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
 <body>
-    
-    
-  <div class="wrapper ">
-    <div class="sidebar" data-color="orange">
-      <div class="logo">
-        <a class="simple-text logo-normal">
-          @yield('tituloBarra')
-        </a>
-      </div>
-      <div class="sidebar-wrapper" id="sidebar-wrapper">
-        <ul class="nav">
-          <li>
-            <!-- <li class="active "> -->
-            <a href="dashboard">
-              <i class="now-ui-icons design_app"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li>
-            <a href="registroprestadores">
-              <i class="now-ui-icons education_atom"></i>
-              <p>Registro Prestadores</p>
-            </a>
-          </li>
-          <li>
-            <a href="registroadministradores">
-              <i class="now-ui-icons education_atom"></i>
-              <p>Registro Administradores</p>
-            </a>
-          </li>
-          <li>
-            <a href="registroclientes">
-              <i class="now-ui-icons design_app"></i>
-              <p>Registro de Clientes</p>
-            </a>
-          </li>
-          <li>
-            <a href="registrocategorias">
-              <i class="now-ui-icons ui-1_bell-53"></i>
-              <p>Registro de Categorias</p>
-            </a>
-          </li>
-          <li>
-            <a href="registroproveedores">
-              <i class="now-ui-icons ui-1_bell-53"></i>
-              <p>Registro de Proveedores</p>
-            </a>
-          </li>
-          <li>
-            <a href="registrocontactoproveedores">
-              <i class="now-ui-icons ui-1_bell-53"></i>
-              <p>Registro de Contacto de Proveedor</p>
-            </a>
-          </li>
-          <li>
-            <a href="registrocategoriaproductos">
-              <i class="now-ui-icons ui-1_bell-53"></i>
-              <p>Registro de Categorias de Productos</p>
-            </a>
-          </li>
-          <li>
-            <a href="registroproductos">
-              <i class="now-ui-icons ui-1_bell-53"></i>
-              <p>Registro de Productos</p>
-            </a>
-          </li>
-          <li>
-            <a href="registrometodopago">
-              <i class="now-ui-icons ui-1_bell-53"></i>
-              <p>Registro de Metodo Pago</p>
-            </a>
-          </li>
-          <li>
-              <a href="registroservicios">
-                <i class="now-ui-icons education_atom"></i>
-                <p>Registro de Servicios</p>
-              </a>
-            </li>
-          <li>
-            
-            <a href="tablaprestadores">
-              <i class="now-ui-icons ui-1_bell-53"></i>
-              <p>Tabla de Prestadores</p>
-            </a>
-          </li>
-          <li>
-            <a href="tablaclientes">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Tabla de Clientes</p>
-            </a>
-          </li>
-          <li>
-            <a href="tablametodospago">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Tabla de Métodos</p>
-            </a>
-          </li>
-          <li>
-            <a href="tablacategorias">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Tabla de Categorias</p>
-            </a>
-          </li>
-          <li>
-            <a href="tablaservicios">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Tabla de Servicios</p>
-            </a>
-          </li>
-          <li>
-            <a href="tablaproveedores">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Tabla de Proveedores</p>
-            </a>
-          </li>
-          <li>
-            <a href="tablacontactosproveedores">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Tabla de Contactos</p>
-            </a>
-          </li>
-          <li>
-            <a href="tablacategoriaproductos">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Tabla de Categoria Productos</p>
-            </a>
-          </li>
-          <li>
-            <a href="tablaproductos">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Tabla de Productos</p>
-            </a>
-          </li>
+  
+  
+    <div class="side-bar" >
+      
+      
+      <div class="menu">
+          <div class="item"><a href="dashboard"><i class="fa-solid fa-grip"></i>Dashboard</a></div>
           
-        </ul>
+          <div class="item">
+            <a class="sub-btn"><i class="fas fa-desktop"></i>Administrador<i class="fas fa-angle-right dropdown"></i></a>
+            <div class="sub-menu">
+              <a href="registroadministradores" class="sub-item"><i class="fa-solid fa-pencil"></i>Registro Administrador</a>
+            </div>
+          </div>
+
+          <div class="item">
+            <a class="sub-btn"><i class="fa-solid fa-helmet-safety"></i>Prestador Servicio<i class="fas fa-angle-right dropdown"></i></a>
+            <div class="sub-menu">
+              <a href="registroprestadores" class="sub-item"><i class="fa-solid fa-pencil"></i>Registro Prestadores</a>
+              <a href="tablaprestadores" class="sub-item"><i class="fa-solid fa-table"></i>Tabla Prestadores</a>
+            </div>
+          </div>
+
+          <div class="item">
+            <a class="sub-btn"><i class="fa-solid fa-user"></i>Cliente<i class="fas fa-angle-right dropdown"></i></a>
+            <div class="sub-menu">
+              <a href="registroclientes" class="sub-item"><i class="fa-solid fa-pencil"></i>Registro Clientes</a>
+              <a href="tablaclientes" class="sub-item"><i class="fa-solid fa-table"></i>Tabla Clientes</a>
+            </div>
+          </div>
+
+          <div class="item">
+            <a class="sub-btn"><i class="fa-solid fa-brush"></i>Servicios<i class="fas fa-angle-right dropdown"></i></a>
+            <div class="sub-menu">
+              <a href="registrocategorias" class="sub-item"><i class="fa-solid fa-pencil"></i>Registro Categorias</a>
+              <a href="registroservicios" class="sub-item"><i class="fa-solid fa-pencil"></i>Registro Servicios</a>
+              <a href="tablacategorias" class="sub-item"><i class="fa-solid fa-table"></i>Tabla Categorias</a>
+              <a href="tablaservicios" class="sub-item"><i class="fa-solid fa-table"></i>Tabla Servicios</a>
+            </div>
+          </div>
+
+          <div class="item">
+            <a class="sub-btn"><i class="fa-solid fa-store"></i>Proveedores<i class="fas fa-angle-right dropdown"></i></a>
+            <div class="sub-menu">
+              <a href="registroproveedores" class="sub-item"><i class="fa-solid fa-pencil"></i>Registro Proveedores</a>
+              <a href="registrocontactoproveedores" class="sub-item"><i class="fa-solid fa-pencil"></i>Registro Contacto</a>
+              <a href="tablaproveedores" class="sub-item"><i class="fa-solid fa-table"></i>Tabla Proveedores</a>
+              <a href="tablacontactosproveedores" class="sub-item"><i class="fa-solid fa-table"></i>Tabla Contactos</a>
+            </div>
+          </div>
+
+          <div class="item">
+            <a class="sub-btn"><i class="fa-solid fa-bag-shopping"></i>Productos<i class="fas fa-angle-right dropdown"></i></a>
+            <div class="sub-menu">
+              <a href="registroproductos" class="sub-item"><i class="fa-solid fa-pencil"></i>Registro Productos</a>
+              <a href="registrocategoriaproductos" class="sub-item"><i class="fa-solid fa-pencil"></i>Registro Categorias Productos</a>
+              <a href="tablaproductos" class="sub-item"><i class="fa-solid fa-table"></i>Tabla Productos</a>
+              <a href="tablacategoriaproductos" class="sub-item"><i class="fa-solid fa-table"></i>Tabla Categorias Productos</a>
+            </div>
+          </div>
+
+          <div class="item">
+            <a class="sub-btn"><i class="fa-solid fa-money-check-dollar"></i>Metodos de Pago<i class="fas fa-angle-right dropdown"></i></a>
+            <div class="sub-menu">
+              <a href="registrometodopago" class="sub-item"><i class="fa-solid fa-pencil"></i>Registro Metodo de Pago</a>
+              <a href="tablametodospago" class="sub-item"><i class="fa-solid fa-table"></i>Tabla Metodo de Pago</a>
+            </div>
+          </div>
+
+          
+
+
+
       </div>
+      
     </div>
 
     <div class="main-panel" id="main-panel">
@@ -163,44 +106,21 @@
           
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <div class="navbar-toggle">
-              <button type="button" class="navbar-toggler">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </button>
-            </div>
-            <a class="navbar-brand" href="#pablo">@yield('tituloPagina')</a>
-            
-            
+            <a class="navbar-brand">@yield('tituloPagina')</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
+          
+          
+            
+            
+              
+        <div style="padding-right: 30px;">        
+          <button class="botonsalir"  href="{{ route('logout') }}">
+              <i class="fa-solid fa-right-from-bracket"></i> Salir                 
           </button>
-          <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <form>
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Buscar...">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <i class="now-ui-icons ui-1_zoom-bold"></i>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}">
-                  <i class="now-ui-icons users_single-02"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
-                </a>
-              </li>
-            </ul>
-          </div>
+        </div>      
+
+            
+          
         </div>
       </nav>
       <!-- End Navbar -->
@@ -219,7 +139,29 @@
       
     </div>
     
-  </div>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        //jquery for toggle sub menus
+        $('.sub-btn').click(function(){
+          $(this).next('.sub-menu').slideToggle();
+          $(this).find('.dropdown').toggleClass('rotate');
+        });
+   
+        //jquery for expand and collapse the sidebar
+        $('.menu-btn').click(function(){
+          $('.side-bar').addClass('active');
+          $('.menu-btn').css("visibility", "hidden");
+        });
+   
+        $('.close-btn').click(function(){
+          $('.side-bar').removeClass('active');
+          $('.menu-btn').css("visibility", "visible");
+        });
+      });
+      </script>
+
+
+
   
 </body>
 

@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 Route::post('/', HomeController::class);
 Route::get('/', HomeController::class);
 
