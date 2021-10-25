@@ -118,7 +118,7 @@
                 this.rfcProveedor='';
                 this.telefonoProveedor='';
                 this.correoProveedor='';
-                confirm('Proveedor Agregado', 'Confirmación');
+               
                 axios.post('tab_proveedores',params).then((response) => {
                   const nombreProveedor = response.data;
                   const apellidoProveedor = response.data;
@@ -132,6 +132,7 @@
                   this.$emit('new',rfcProveedor);
                   this.$emit('new',telefonoProveedor);
                   this.$emit('new',correoProveedor);
+                  Vue.swal("Proveedor Agregado", "", "success");
                 });
              
                 

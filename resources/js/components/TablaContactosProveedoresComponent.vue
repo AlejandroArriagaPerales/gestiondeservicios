@@ -101,7 +101,7 @@
                           </span>
                            <span v-else>
                         
-                                    {{tab_contacto.proveedore_id}}
+                                    {{tab_proveedores[tab_contactos[index].proveedore_id - 1 ].nombre}}
                                       </span>
                           
                         </td>

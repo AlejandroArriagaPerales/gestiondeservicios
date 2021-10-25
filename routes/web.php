@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CategoriaPrestadorServiciosController;
 use App\Http\Controllers\CategoriaProductosController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ClientesController;
@@ -124,6 +125,7 @@ Route::apiResource('tab_contactos',ContactosController::class);
 Route::apiResource('tab_categoriaproductos',CategoriaProductosController::class);
 Route::apiResource('tab_productos',ProductosController::class);
 Route::apiResource('tab_metodopagos',MetodoPagosController::class);
+Route::apiResource('tab_categoriaprestadorservicios',CategoriaPrestadorServiciosController::class);
 
 
 

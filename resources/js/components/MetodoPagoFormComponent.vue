@@ -39,13 +39,13 @@
                     
                 };
                 this.nombreMetodoPago='';
-                confirm('Metodo de Pago Agregado', 'Confirmación');
                 
                 
                 
                 axios.post('tab_metodopagos',params).then((response) => {
                   const nombreMetodoPago = response.data;
                   this.$emit('new',nombreMetodoPago);
+                  Vue.swal("Metodo de Pago Agregado", "", "success");
                 });
                 
              

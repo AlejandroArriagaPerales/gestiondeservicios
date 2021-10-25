@@ -32,7 +32,7 @@
                         Nombre
                       </th>
                       <th>
-                        ID Categoria
+                        Categoria
                       </th>
                       <th>
                         
@@ -69,7 +69,9 @@
                           </span>
                            <span v-else>
                         
-                                    {{tab_servicio.categoria_id}}
+                                   <!--{{tab_servicio.categoria_id}} -->
+                                   {{tab_categorias[tab_servicios[index].categoria_id - 1 ].nombre}}
+                                   
                                       </span>
                           
                         </td>

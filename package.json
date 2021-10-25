@@ -13,7 +13,7 @@
         "axios": "^0.21",
         "bootstrap": "^4.6.0",
         "deepmerge": "^4.2.2",
-        "jquery": "^3.6",
+        "jquery": "^3.6.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "popper.js": "^1.16.1",
@@ -31,7 +31,11 @@
         "jspdf": "^2.4.0",
         "jspdf-autotable": "^3.5.20",
         "select2": "^4.1.0-rc.0",
+        "sweetalert2": "^11.1.9",
+        "vue-select": "^3.16.0",
+        "vue-select2": "^0.2.6",
         "vue-simple-alert": "^1.1.1",
+        "vue-sweetalert2": "^5.0.2",
         "vuetify": "^2.5.10",
         "xlsx": "^0.17.2"
     }

@@ -2,20 +2,38 @@
     <div class="card-body">
               <form action="" v-on:submit.prevent="newProducto()">
 
-                <div class="form-group">
-                  <label>Selecciona una categoria de producto</label>
+              
 
-                    <select class="form-control" v-on="Recibido()" v-model="categoriaProductoSeleccionada" >
-                        <option :value="tab_categoriaproducto.id" v-for="(tab_categoriaproducto) in tab_categoriaproductos" :key="tab_categoriaproducto.id" >
-                          {{tab_categoriaproducto.nombre}}
-                        </option>
-                    </select>
+                <table class="tabla">
+                  <tr>
+                    <td>
+                            <div class="form-group">
+                              <label>Proveedor</label>
+                              <v-select  v-model="proveedorSeleccionado" label="nombre" :options="tab_proveedores"  :reduce="nombre => nombre.id" :searchable="true"   @input="getProveedorCategoria()">
+                              </v-select>
+                            </div>        
+                    </td>
+                    <td>      
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Categoria de Producto</label>
 
-                     
 
-                </div>
+                              <v-select  v-model="categoriaProductoSeleccionada" label="nombre"  :options="tab_categoriaproductosmodificada" :reduce="nombre => nombre.id"  :searchable="true" >
+                              </v-select>
+                            </div>               
+                    </td>
+                    <td>
+                            <button class="buttontabla" v-on:click.prevent="AgregarServicio()">Aceptar</button>   
+                             
+                    </td>
+                  </tr>
+                </table>
 
                 <br>
+                <br>
+                <br>
+                <br>
+                
 
                 <div class="form-group">
                   <label>Nombre</label>
@@ -51,6 +69,7 @@
   
     export default {
       created(){
+        axios.get('tab_proveedores').then(response => this.tab_proveedores = response.data);
         axios.get('tab_categoriaproductos').then(response => this.tab_categoriaproductos = response.data);
       },
         data(){
@@ -58,7 +77,10 @@
                 nombreProducto: '',
                 precioProducto: '',
                 categoriaProductoSeleccionada: '',
-                tab_categoriaproductos: []
+                proveedorSeleccionado: '',
+                tab_categoriaproductos: [],
+                tab_proveedores: [],
+                tab_categoriaproductosmodificada: []
             }
             
         },
@@ -75,7 +97,6 @@
                 this.nombreProducto='';
                 this.precioProducto='';
                 this.categoriaProductoSeleccionada='';
-                confirm('Producto Agregado', 'Confirmación');
                 axios.post('tab_productos',params).then((response) => {
                   const nombreProducto = response.data;
                   const precioProducto = response.data;
@@ -83,14 +104,15 @@
                   this.$emit('new',nombreProducto);
                   this.$emit('new',precioProducto);
                   this.$emit('new',categoriaProductoSeleccionada);
+                  Vue.swal("Producto Agregado", "", "success");
                 });
              
                 
             },
-            Recibido(){
-              
-              
-            }
+            getProveedorCategoria(){
+              axios.get('tab_categoriaproductos').then(response => this.tab_categoriaproductos = response.data);
+              this.tab_categoriaproductosmodificada = this.tab_categoriaproductos.filter(tab_categoriaproducto => tab_categoriaproducto.proveedore_id == this.proveedorSeleccionado );
+            },
         }
     }
 </script>

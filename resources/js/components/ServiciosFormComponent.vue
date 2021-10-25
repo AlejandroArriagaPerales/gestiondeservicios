@@ -5,11 +5,9 @@
                 <div class="form-group">
                   <label>Selecciona una categoria</label>
 
-                    <select class="form-control" v-on="Recibido()" v-model="categoriaSeleccionada" >
-                        <option :value="tab_categoria.id" v-for="(tab_categoria) in tab_categorias" :key="tab_categoria.id" >
-                          {{tab_categoria.nombre}}
-                        </option>
-                    </select>
+                    
+                    <v-select  v-model="categoriaSeleccionada" label="nombre"  :options="tab_categorias" :reduce="nombre => nombre.id"  :searchable="true" >
+                    </v-select>
 
                      
 
@@ -67,13 +65,14 @@
                 };
                 this.nombreServicio='';
                 this.categoriaSeleccionada='';
-                confirm('Servicio Agregado', 'Confirmación');
+                
                 axios.post('tab_servicios',params).then((response) => {
                   const categoriaSeleccionada = response.data;
                   const nombreServicio = response.data;
                   
                   this.$emit('new',nombreServicio);
                   this.$emit('new',categoriaSeleccionada);
+                  Vue.swal("Servicio Agregado", "", "success");
                 });
              
                 

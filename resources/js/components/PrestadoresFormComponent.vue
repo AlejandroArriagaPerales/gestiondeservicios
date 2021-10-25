@@ -117,48 +117,88 @@
                     <td>
                             <div class="form-group">
                               <label for="exampleInputEmail1">Categoria</label>
-                              <select class="form-control" v-model="categoriaSeleccionada" @change="getServiciosCategorias()">
-                                <option :value="tab_categoria.id" v-for="(tab_categoria) in tab_categorias" :key="tab_categoria.id" >
-                                  {{tab_categoria.nombre}}
-                                </option>
-                              </select>
+                              <v-select  v-model="categoriaSeleccionada" label="nombre" :options="tab_categorias"  :reduce="nombre => nombre.id" :searchable="true"   @input="getServiciosCategorias()">
+                              </v-select>
                             </div>        
                     </td>
                     <td>      
                             <div class="form-group">
                               <label for="exampleInputEmail1">Servicio</label>
 
-                              <select class="form-control"  v-model="servicioSeleccionado" v-if="categoriaSeleccionada" @change="getServicio()">
-
-                                <option :value="tab_servicio.id" v-for="tab_servicio in tab_servicios" v-if="tab_servicio.categoria_id === categoriaSeleccionada" :key="tab_servicio.id" >
-                                  {{tab_servicio.nombre}}
-                                </option>
-                              </select>
+                              <v-select  v-model="servicioSeleccionado" label="nombre"  :options="tab_servicios_modificada" :reduce="nombre => nombre.id"  :searchable="true" >
+                              </v-select>
                             </div>               
                     </td>
                     <td>
-                            <button class="buttontabla" style="width: 10px;" v-on:click.prevent="AgregarServicio()">Aceptar</button>   
+                            <button class="buttontabla"  v-on:click.prevent="AgregarServicio()">Aceptar</button>   
+                             
                     </td>
                   </tr>
                 </table>
-                 <br>  
-                <br>           
+
+                <br>  
+                <br>     
+                <br><br>
+                <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Nombre Categoria
+                      </th>
+                      <th>
+                        Nombre Servicio
+                      </th>
+                      <th>
+                        Acción
+                      </th>
+                      
+                    </thead>
+                   
+
+                    <tbody>
+                      <!--
+                      <tr  v-for="(serviciosAgregado) in serviciosAgregados" :key="serviciosAgregado"> 
+                       
+                       
+
+                      </tr>
+                      -->
+
+                      <tr v-for="(serviciosCategoria,index) in serviciosCategorias" :key="index"  >
+                       <td>
+                        
+                         {{tab_categorias[serviciosCategoria.categoria-1].nombre}}
+                         
+                        </td>
+                        <td>
+                          {{tab_servicios[serviciosCategoria.servicio-1].nombre}}
+                        </td>
+                        <td>
+                           <button class="btn btn-success" style="background: #AD290B"  v-on:click.prevent="Eliminar(index)">Eliminar</button>
+                        </td>
+                       
+                      </tr>
+                        
+                      
+                    </tbody>
+                  </table>
                 <br>
                 <br>
                 <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Guardar">
-                        
               </form>
             </div>
 </template>
 
+<script src="https://unpkg.com/vue-swal"></script>
 <script>
+
 import axios from "axios";
     export default {
       created(){
         axios.get('tab_categorias').then(response => this.tab_categorias = response.data);
-
+        axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
       },
         data(){
+          
             return {
                 nombrePrestador: '',
                 apellidoPrestador: '',
@@ -174,8 +214,18 @@ import axios from "axios";
                 serviciosAgregados: [],
                 cantidadServiciosAgregados: 0,
                 categoriasAgregadas: [],
-                cantidadCategoriasAgregadas: 0
+                cantidadCategoriasAgregadas: 0,
+                tab_servicios_modificada: [],
+                serviciosAgregadosModificados: [],
+                categoriasAgregadasModificadas: [],
+                
+                serviciosCategorias:[
+                ],
+                categoria: '',
+                servicio: '',
+                
             }
+            
             
         },
         mounted() {
@@ -183,6 +233,7 @@ import axios from "axios";
         },
         methods: {
             newPrestador(){
+              
                 const params = {
                     nombrePrestador: this.nombrePrestador,
                     apellidoPrestador: this.apellidoPrestador,
@@ -201,7 +252,8 @@ import axios from "axios";
                 this.telefonoPrestador='';
                 this.contrasenaPrestador='';
                 this.disponibilidadSeleccionada="";
-                confirm('Prestador Agregado', 'Confirmación');
+                
+                
                 axios.post('tab_prestadores',params).then((response) => {
                   const nombrePrestador = response.data;
                   const apellidoPrestador = response.data;
@@ -221,6 +273,8 @@ import axios from "axios";
                   this.$emit('new',contrasenaPrestador);
                   this.$emit('new',serviciosAgregados);
                   this.$emit('new',categoriasAgregadas);
+                  Vue.swal("Prestador Agregado", "", "success");
+                  location.reload();
                 });
                 
 
@@ -230,23 +284,40 @@ import axios from "axios";
 
             },
             AgregarServicio(){
-              this.categoriasAgregadas[this.cantidadCategoriasAgregadas] = this.categoriaSeleccionada;
-              this.cantidadCategoriasAgregadas = this.cantidadCategoriasAgregadas+1;
-              console.log(this.categoriasAgregadas);
+              
+            this.tab_servicios_modificada = this.tab_servicios.filter(tab_servicio => tab_servicio.categoria_id == this.categoriaSeleccionada );
 
+            this.categoriasAgregadas[this.cantidadCategoriasAgregadas] = this.categoriaSeleccionada;
+            this.cantidadCategoriasAgregadas = this.cantidadCategoriasAgregadas+1;  
 
-              this.serviciosAgregados[this.cantidadServiciosAgregados] = this.servicioSeleccionado;
-              this.cantidadServiciosAgregados = this.cantidadServiciosAgregados+1;
-              console.log(this.serviciosAgregados);
+            this.serviciosAgregados[this.cantidadServiciosAgregados] = this.servicioSeleccionado;
+            this.cantidadServiciosAgregados = this.cantidadServiciosAgregados+1;
+
+            this.serviciosCategorias.push({ categoria: this.categoriaSeleccionada, servicio: this.servicioSeleccionado})
+              
+            console.log(this.serviciosCategorias);
+
+            
+
+              confirm('Servicio Agregado', 'Confirmación');
                 
             },
             getServiciosCategorias(){
               axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
-            },
-            getServicio(){
+              this.tab_servicios_modificada = this.tab_servicios.filter(tab_servicio => tab_servicio.categoria_id == this.categoriaSeleccionada );
+
               
+            },
+            Eliminar: function (posicion_id){
+                this.serviciosCategorias.splice(posicion_id, 1);
+                this.categoriasAgregadas.splice(posicion_id, 1);
+                this.serviciosAgregados.splice(posicion_id, 1);
+                
+                this.tab_servicios_modificada = this.tab_servicios.filter(tab_servicio => tab_servicio.categoria_id == this.categoriaSeleccionada );
             }
         }
+        
     }
+    
 </script>
 

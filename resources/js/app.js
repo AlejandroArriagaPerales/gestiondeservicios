@@ -1,6 +1,5 @@
 
 require('./bootstrap');
-
 window.Vue = require('vue').default;
 
 
@@ -26,15 +25,31 @@ Vue.component('tablacategorias-component', require('./components/TablaCategorias
 Vue.component('tablacontactosproveedores-component', require('./components/TablaContactosProveedoresComponent.vue').default)
 Vue.component('tablametodospago-component', require('./components/TablaMetodosPagoComponent.vue').default)
 
+Vue.component('v-select', VueSelect.VueSelect);
+
 import Vue from "vue"
 import VueSimpleAlert from "vue-simple-alert";
+import VueSweetalert2 from 'vue-sweetalert2';
+import vSelect from 'vue-select';
+
+Vue.component('v-select', vSelect)
+
+
+// If you don't need the styles, do not connect
+import 'sweetalert2/dist/sweetalert2.min.css';
+import 'vue-select/dist/vue-select.css';
 
 
 
 Vue.use(VueSimpleAlert);
-
+Vue.use(VueSweetalert2);
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    components: {
+        "vue-select": require("vue-select")
+      },
     
 });
+
+

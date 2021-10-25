@@ -31,7 +31,7 @@
                         Nombre
                       </th>
                       <th>
-                        ID Proveedor
+                        Proveedor
                       </th>
                       <th>
                         
@@ -68,7 +68,8 @@
                           </span>
                            <span v-else>
                         
-                                    {{tab_categoriaproducto.proveedore_id}}
+                                    
+                                    {{tab_proveedores[tab_categoriaproductos[index].proveedore_id - 1 ].nombre}}
                                       </span>
                           
                         </td>

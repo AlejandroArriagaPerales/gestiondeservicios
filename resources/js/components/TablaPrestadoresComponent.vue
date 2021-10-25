@@ -17,12 +17,15 @@
                           </td>
                   
                         </tr>
+                        
                 </table>
               </div>  
                 <br>
                 <br>
                 <br>
+                
                 <div class="table-responsive">
+                  <input type="text" v-model="buscar" placeholder="Buscar por categoria">
                   <table class="table">
                     <thead class=" text-primary">
                       <th>
@@ -45,6 +48,9 @@
                         Teléfono
                       </th>
                       <th>
+                        Categoria
+                      </th>
+                      <th>
                         Estatus
                       </th>
                       <th>
@@ -55,10 +61,10 @@
                    
 
                     <tbody>
-                      <tr v-for="(tab_prestadore, index) in tab_prestadores" :key="tab_prestadore.id" v-bind:style="tab_prestadore.estatus == '0' ? 'color: #CCCACA':''">
+                      <tr v-for="(tab_prestadore, index) in datosFiltrados" :key="tab_prestadore.nombre" v-bind:style="tab_prestadore.estatus == '0' ? 'color: #CCCACA':''">
                        
                         <td>
-                        {{tab_prestadore.id}}
+                        {{tab_prestadore.idPrestador}}
                         </td>
 
 
@@ -68,8 +74,8 @@
                              <input v-model="nombreActualizar" type="text" class="form-control">
                           </span>
                            <span v-else>
-                        
                                     {{tab_prestadore.nombre}}
+                                    
                                       </span>
 
                         </td>
@@ -118,20 +124,32 @@
                           </span>
                            <span v-else>
                                    
-                                     {{tab_prestadore.telefono}}
+                                  {{tab_prestadore.telefono}}
                                       </span>
 
                          
                         </td>
 
+                        <td >
+                            
+                            
+                            {{tab_prestadore.categoria}}
+
+
+                            
+                            
+                            
+              
+                        </td>
+
 
                         <td>
-                          
-                          <span v-if="tab_prestadore.estatus =='1'">
-                            <button class="btn btn-success" style="background: #AD290B"  @click="Desactivar(index)">Desactivar</button>
+                         
+                          <span v-if="tab_prestadore.estatus == '1'">
+                            <button class="btn btn-success" style="background: #AD290B"  @click="Desactivar(tab_prestadore.idPrestador-1)">Desactivar</button>
 
                           </span> <span v-else>
-                            <button  class="btn btn-success" style="background: #169344" @click="Activar(index) ">Activar</button>
+                            <button  class="btn btn-success" style="background: #169344" @click="Activar(tab_prestadore.idPrestador-1) ">Activar</button>
                              </span> 
                              
                       
@@ -155,6 +173,7 @@
                         
                       
                     </tbody>
+                    
                   </table>
 
 
@@ -185,8 +204,13 @@
     export default {
       created(){
         axios.get('tab_prestadores').then(response => this.tab_prestadores = response.data);
+        axios.get('tab_categoriaprestadorservicios').then(response => this.tab_prestadorescategorias = response.data);
+        axios.get('tab_categorias').then(response => this.tab_categorias = response.data);
+        
+        
+        
       },
-        data(){
+      data(){
             return {
                
                   idActualizar: -1,
@@ -197,16 +221,74 @@
                   ubicacionActualizar: '',
                   telefonoActualizar: '',
                   estatusActualizar: '',
-                  tab_prestadores: []
-          
-                   
+                  tab_prestadores: [],
+                  tab_prestadorescategorias: [],
+                  tab_categorias: [],
+                  buscar: '',
+                  unionPrestadorCategoria: [],
+                  id: '',
+                  idPrestador: '',
+                  nombre: '',
+                  apellido: '',
+                  correo: '',
+                  ubicacion: '',
+                  telefono: '',
+                  estatus: '',
+                  categoria: ''
+
+                
             }
+            
             
         },
         mounted() {
+         
+        
+
+        },
+        computed: {
+          
+
+          
+          datosFiltrados: function(){
             
+              this.unionPrestadorCategoria = [];
+            
+            for (let i = 0; i < this.tab_prestadorescategorias.length; i++) {
+              var idRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).id;
+              var nombreRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).nombre;
+              var apellidoRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).apellido;
+              var correoRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).correo;
+              var ubicacionRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).ubicacion;
+              var correoRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).correo;
+              var telefonoRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).telefono;
+              var estatusRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).estatus;
+              var categoriaRecogida = this.tab_categorias.find(x => x.id === this.tab_prestadorescategorias[i].categoria_id).nombre;
+
+              this.unionPrestadorCategoria.push({idPrestador: idRecogido, nombre: nombreRecogido, apellido: apellidoRecogido, correo: correoRecogido, 
+              ubicacion: ubicacionRecogido, telefono: telefonoRecogido, estatus: estatusRecogido, categoria: categoriaRecogida})
+          
+              
+            }
+            console.log(this.unionPrestadorCategoria)
+
+            
+
+            
+            return this.unionPrestadorCategoria.filter((tab_categorias) => {
+              return tab_categorias.categoria.match(this.buscar);
+              
+            });
+              
+
+            
+            
+            
+            
+          }
         },
         methods: {
+            
             GenerarPDF(){
                 confirm('PDF Generandose', 'Confirmación');
 
@@ -261,6 +343,8 @@
             verActualizar: function (posicion_id) {
                 // Antes de mostrar el formulario de actualizar, rellenamos sus campos
                 
+            
+
                 this.idActualizar = posicion_id;
                 this.identificador = this.tab_prestadores[posicion_id].id;
                 
@@ -396,17 +480,13 @@
                 
             }
         }
+        
 
 
 
 
     }
 </script>
-
-
-
-
-
 
 
 

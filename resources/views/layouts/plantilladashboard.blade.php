@@ -18,6 +18,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- include VueJS first -->
+<script src="https://unpkg.com/vue@latest"></script>
+
+<!-- use the latest vue-select release -->
+<script src="https://unpkg.com/vue-select@latest"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
+
+<!-- or point to a specific vue-select release -->
+<script src="https://unpkg.com/vue-select@3.0.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css">
+  
   <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
@@ -156,6 +170,7 @@
         $('.side-bar').removeClass('active');
         $('.menu-btn').css("visibility", "visible");
       });
+      $('.js-example-basic-single').select2();
     });
     </script>
   

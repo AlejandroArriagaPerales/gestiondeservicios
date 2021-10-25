@@ -61,11 +61,9 @@
                     <td>
                       <label>Selecciona tus metodos de pago</label>
                             <div class="form-group">
-                              <select class="form-control" v-model="PagosSeleccionado" >
-                                  <option :value="tab_metodopago.id" v-for="(tab_metodopago) in tab_metodopagos" :key="tab_metodopago.id" >
-                                    {{tab_metodopago.nombre}}
-                                  </option>
-                              </select>
+                              
+                              <v-select  v-model="PagosSeleccionado" label="nombre"  :options="tab_metodopagos" :reduce="nombre => nombre.id"  :searchable="true" >
+                              </v-select>
                             </div>        
                     </td>
                     
@@ -128,7 +126,7 @@ import axios from "axios";
                 this.contrasenaCliente='';
                 this.direccionCliente='';
                 
-                confirm('Cliente Agregado', 'Confirmación');
+                
                 axios.post('tab_clientes',params).then((response) => {
                   const nombreCliente = response.data;
                   const apellidoCliente = response.data;
@@ -143,6 +141,7 @@ import axios from "axios";
                   this.$emit('new',contrasenaCliente);
                   this.$emit('new',direccionCliente);
                   this.$emit('new',PagosAgregados);
+                  Vue.swal("Cliente Agregado", "", "success");
                   
                 });
 

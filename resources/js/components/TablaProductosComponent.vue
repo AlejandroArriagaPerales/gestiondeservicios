@@ -31,7 +31,7 @@
                         Precio
                       </th>
                       <th>
-                        ID Categoria Producto
+                        Categoria Producto
                       </th>
                       <th>
                         Fecha de Actualizacion del Precio
@@ -89,7 +89,7 @@
                           </span>
                            <span v-else>
                         
-                                    {{tab_producto.categoriaProducto_id}}
+                                    {{tab_categoriaproductos[tab_productos[index].categoriaProducto_id - 1 ].nombre}}
                                       </span>
                           
                         </td>

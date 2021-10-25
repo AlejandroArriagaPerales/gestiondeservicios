@@ -5,11 +5,8 @@
                 <div class="form-group">
                   <label>Selecciona un proveedor</label>
 
-                    <select class="form-control" v-on="Recibido()" v-model="proveedorSeleccionado" >
-                        <option :value="tab_proveedore.id" v-for="(tab_proveedore) in tab_proveedores" :key="tab_proveedore.id" >
-                          {{tab_proveedore.nombre}}
-                        </option>
-                    </select>
+                    <v-select  v-model="proveedorSeleccionado" label="nombre"  :options="tab_proveedores" :reduce="nombre => nombre.id"  :searchable="true" >
+                    </v-select>
 
                      
 
@@ -42,6 +39,8 @@
 
 <script>
 
+    
+
   import axios from "axios";
   
     export default {
@@ -67,12 +66,12 @@
                 };
                 this.nombreCategoriaProducto='';
                 this.proveedorSeleccionado='';
-                confirm('Categoria de Producto Agregado', 'Confirmación');
                 axios.post('tab_categoriaproductos',params).then((response) => {
                   const nombreCategoriaProducto = response.data;
                   const proveedorSeleccionado = response.data;                  
                   this.$emit('new',nombreCategoriaProducto);
                   this.$emit('new',proveedorSeleccionado);
+                  Vue.swal("Categoria de Producto Agregada", "", "success");
                 });
              
                 
@@ -83,5 +82,7 @@
             }
         }
     }
+
+    
 </script>
 
