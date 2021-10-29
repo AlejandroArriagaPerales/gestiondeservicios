@@ -26,7 +26,18 @@ class CategoriaPrestadorServiciosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ServiciosRecibidos = $request->serviciosAgregados;
+        $CategoriasRecibidas = $request->categoriasAgregadas;
+        $idPrestadorRecibido = $request->idPrestadorAgregar;
+        $CantidadServicios = sizeof($ServiciosRecibidos);
+
+        for ($i=0; $i < $CantidadServicios; $i++) {
+            $categoriaprestadorservicio = new tab_categoriaprestadorservicio();
+            $categoriaprestadorservicio -> prestador_id = $idPrestadorRecibido;
+            $categoriaprestadorservicio -> categoria_id = $CategoriasRecibidas[$i];
+            $categoriaprestadorservicio -> servicio_id = $ServiciosRecibidos[$i];
+            $categoriaprestadorservicio -> save();
+        }
     }
 
     /**
@@ -56,6 +67,7 @@ class CategoriaPrestadorServiciosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categoriaprestadorservicio = tab_categoriaprestadorservicio::destroy($id);
+        return $categoriaprestadorservicio;
     }
 }

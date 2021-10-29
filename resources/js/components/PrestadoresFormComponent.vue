@@ -180,7 +180,7 @@
                         
                       
                     </tbody>
-                  </table>
+                </table>
                 <br>
                 <br>
                 <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Guardar">
@@ -293,7 +293,7 @@ import axios from "axios";
             this.serviciosAgregados[this.cantidadServiciosAgregados] = this.servicioSeleccionado;
             this.cantidadServiciosAgregados = this.cantidadServiciosAgregados+1;
 
-            this.serviciosCategorias.push({ categoria: this.categoriaSeleccionada, servicio: this.servicioSeleccionado})
+            this.serviciosCategorias.push({ categoria: this.categoriaSeleccionada, servicio: this.servicioSeleccionado});
               
             console.log(this.serviciosCategorias);
 
