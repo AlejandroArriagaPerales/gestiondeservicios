@@ -1,6 +1,7 @@
+
 <template>
       
-    <div class="card-body">
+    <div>
 
       <!-- Modal formulario -->
       <div class="modal fade" id="modalForm">
@@ -123,34 +124,34 @@
 
 
 
-            <div style="position:relative; float:right;" >           
-                <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
-                        <tr>
-                          <td>
-                              <div class="form-group">
-                                  <button style="width: 80px; height: 30px; background: red; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarPDF()"><i class="fa-solid fa-download"></i> PDF</button>
-                              </div>            
-                          </td>
-                          <td>      
-                              <div class="form-group">
-                                <button style="width: 80px; height: 30px; background: green; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarXLS()"><i class="fa-solid fa-download"></i> XLS</button>
-                              </div>                   
-                          </td>
-                  
-                        </tr>
-                        
-                </table>
-              </div>  
+            
                 <br>
                 <br>
                 <br>
                 
-                <div class="table-responsive">
-                  <input type="text" v-model="buscar" placeholder="Buscar por categoria">
-                  <table class="table">
-                    <thead class=" text-primary">
+                <div>
+                  <div style="position:relative; float:right;" >           
+                        <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
+                                <tr>
+                                  <td>
+                                      <div class="form-group">
+                                          <button style="width: 80px; height: 30px; background: red; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarPDF()"><i class="fa-solid fa-download"></i> PDF</button>
+                                      </div>            
+                                  </td>
+                                  <td>      
+                                      <div class="form-group">
+                                        <button style="width: 80px; height: 30px; background: green; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarXLS()"><i class="fa-solid fa-download"></i> XLS</button>
+                                      </div>                   
+                                  </td>
+                          
+                                </tr>
+                                
+                        </table>
+                  </div>  
+                  <table id="example" class="table table-striped table-bordered table-condensed table-hover" style="width:100%">
+                    <thead>
+                      <tr>
                       <th>
-
                         ID
                       </th>
                       <th>
@@ -175,99 +176,56 @@
                         Estatus
                       </th>
                       <th>
-                        
+                        Acciones
                       </th>
-                      
+                      </tr>
                     </thead>
                    
 
                     <tbody>
-                      <tr v-for="(tab_prestadore, index) in datosFiltrados" :key="tab_prestadore.id" v-bind:style="tab_prestadore.estatus == '0' ? 'color: #CCCACA':''">
+                      <tr v-for="tab_prestadore in unionPrestadorCategoria" :key="tab_prestadore.id" v-bind:style="tab_prestadore.estatus == '0' ? 'color: #CCCACA':''">
                        
                         <td>
-                        {{tab_prestadore.idPrestador}}
+                          {{tab_prestadore.idPrestador}}
                         </td>
 
-
                         <td>
-                          
-                        
-                                    {{tab_prestadore.nombre}}
-                                    
-                               
-
+                          {{tab_prestadore.nombre}}
                         </td>
 
-
-                        <td>
-                            
-                        
-                                  
-                                    {{tab_prestadore.apellido}}
-                                     
+                        <td>      
+                          {{tab_prestadore.apellido}}  
                         </td>
 
-
                         <td>
-                           
-                            
-                               
-                                     {{tab_prestadore.correo}}
-                                      
+                          {{tab_prestadore.correo}}                                      
                         </td>
 
-
-                        <td>
-                            
-                           
-                                   
-                                    {{tab_prestadore.ubicacion}}
-                                      
+                        <td>      
+                          {{tab_prestadore.ubicacion}} 
                         </td>
 
-
-                        <td>
-                           
-                          
-                                   
-                                  {{tab_prestadore.telefono}}
-                                    
-
-                         
+                        <td>  
+                          {{tab_prestadore.telefono}}
                         </td>
 
                         <td >
-                            
-                            
                             {{tab_prestadore.categoria}}
-
-
-                            
-                            
-                            
-              
                         </td>
 
-
                         <td>
-                         
                           <span v-if="tab_prestadore.estatus == '1'">
                             <button class="btn btn-success" style="background: #AD290B"  @click="Desactivar(tab_prestadore.idPrestador-1)">Desactivar</button>
 
                           </span> <span v-else>
                             <button  class="btn btn-success" style="background: #169344" @click="Activar(tab_prestadore.idPrestador-1) ">Activar</button>
                              </span> 
-                             
-                      
                         </td>
 
                         <td>
                            <button class="btn btn-warning"  @click="abrirModalEditar(tab_prestadore)">Editar</button>
-
-                                    
-
-                         
                         </td>
+
                       </tr>
                         
                       
@@ -298,15 +256,14 @@
   import jsPDF from 'jspdf';
   import 'jspdf-autotable';
   import XLSX from 'xlsx';
+  import datatable from 'datatables.net-bs4';
   
   
     export default {
-      created(){
-        axios.get('tab_prestadores').then(response => this.tab_prestadores = response.data);
-        axios.get('tab_categorias').then(response => this.tab_categorias = response.data);    
-        axios.get('tab_categoriaprestadorservicios').then(response => this.tab_prestadorescategorias = response.data);
-        axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
-        
+      async mounted(){
+        await this.getDatos();
+        await this.crearTablaCompuesta();
+        await this.tabla();
       },
       data(){
             return {
@@ -355,18 +312,24 @@
             
             
         },
-        mounted() {
-      
-
-        },
-        computed: {
-          
-
-          
-          datosFiltrados: function(){
-            
+        methods: {
+          tabla(){
+            this.$nextTick(() => {
+            $('#example').DataTable();
+            });
+          },
+          async getDatos(){
+            await axios.get('tab_prestadores').then(res => this.tab_prestadores = res.data);
+            await axios.get('tab_categorias').then(res => this.tab_categorias = res.data);    
+            await axios.get('tab_categoriaprestadorservicios').then(res => this.tab_prestadorescategorias = res.data);
+            await axios.get('tab_servicios').then(res => this.tab_servicios = res.data);
+          },
+          crearTablaCompuesta(){
             this.unionPrestadorCategoria = [];
-            
+            console.log("Contador de PrestadoresCategorias Array:");
+            console.log(this.tab_prestadorescategorias.length);
+            console.log("Contador de Prestadores Array:");
+            console.log(this.tab_prestadores.length);
             for (let i = 0; i < this.tab_prestadorescategorias.length; i++) {
               var idRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).id;
               var nombreRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).nombre;
@@ -383,19 +346,12 @@
           
               
             }
-        
+          console.log("Desplegando Array:");
+          console.log(this.unionPrestadorCategoria);
 
-            
-           
+          
 
-            return this.unionPrestadorCategoria.filter((tab_categorias) => {
-              return tab_categorias.categoria.match(this.buscar);
-              
-            });
-                 
-          }
-        },
-        methods: {
+          },
           editarPrestador(idPrestadorEditar){
             this.idActualizar = idPrestadorEditar;
 
@@ -407,6 +363,7 @@
               telefonoActualizar: this.datosPrestador.telefonoModal,
               estatusActualizar: this.datosPrestador.estatusModal
             }
+            console.log(this.nombreActualizar);
 
             axios.put(`tab_prestadores/${this.idActualizar}`,params2).then((response) => {
                   const nombreActualizar = response.data;
@@ -476,8 +433,10 @@
 
           
             $('#modalForm').modal('hide')
-            Vue.swal("Prestador Agregado", "", "success");
-            location.reload();
+            Vue.swal("Prestador Editado", "", "success");
+            setTimeout(function(){
+                    location.reload();
+            },1500);
             
           },
           AgregarServicio(){
@@ -496,7 +455,7 @@
 
             
 
-              confirm('Servicio Agregado', 'Confirmación');
+              Vue.swal("Servicio Agregado", "", "success");
                 
           },
           getServiciosCategorias(){
@@ -624,9 +583,13 @@
                   this.$emit('update',telefonoActualizar);
 
                 });
-                location.reload();
-                confirm('Prestador Habilitado', 'Confirmación');
-
+                
+                
+                Vue.swal("Prestador Activado", "", "success");
+                setTimeout(function(){
+                    location.reload();
+                },1500);
+                
 
             },
             Desactivar: function (posicion_id){
@@ -662,8 +625,13 @@
                   this.$emit('update',correoActualizar);
                   this.$emit('update',ubicacionActualizar);
                   this.$emit('update',telefonoActualizar);
-                  location.reload();
-                  confirm('Prestador Deshabilitado', 'Confirmación');
+                  
+                  
+                  Vue.swal("Prestador Desactivado", "", "warning");
+                  setTimeout(function(){
+                    location.reload();
+                  },1500);
+                
 
                 });
                 

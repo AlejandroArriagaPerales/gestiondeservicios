@@ -1,31 +1,81 @@
 <template>
-
-    <div class="card-body">
-
-          <div style="position:relative; float:right;" >           
-                <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
-                        <tr>
-                          <td>
-                              <div class="form-group">
-                                  <button style="width: 80px; height: 30px; background: red; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarPDF()"><i class="fa-solid fa-download"></i> PDF</button>
-                              </div>            
-                          </td>
-                          <td>      
-                              <div class="form-group">
-                                <button style="width: 80px; height: 30px; background: green; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarXLS()"><i class="fa-solid fa-download"></i> XLS</button>
-                              </div>                   
-                          </td>
+    
+    <div>
+        <!-- Modal formulario -->
+      <div class="modal fade" id="modalForm">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <h5 class="modal-title">
+                <i class="fa fa-user-plus"></i> Editar
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control"  placeholder="" required="" v-model="datosCliente.nombreModal">
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Apellidos</label>
+                    <input type="email" class="form-control" placeholder="" required="" v-model="datosCliente.apellidoModal">
+                  </div>
+                  <div class="form-group">
+                    <label for="clave">RFC</label>
+                    <input type="email" class="form-control"   placeholder="" v-model="datosCliente.rfcModal" >
+                  </div>
+                  <div class="form-group">
+                    <label for="clave">Direccion</label>
+                    <input type="text" class="form-control"  placeholder="" v-model="datosCliente.direccionModal" >
+                  </div>
                   
-                        </tr>
-                </table>
-              </div>  
+
+                
+
+                  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" @click.prevent="editarCliente(datosCliente.idModal)" v-if="btnEditar">Editar usuario</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+          
                 <br>
                 <br>
                 <br>
 
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
+                <div>
+                  <div style="position:relative; float:right;" >           
+                    <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
+                            <tr>
+                              <td>
+                                  <div class="form-group">
+                                      <button style="width: 80px; height: 30px; background: red; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarPDF()"><i class="fa-solid fa-download"></i> PDF</button>
+                                  </div>            
+                              </td>
+                              <td>      
+                                  <div class="form-group">
+                                    <button style="width: 80px; height: 30px; background: green; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarXLS()"><i class="fa-solid fa-download"></i> XLS</button>
+                                  </div>                   
+                              </td>
+                      
+                            </tr>
+                    </table>
+                  </div>  
+                  <table id="example" class="table table-striped table-bordered table-condensed table-hover" style="width:100%">
+                    <thead>
+                      <tr>
                       <th>
                         ID
                       </th>
@@ -45,97 +95,47 @@
                         Estatus
                       </th>
                       <th>
-                        
+                        Acciones
                       </th>
-                      
+                      </tr>
                     </thead>
                    
 
                     <tbody>
                       
                       <tr v-for="(tab_cliente,index) in tab_clientes" :key="tab_cliente.id" v-bind:style="tab_cliente.estatus == '0' ? 'color: #CCCACA':''"  >
-                       <!-- <span v-if="tab_cliente.estatus =='1'"> -->
-                         
-                        
-                          
-                          <td>
+                        <td>
                             {{tab_cliente.id}}
-                          </td>
+                        </td>
       
-                            <td>
-                              <span v-if="verActualizar && idActualizar  == index">
-                                <!--    Formulario para actualizar -->
-                                <input v-model="nombreActualizar" type="text" class="form-control">
-                              </span>
-                              <span v-else>
-                                        {{tab_cliente.nombre}}
-                                          </span>
-                            </td>
+                        <td>                  
+                            {{tab_cliente.nombre}}     
+                        </td>    
 
-
-
-                        <td>
-                           <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                             <input v-model="apellidoActualizar" type="text" class="form-control">
-                          </span>
-                           <span v-else>
-                                    {{tab_cliente.apellido}}
-                                      </span>
-                          
+                        <td>                          
+                            {{tab_cliente.apellido}}                     
                         </td>
 
-
-                        <td>
-                           <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                             <input v-model="rfcActualizar" type="text" class="form-control">
-                          </span>
-                           <span v-else>
-                                     {{tab_cliente.rfc}}
-                                      </span>
+                        <td>                           
+                          {{tab_cliente.rfc}}                                      
                         </td>
 
-                        <td>
-                            <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                             <input v-model="direccionActualizar" type="text" class="form-control">
-                          </span>
-                           <span v-else>
-                                    {{tab_cliente.direccion}}
-                                      </span>
+                        <td>                            
+                          {{tab_cliente.direccion}}                                     
                         </td>
 
-                        <td>
-                          
+                        <td>                          
                           <span v-if="tab_cliente.estatus =='1'">
                             <button class="btn btn-success" style="background: #AD290B"  @click="Desactivar(index)">Desactivar</button>
-
                           </span> <span v-else>
                             <button  class="btn btn-success" style="background: #169344" @click="Activar(index) ">Activar</button>
                              </span> 
-                             
-                      
                         </td>
 
-
-                        
                         <td>
-
-                          <span v-if="verActualizar && idActualizar == index">
-                            <!--    Formulario para actualizar -->
-                             <button  class="btn btn-success"  @click="Actualizar(index) ">Guardar</button>
-                             
-                          </span>
-                           <span v-else>
-                              <button class="btn btn-warning"  @click="verActualizar(index)">Editar</button>
-
-                                      </span>
-
-                         
+                          <button class="btn btn-warning"  @click="abrirModalEditar(tab_cliente)">Editar</button>
                         </td>
-                                        
-                        
+          
                       </tr>
                         
                       
@@ -153,29 +153,83 @@
   import jsPDF from 'jspdf';
     import 'jspdf-autotable';
     import XLSX from 'xlsx';
+    import datatable from 'datatables.net-bs4';
   
     export default {
-      created(){
-        axios.get('tab_clientes').then(response => this.tab_clientes = response.data);
+      async mounted(){
+        await this.getDatos();
+        await this.tabla();
+        
       },
         data(){
             return {
-               estatusActualizar: '',
-               idActualizar: -1,
-               identificador:'',
-               nombreActualizar: '',
-               apellidoActualizar: '',
-               rfcActualizar: '',
-               direccionActualizar: '',
-              tab_clientes: []
+              estatusActualizar: '',
+              idActualizar: '',
+              identificador:'',
+              nombreActualizar: '',
+              apellidoActualizar: '',
+              rfcActualizar: '',
+              direccionActualizar: '',
+              estatusActualizar: '', 
+              tab_clientes: [],
+              datosCliente: {idModal:'', idPrestadorModal:'', nombreModal:'', apellidoModal:'', rfcModal:'', direccionModal:'', estatusModal:''},
+              btnEditar:false,
+              idPrestadorAgregar: '',
+              idClienteEditar: '',
             }
             
         },
-        mounted() {
-            
-        },
         methods: {
-            GenerarPDF(){
+          tabla(){
+            this.$nextTick(() => {
+            $('#example').DataTable();
+            });
+          },
+          async getDatos(){
+            await axios.get('tab_clientes').then(response => this.tab_clientes = response.data);
+          },
+          editarCliente(idClienteEditar){
+            this.idActualizar = idClienteEditar;
+            console.log(this.idActualizar);
+
+            const params2 = {
+              nombreActualizar: this.datosCliente.nombreModal,
+              apellidoActualizar: this.datosCliente.apellidoModal,
+              rfcActualizar: this.datosCliente.rfcModal,
+              direccionActualizar: this.datosCliente.direccionModal,
+              estatusActualizar: this.datosCliente.estatusModal
+            }
+            
+
+            axios.put(`tab_clientes/${this.idActualizar}`,params2).then((response) => {
+                  
+                  const nombreActualizar = response.data;
+                  const apellidoActualizar = response.data;
+                  const rfcActualizar = response.data;
+                  const direccionActualizar = response.data;     
+                  const estatusActualizar = response.data;           
+                  this.$emit('update',nombreActualizar);
+                  this.$emit('update',apellidoActualizar);
+                  this.$emit('update',rfcActualizar);
+                  this.$emit('update',direccionActualizar);
+                  this.$emit('update',estatusActualizar);
+
+            });
+          
+            $('#modalForm').modal('hide')
+            Vue.swal("Cliente Editado", "", "success");
+            setTimeout(function(){
+                    location.reload();
+            },1500);
+            
+          },      
+          abrirModalEditar(datos){
+              this.datosCliente= {idModal: datos.id , nombreModal: datos.nombre, apellidoModal: datos.apellido, rfcModal: datos.rfc, direccionModal: datos.direccion, estatusModal: datos.estatus}
+              this.btnEditar=true;
+              this.idClienteEditar=datos.id;
+              $('#modalForm').modal('show');
+            },
+          GenerarPDF(){
                 confirm('PDF Generandose', 'Confirmación');
 
                 
@@ -223,58 +277,6 @@
               XLSX.writeFile(workbook, `${filename}.xlsx`)
 
             },
-            verActualizar: function (posicion_id) {
-                // Antes de mostrar el formulario de actualizar, rellenamos sus campos
-                
-                this.idActualizar = posicion_id;
-                this.identificador = this.tab_clientes[posicion_id].id;
-                
-                this.nombreActualizar = this.tab_clientes[posicion_id].nombre;
-                this.apellidoActualizar = this.tab_clientes[posicion_id].apellido;
-                this.rfcActualizar = this.tab_clientes[posicion_id].rfc;
-                this.direccionActualizar = this.tab_clientes[posicion_id].direccion;
-                this.estatusActualizar = this.tab_clientes[posicion_id].estatus;
-                // Mostramos el formulario
-                this. verActualizar = true;
-            },
-            Actualizar: function (posicion_id) {
-                // Antes de mostrar el formulario de actualizar, rellenamos sus campos
-                this.idActualizar = posicion_id;
-
-
-                const params = {
-                    nombreActualizar: this.nombreActualizar,
-                    apellidoActualizar: this.apellidoActualizar,
-                    rfcActualizar: this.rfcActualizar,
-                    direccionActualizar: this.direccionActualizar,
-                    estatusActualizar: this.estatusActualizar
-                };
-
-                axios.put(`tab_clientes/${this.identificador}`,params).then((response) => {
-                  const nombreActualizar = response.data;
-                  const apellidoActualizar = response.data;
-                  const rfcActualizar = response.data;
-                  const direccionActualizar = response.data;
-                  const estatusActualizar = response.data;
-
-                  this.$emit('update',nombreActualizar);
-                  this.$emit('update',apellidoActualizar);
-                  this.$emit('update',rfcActualizar);
-                  this.$emit('update',direccionActualizar);
-                  this.$emit('update',estatusActualizar);
-
-                  
-                  confirm('Cliente Actualizado', 'Confirmación');
-
-                });
-                location.reload();
-                /*
-                this.nombreActualizar = this.pacientes[paciente_id].nombre;
-                this.edadActualizar = this.pacientes[paciente_id].edad;
-                // Mostramos el formulario
-                this.formActualizar = true;
-                */
-            },
             Activar: function (posicion_id) {
                  
               
@@ -306,8 +308,11 @@
                   this.$emit('update',direccionActualizar);
 
                 });
-                location.reload();
-                confirm('Cliente Habilitado', 'Confirmación');
+                
+                Vue.swal("Cliente Habilitado", "", "success");
+                setTimeout(function(){
+                    location.reload();
+                },1500);
 
 
             },
@@ -340,11 +345,13 @@
                   this.$emit('update',apellidoActualizar);
                   this.$emit('update',rfcActualizar);
                   this.$emit('update',direccionActualizar);
-                  location.reload();
-                  confirm('Cliente Deshabilitado', 'Confirmación');
+                  Vue.swal("Cliente Deshabilitado", "", "warning");
+                  setTimeout(function(){
+                      location.reload();
+                  },1500);
 
-                });
-                
+                  });
+                  
 
                 
             }
