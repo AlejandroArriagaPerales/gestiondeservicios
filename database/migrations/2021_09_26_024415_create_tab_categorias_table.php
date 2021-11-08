@@ -16,6 +16,7 @@ class CreateTabCategoriasTable extends Migration
         Schema::create('tab_categorias', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->string('costovisita');
             $table->longText('icono');
             $table->timestamps();
         });

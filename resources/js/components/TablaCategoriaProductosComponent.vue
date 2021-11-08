@@ -1,29 +1,67 @@
 <template>
 
-    <div class="card-body">
-              <div style="position:relative; float:right;" >           
-                <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
-                        <tr>
-                          <td>
-                              <div class="form-group">
-                                  <button style="width: 80px; height: 30px; background: red; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarPDF()"><i class="fa-solid fa-download"></i> PDF</button>
-                              </div>            
-                          </td>
-                          <td>      
-                              <div class="form-group">
-                                <button style="width: 80px; height: 30px; background: green; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarXLS()"> <i class="fa-solid fa-download"></i>XLS</button>
-                              </div>                   
-                          </td>
-                  
-                        </tr>
-                </table>
-              </div>  
+    <div>
+        <!-- Modal formulario -->
+            <div class="modal fade" id="modalForm">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h5 class="modal-title">
+                      <i class="fa fa-user-plus"></i> Editar
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form>
+                    <div class="modal-body">
+                        <div class="form-group">
+                          <label for="nombre">Nombre</label>
+                          <input type="text" class="form-control"  placeholder="" required="" v-model="datosCategoriaProducto.nombreModal">
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                          <label for="nombre">Proveedor</label>
+                          <v-select  v-model="datosCategoriaProducto.proveedorModal" label="nombre" :options="tab_proveedores"  :reduce="nombre => nombre.id" :searchable="true"></v-select>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                      <button type="submit" class="btn btn-primary" @click.prevent="editarCategoriaProducto(datosCategoriaProducto.idModal)" v-if="btnEditar">Editar Categoria de Producto</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+               
                 <br>
                 <br>
                 <br>
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
+
+                <div>
+                  <div style="position:relative; float:right;" >           
+                    <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
+                            <tr>
+                              <td>
+                                  <div class="form-group">
+                                      <button style="width: 80px; height: 30px; background: red; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarPDF()"><i class="fa-solid fa-download"></i> PDF</button>
+                                  </div>            
+                              </td>
+                              <td>      
+                                  <div class="form-group">
+                                    <button style="width: 80px; height: 30px; background: green; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarXLS()"> <i class="fa-solid fa-download"></i>XLS</button>
+                                  </div>                   
+                              </td>
+                      
+                            </tr>
+                    </table>
+                  </div> 
+                  <table id="example" class="table table-striped table-bordered table-condensed table-hover" style="width:100%">
+                    <thead>
+                      <tr>
                       <th>
                         ID
                       </th>
@@ -36,7 +74,7 @@
                       <th>
                         
                       </th>
-                      
+                      </tr>
                       
                     </thead>
                    
@@ -46,48 +84,17 @@
                         <td>
                           {{tab_categoriaproducto.id}}
                         </td>
-                        <td>
-                          <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                             <input v-model="nombreActualizar" type="text" class="form-control">
-                          </span>
-                           <span v-else>
-                        
-                                    {{tab_categoriaproducto.nombre}}
-                                      </span>
-                          
-                        </td>
-                        <td>
-                          <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                            <select class="form-control" v-model="proveedorSeleccionadoActualizar" >
-                                <option :value="tab_proveedore.id" v-for="(tab_proveedore) in tab_proveedores" :key="tab_proveedore.id" >
-                                  {{tab_proveedore.nombre}}
-                                </option>
-                            </select>
-                          </span>
-                           <span v-else>
-                        
-                                    
-                                    {{tab_proveedores[tab_categoriaproductos[index].proveedore_id - 1 ].nombre}}
-                                      </span>
-                          
+
+                        <td>                          
+                          {{tab_categoriaproducto.nombre}}                          
                         </td>
 
+                        <td>
+                          {{tab_proveedores[tab_categoriaproductos[index].proveedore_id - 1 ].nombre}}
+                        </td>
 
                         <td>
-
-                          <span v-if="verActualizar && idActualizar == index">
-                            <!--    Formulario para actualizar -->
-                             <button  class="btn btn-success"  @click="Actualizar(index) ">Guardar</button>
-                             
-                          </span>
-                           <span v-else>
-                              <button class="btn btn-warning"  @click="verActualizar(index)">Editar</button>
-
-                                      </span>
-
-                         
+                          <button class="btn btn-warning"  @click="abrirModalEditar(tab_categoriaproducto)">Editar</button>
                         </td>
                        
                       </tr>
@@ -109,25 +116,64 @@
     import XLSX from 'xlsx';
   
     export default {
-      created(){
-        axios.get('tab_categoriaproductos').then(response => this.tab_categoriaproductos = response.data);
-        axios.get('tab_proveedores').then(response => this.tab_proveedores = response.data);
+      async mounted(){
+        await this.getDatos();
+        await this.tabla();
       },
         data(){
             return {
-              idActualizar: -1,
+              idActualizar: '',
               identificador:'',
               nombreActualizar: '',
+              proveedorActualizar: '',
               tab_categoriaproductos: [],
-              proveedorSeleccionadoActualizar: '',
-              tab_proveedores: []
+              tab_proveedores: [],
+              datosCategoriaProducto: {idModal:'', nombreModal:'', proveedorModal:''},
+              btnEditar:false,
+              idCategoriaProductoEditar: ''
             }
             
         },
-        mounted() {
-            
-        },
         methods: {
+          async getDatos(){
+            await axios.get('tab_categoriaproductos').then(response => this.tab_categoriaproductos = response.data);
+            await axios.get('tab_proveedores').then(response => this.tab_proveedores = response.data);
+          },
+          tabla(){
+            this.$nextTick(() => {
+            $('#example').DataTable();
+            });
+          },
+          abrirModalEditar(datos){
+              this.datosCategoriaProducto= {idModal: datos.id , nombreModal: datos.nombre, proveedorModal: datos.proveedore_id}
+              this.btnEditar=true;
+              this.idCategoriaProductoEditar=datos.id;
+              $('#modalForm').modal('show');
+            },
+          editarCategoriaProducto(idCategoriaProductoEditar){
+            this.idActualizar = idCategoriaProductoEditar;
+
+            const params2 = {
+              nombreActualizar: this.datosCategoriaProducto.nombreModal,
+              proveedorActualizar: this.datosCategoriaProducto.proveedorModal
+            }
+            
+
+            axios.put(`tab_categoriaproductos/${this.idActualizar}`,params2).then((response) => {
+                  
+                  const nombreActualizar = response.data;  
+                  const proveedorActualizar = response.data;                           
+                  this.$emit('update',nombreActualizar);
+                  this.$emit('update',proveedorActualizar);
+            });
+          
+            $('#modalForm').modal('hide')
+            Vue.swal("Categoria Editada", "", "success");
+            setTimeout(function(){
+                    location.reload();
+            },1500);
+            
+          }, 
             GenerarPDF(){
                 confirm('PDF Generandose', 'Confirmación');
 

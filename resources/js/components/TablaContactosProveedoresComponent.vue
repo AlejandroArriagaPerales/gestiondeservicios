@@ -1,30 +1,74 @@
 <template>
 
-    <div class="card-body">
-              <div style="position:relative; float:right;" >           
-                <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
-                        <tr>
-                          <td>
-                              <div class="form-group">
-                                  <button style="width: 80px; height: 30px; background: red; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarPDF()"><i class="fa-solid fa-download"></i> PDF</button>
-                              </div>            
-                          </td>
-                          <td>      
-                              <div class="form-group">
-                                <button style="width: 80px; height: 30px; background: green; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarXLS()"><i class="fa-solid fa-download"></i> XLS</button>
-                              </div>                   
-                          </td>
-                  
-                        </tr>
-                </table>
-              </div>  
+    <div>
+      <!-- Modal formulario -->
+      <div class="modal fade" id="modalForm">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <h5 class="modal-title">
+                <i class="fa fa-user-plus"></i> Editar
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control"  placeholder="" required="" v-model="datosContacto.nombreModal">
+                  </div>
+                  <div class="form-group">
+                    <label for="nombre">Correo</label>
+                    <input type="text" class="form-control"  placeholder="" required="" v-model="datosContacto.correoModal">
+                  </div>
+                  <div class="form-group">
+                    <label for="nombre">Telefono</label>
+                    <input type="text" class="form-control"  placeholder="" required="" v-model="datosContacto.telefonoModal">
+                  </div>
+                  <div class="form-group">
+                    <label for="nombre">Proveedor</label>
+                    <v-select  v-model="datosContacto.proveedorModal" label="nombre" :options="tab_proveedores"  :reduce="nombre => nombre.id" :searchable="true"></v-select>
+                  </div>
+
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" @click.prevent="editarContacto(datosContacto.idModal)" v-if="btnEditar">Editar Contacto</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+               
                 <br>
                 <br>
                 <br>
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
-                        <th>
+                <div>
+                  <div style="position:relative; float:right;" >           
+                    <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
+                            <tr>
+                              <td>
+                                  <div class="form-group">
+                                      <button style="width: 80px; height: 30px; background: red; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarPDF()"><i class="fa-solid fa-download"></i> PDF</button>
+                                  </div>            
+                              </td>
+                              <td>      
+                                  <div class="form-group">
+                                    <button style="width: 80px; height: 30px; background: green; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarXLS()"><i class="fa-solid fa-download"></i> XLS</button>
+                                  </div>                   
+                              </td>
+                      
+                            </tr>
+                    </table>
+                  </div> 
+                  <table id="example" class="table table-striped table-bordered table-condensed table-hover" style="width:100%">
+                    <thead>
+                      <tr>
+                      <th>
                         ID
                       </th>
                       <th>
@@ -42,7 +86,7 @@
                       <th>
                         
                       </th>
-                      
+                      </tr>
                       
                     </thead>
                    
@@ -54,71 +98,23 @@
                         </td>
 
                         <td>
-                          <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                             <input v-model="nombreActualizar" type="text" class="form-control">
-                          </span>
-                           <span v-else>
-                        
-                                    {{tab_contacto.nombre}}
-                                      </span>
-                          
+                          {{tab_contacto.nombre}}     
                         </td>
 
                         <td>
-                          <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                             <input v-model="correoActualizar" type="text" class="form-control">
-                          </span>
-                           <span v-else>
-                        
-                                    {{tab_contacto.correo}}
-                                      </span>
-                          
+                          {{tab_contacto.correo}}                    
                         </td>
 
                         <td>
-                          <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                             <input v-model="telefonoActualizar" type="text" class="form-control">
-                          </span>
-                           <span v-else>
-                        
-                                    {{tab_contacto.telefono}}
-                                      </span>
-                          
+                          {{tab_contacto.telefono}}
+                        </td>
+
+                        <td>                       
+                          {{tab_proveedores[tab_contactos[index].proveedore_id - 1 ].nombre}}
                         </td>
 
                         <td>
-                          <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                            
-                            <select class="form-control" v-model="proveedorSeleccionadoActualizar" >
-                                <option :value="tab_proveedore.id" v-for="(tab_proveedore) in tab_proveedores" :key="tab_proveedore.id" >
-                                    {{tab_proveedore.nombre}}
-                                </option>
-                            </select>
-                          </span>
-                           <span v-else>
-                        
-                                    {{tab_proveedores[tab_contactos[index].proveedore_id - 1 ].nombre}}
-                                      </span>
-                          
-                        </td>
-
-                        <td>
-
-                          <span v-if="verActualizar && idActualizar == index">
-                            <!--    Formulario para actualizar -->
-                             <button  class="btn btn-success"  @click="Actualizar(index) ">Guardar</button>
-                             
-                          </span>
-                           <span v-else>
-                              <button class="btn btn-warning"  @click="verActualizar(index)">Editar</button>
-
-                                      </span>
-
-                         
+                          <button class="btn btn-warning"  @click="abrirModalEditar(tab_contacto)">Editar</button>
                         </td>
                                                 
                       </tr>
@@ -140,27 +136,72 @@
     import XLSX from 'xlsx';
   
     export default {
-      created(){
-        axios.get('tab_contactos').then(response => this.tab_contactos = response.data);
-        axios.get('tab_proveedores').then(response => this.tab_proveedores = response.data);
+      async mounted(){
+        await this.getDatos();
+        await this.tabla();        
       },
         data(){
             return {
-              idActualizar: -1,
+              idActualizar: '',
               identificador:'',
               nombreActualizar: '',
               correoActualizar: '',
               telefonoActualizar: '',
+              proveedorActualizar:'',
               tab_contactos: [],
               proveedorSeleccionadoActualizar: '',
-              tab_proveedores: []
+              tab_proveedores: [],              
+              datosContacto: {idModal:'', nombreModal:'', correoModal:'', telefonoModal:'', proveedorModal:''},
+              btnEditar:false,
+              idContactoEditar: ''
             }
             
         },
-        mounted() {
-            
-        },
         methods: {
+          async getDatos(){
+            await axios.get('tab_contactos').then(response => this.tab_contactos = response.data);
+            await axios.get('tab_proveedores').then(response => this.tab_proveedores = response.data);
+          },
+          tabla(){
+            this.$nextTick(() => {
+            $('#example').DataTable();
+            });
+          },
+          abrirModalEditar(datos){
+              this.datosContacto= {idModal: datos.id , nombreModal: datos.nombre, correoModal: datos.correo, telefonoModal: datos.telefono, proveedorModal: datos.proveedore_id}
+              this.btnEditar=true;
+              this.idContactoEditar=datos.id;
+              $('#modalForm').modal('show');
+            },
+          editarContacto(idContactoEditar){
+            this.idActualizar = idContactoEditar;
+
+            const params2 = {
+              nombreActualizar: this.datosContacto.nombreModal,
+              correoActualizar: this.datosContacto.correoModal,
+              telefonoActualizar: this.datosContacto.telefonoModal,
+              proveedorActualizar: this.datosContacto.proveedorModal
+            }
+            
+
+            axios.put(`tab_contactos/${this.idActualizar}`,params2).then((response) => {
+                  const nombreActualizar = response.data;   
+                  const correoActualizar = response.data;
+                  const telefonoActualizar = response.data;
+                  const proveedorActualizar = response.data;                          
+                  this.$emit('update',nombreActualizar);
+                  this.$emit('update',correoActualizar);
+                  this.$emit('update',telefonoActualizar);
+                  this.$emit('update',proveedorActualizar);
+            });
+          
+            $('#modalForm').modal('hide')
+            Vue.swal("Contacto Editado", "", "success");
+            setTimeout(function(){
+                    location.reload();
+            },1500);
+            
+          },  
             GenerarPDF(){
                 confirm('PDF Generandose', 'Confirmación');
 

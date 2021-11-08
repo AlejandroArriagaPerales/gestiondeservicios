@@ -6,6 +6,10 @@
                     <label>Nombre(s)</label>
                     <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreCategoria">
                   </div>
+                  <div class="form-group">
+                    <label>Costo de la visita</label>
+                    <input type="text" class="form-control" placeholder="Costo" v-model="costoVisitaCategoria">
+                  </div>
                   <br>
 
                   
@@ -55,27 +59,31 @@
     export default {
         data(){
             return {
-                nombreCategoria: ''
+                nombreCategoria: '',
+                costoVisitaCategoria: ''
             }
             
         },
         mounted() {
-            console.log('Component mounted.')
+        
         },
         methods: {
             newCategoria(){
                 const params = {
-                    nombreCategoria: this.nombreCategoria
+                    nombreCategoria: this.nombreCategoria,
+                    costoVisitaCategoria: this.costoVisitaCategoria
                     
                 };
                 this.nombreCategoria='';
-                
+                this.costoVisitaCategoria='';
                 
                 
                 
                 axios.post('tab_categorias',params).then((response) => {
-                  const categoria = response.data;
-                  this.$emit('new',categoria);
+                  const nombreCategoria = response.data;
+                  const costoVisitaCategoria = response.data;
+                  this.$emit('new',nombreCategoria);
+                  this.$emit('new',costoVisitaCategoria);
                   Vue.swal("Categoria Agregada", "", "success");
                 });
                 

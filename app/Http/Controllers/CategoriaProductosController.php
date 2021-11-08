@@ -53,7 +53,7 @@ class CategoriaProductosController extends Controller
     {
         $categoriaproducto = tab_categoriaproducto::find($id);
         $categoriaproducto->nombre = $request->nombreActualizar;
-        $categoriaproducto->proveedore_id = $request->proveedorSeleccionadoActualizar;
+        $categoriaproducto->proveedore_id = $request->proveedorActualizar;
 
         $categoriaproducto->save();
 

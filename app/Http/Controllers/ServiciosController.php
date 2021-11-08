@@ -52,7 +52,7 @@ class ServiciosController extends Controller
     {
         $servicio = tab_servicio::find($id);
         $servicio->nombre = $request->nombreActualizar;
-        $servicio->categoria_id = $request->categoriaSeleccionadaActualizar;
+        $servicio->categoria_id = $request->categoriaActualizar;
 
         $servicio->save();
 

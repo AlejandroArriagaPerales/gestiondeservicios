@@ -57,7 +57,7 @@ class ContactosController extends Controller
         $contacto->nombre = $request->nombreActualizar;
         $contacto->correo = $request->correoActualizar;
         $contacto->telefono = $request->telefonoActualizar;
-        $contacto->proveedore_id = $request->proveedorSeleccionadoActualizar;
+        $contacto->proveedore_id = $request->proveedorActualizar;
 
         $contacto->save();
 

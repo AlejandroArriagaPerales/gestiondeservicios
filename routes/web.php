@@ -9,6 +9,7 @@ use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FinanzasController;
 use App\Http\Controllers\MetodoPagosController;
 use App\Http\Controllers\PrestadoresController;
 use App\Http\Controllers\ProductosController;
@@ -34,6 +35,7 @@ use App\Http\Controllers\TablaPrestadoresController;
 use App\Http\Controllers\TablaProductosController;
 use App\Http\Controllers\TablaProveedoresController;
 use App\Http\Controllers\TablaServiciosController;
+use App\Http\Controllers\TrabajosController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -109,6 +111,8 @@ Route::get('tablacontactosproveedores', TablaContactosProveedoresController::cla
 Route::post('tablametodospago', TablaMetodosPagoController::class)->name('tablametodospago');
 Route::get('tablametodospago', TablaMetodosPagoController::class)->name('tablametodospago');
 
+Route::post('finanzas', FinanzasController::class)->name('finanzas');
+Route::get('finanzas', FinanzasController::class)->name('finanzas');
 
 
 
@@ -126,7 +130,7 @@ Route::apiResource('tab_categoriaproductos',CategoriaProductosController::class)
 Route::apiResource('tab_productos',ProductosController::class);
 Route::apiResource('tab_metodopagos',MetodoPagosController::class);
 Route::apiResource('tab_categoriaprestadorservicios',CategoriaPrestadorServiciosController::class);
-
+Route::apiResource('tab_trabajos',TrabajosController::class);
 
 
 

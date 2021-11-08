@@ -55,8 +55,7 @@ class ProductosController extends Controller
         $producto = tab_producto::find($id);
         $producto->nombre = $request->nombreActualizar;
         $producto->precio = $request->precioActualizar;
-        $producto->categoriaProducto_id = $request->categoriaProductoSeleccionadaActualizar;
-        $producto->estatus = $request->estatusActualizar;
+        $producto->categoriaProducto_id = $request->categoriaProductoActualizar;
 
         $producto->save();
 

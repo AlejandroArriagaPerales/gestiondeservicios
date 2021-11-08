@@ -21,7 +21,9 @@ class CreateTabTrabajosTable extends Migration
             $table->integer('valoracion')->nullable();
             $table->string('resena')->nullable();
             $table->float('costo');
-            $table->string('ubicacion');
+            $table->float('costovisita');
+            $table->float('latitud');
+            $table->float('longitud');
             $table->string('descripcion');
             $table->integer('prestador_id')->unsigned();
             $table->integer('cliente_id')->unsigned();

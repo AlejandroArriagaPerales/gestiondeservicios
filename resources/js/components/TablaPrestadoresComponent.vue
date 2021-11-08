@@ -115,7 +115,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" @click.prevent="editarPrestador(datosPrestador.idPrestadorModal)" v-if="btnEditar">Editar usuario</button>
+                <button type="submit" class="btn btn-primary" @click.prevent="editarPrestador(datosPrestador.idPrestadorModal)" v-if="btnEditar">Editar Prestador</button>
               </div>
             </form>
           </div>
@@ -268,7 +268,7 @@
       data(){
             return {
                
-                idActualizar: -1,
+                idActualizar: '',
                 identificador:'',
                 tab_prestadores: [],
                 tab_prestadorescategorias: [],

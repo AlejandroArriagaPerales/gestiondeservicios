@@ -1,7 +1,7 @@
 <template>
     
     <div>
-        <!-- Modal formulario -->
+      <!-- Modal formulario -->
       <div class="modal fade" id="modalForm">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -39,7 +39,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" @click.prevent="editarCliente(datosCliente.idModal)" v-if="btnEditar">Editar usuario</button>
+                <button type="submit" class="btn btn-primary" @click.prevent="editarCliente(datosCliente.idModal)" v-if="btnEditar">Editar Cliente</button>
               </div>
             </form>
           </div>
@@ -153,7 +153,7 @@
   import jsPDF from 'jspdf';
     import 'jspdf-autotable';
     import XLSX from 'xlsx';
-    import datatable from 'datatables.net-bs4';
+    
   
     export default {
       async mounted(){
@@ -172,10 +172,9 @@
               direccionActualizar: '',
               estatusActualizar: '', 
               tab_clientes: [],
-              datosCliente: {idModal:'', idPrestadorModal:'', nombreModal:'', apellidoModal:'', rfcModal:'', direccionModal:'', estatusModal:''},
+              datosCliente: {idModal:'', nombreModal:'', apellidoModal:'', rfcModal:'', direccionModal:'', estatusModal:''},
               btnEditar:false,
-              idPrestadorAgregar: '',
-              idClienteEditar: '',
+              idClienteEditar: ''
             }
             
         },

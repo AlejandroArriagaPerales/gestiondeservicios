@@ -42,6 +42,7 @@ class CategoriasController extends Controller
         //Registrar
         $categoria = new tab_categoria();
         $categoria->nombre = $request->nombreCategoria;
+        $categoria->costovisita = $request->costoVisitaCategoria;        
         $categoria->icono = '0';
         $categoria->save();
 

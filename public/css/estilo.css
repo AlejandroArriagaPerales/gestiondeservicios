@@ -253,3 +253,13 @@
 margin-left: 200px;
 
 }
+
+.chart-wrapper {
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+.container {
+  height: 100vh;
+}

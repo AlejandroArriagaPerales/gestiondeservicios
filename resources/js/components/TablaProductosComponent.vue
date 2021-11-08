@@ -1,26 +1,77 @@
 <template>
 
-    <div class="card-body">
-              <div style="position:relative; float:right;" >           
-                <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
-                        <tr>
-                          <td>
-                              <div class="form-group">
-                                  <button style="width: 80px; height: 30px; background: red; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarPDF()"><i class="fa-solid fa-download"></i> PDF</button>
-                              </div>            
-                          </td>
-                          <td>      
-                              <div class="form-group">
-                                <button style="width: 80px; height: 30px; background: green; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarXLS()"><i class="fa-solid fa-download"></i> XLS</button>
-                              </div>                   
-                          </td>
-                  
-                        </tr>
-                </table>
-              </div>  
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
+    <div>
+
+      <!-- Modal formulario -->
+        <div class="modal fade" id="modalForm">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-primary">
+                <h5 class="modal-title">
+                  <i class="fa fa-user-plus"></i> Editar
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form>
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label for="nombre">Nombre</label>
+                      <input type="text" class="form-control"  placeholder="" required="" v-model="datosProducto.nombreModal">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label for="nombre">Precio</label>
+                      <input type="text" class="form-control"  placeholder="" required="" v-model="datosProducto.precioModal">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label for="nombre">Categoria</label>
+                      <v-select  v-model="datosProducto.categoriaProductoModal" label="nombre" :options="tab_categoriaproductos"  :reduce="nombre => nombre.id" :searchable="true"></v-select>
+                    </div>
+                </div>
+                
+
+                
+               
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary" @click.prevent="editarProducto(datosProducto.idModal)" v-if="btnEditar">Editar Producto</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+                <br>
+                <br>
+                <br>
+
+               
+                <div>
+                  <div style="position:relative; float:right;" >           
+                    <table style="width: 180px; height: 30px;" class=".tablabotonespdf">
+                            <tr>
+                              <td>
+                                  <div class="form-group">
+                                      <button style="width: 80px; height: 30px; background: red; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarPDF()"><i class="fa-solid fa-download"></i> PDF</button>
+                                  </div>            
+                              </td>
+                              <td>      
+                                  <div class="form-group">
+                                    <button style="width: 80px; height: 30px; background: green; font-weight: bold;" class="buttons" v-on:click.prevent="GenerarXLS()"><i class="fa-solid fa-download"></i> XLS</button>
+                                  </div>                   
+                              </td>
+                      
+                            </tr>
+                    </table>
+                  </div> 
+                  <table id="example" class="table table-striped table-bordered table-condensed table-hover" style="width:100%">
+                    <thead>
+                      <tr>
                       <th>
                         ID
                       </th>
@@ -42,6 +93,7 @@
                       <th>
                         
                       </th>
+                      </tr>
                         
                   
                       
@@ -55,47 +107,19 @@
                         </td>
 
                         <td>
-                          <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                             <input v-model="nombreActualizar" type="text" class="form-control">
-                          </span>
-                           <span v-else>
-                        
-                                    {{tab_producto.nombre}}
-                                      </span>
-                          
+                          {{tab_producto.nombre}}                          
                         </td>
 
                         <td>
-                          <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                             <input v-model="precioActualizar" type="text" class="form-control">
-                          </span>
-                           <span v-else>
-                        
-                                    {{tab_producto.precio}}
-                                      </span>
-                          
+                          {{tab_producto.precio}}
                         </td>
 
                         <td>
-                          <span v-if="verActualizar && idActualizar  == index">
-                            <!--    Formulario para actualizar -->
-                            <select class="form-control" v-model="categoriaProductoSeleccionadaActualizar" >
-                                  <option :value="tab_categoriaproducto.id" v-for="(tab_categoriaproducto) in tab_categoriaproductos" :key="tab_categoriaproducto.id" >
-                                    {{tab_categoriaproducto.nombre}}
-                                  </option>
-                            </select>
-                          </span>
-                           <span v-else>
-                        
-                                    {{tab_categoriaproductos[tab_productos[index].categoriaProducto_id - 1 ].nombre}}
-                                      </span>
-                          
+                          {{tab_categoriaproductos[tab_productos[index].categoriaProducto_id - 1 ].nombre}}                           
                         </td>
 
                         <td>
-                          {{tab_producto.updated_at}}
+                          {{fecha(tab_producto.updated_at)}}
                         </td>
 
                         <td>
@@ -111,18 +135,7 @@
                         </td>
 
                         <td>
-
-                          <span v-if="verActualizar && idActualizar == index">
-                            <!--    Formulario para actualizar -->
-                             <button  class="btn btn-success"  @click="Actualizar(index) ">Guardar</button>
-                             
-                          </span>
-                           <span v-else>
-                              <button class="btn btn-warning"  @click="verActualizar(index)">Editar</button>
-
-                                      </span>
-
-                         
+                          <button class="btn btn-warning"  @click="abrirModalEditar(tab_producto)">Editar</button>
                         </td>
                        
                       </tr>
@@ -131,7 +144,7 @@
                     </tbody>
                   </table>
                 </div>
-              </div>
+    </div>
 
             
 </template>
@@ -142,29 +155,76 @@
   import jsPDF from 'jspdf';
     import 'jspdf-autotable';
     import XLSX from 'xlsx';
+    import moment from 'moment';
   
     export default {
-      created(){
-        axios.get('tab_productos').then(response => this.tab_productos = response.data);
-        axios.get('tab_categoriaproductos').then(response => this.tab_categoriaproductos = response.data);
+      async mounted(){
+        await this.getDatos();
+        await this.tabla();
       },
         data(){
             return {
-              idActualizar: -1,
+              idActualizar: '',
               identificador:'',
               nombreActualizar: '',
               precioActualizar: '',
+              categoriaProductoActualizar: '',
               tab_productos: [],
               categoriaProductoSeleccionadaActualizar: '',
               estatusActualizar: '',
-              tab_categoriaproductos: []
+              tab_categoriaproductos: [],
+              datosProducto: {idModal:'', nombreModal:'', precioModal:'',categoriaProductoModal:'', estatusModal:''},
+              btnEditar:false,
+              idProductoEditar: ''
             }
             
         },
-        mounted() {
-            
-        },
         methods: {
+          fecha(fechaActualizacion){
+            return moment(fechaActualizacion).format('L');
+          },
+          async getDatos(){
+            await axios.get('tab_productos').then(response => this.tab_productos = response.data);
+            await axios.get('tab_categoriaproductos').then(response => this.tab_categoriaproductos = response.data);
+          },
+          tabla(){
+            this.$nextTick(() => {
+            $('#example').DataTable();
+            });
+          },
+          abrirModalEditar(datos){
+              this.datosProducto= {idModal: datos.id , nombreModal: datos.nombre, precioModal: datos.precio, categoriaProductoModal: datos.categoriaProducto_id, estatusModal: datos.estatus}
+              this.btnEditar=true;
+              this.idProductoEditar=datos.id;
+              $('#modalForm').modal('show');
+            },
+          editarProducto(idProductoEditar){
+            this.idActualizar = idProductoEditar;
+
+            const params2 = {
+              nombreActualizar: this.datosProducto.nombreModal,
+              precioActualizar: this.datosProducto.precioModal,
+              categoriaProductoActualizar: this.datosProducto.categoriaProductoModal
+            }
+            
+
+            axios.put(`tab_productos/${this.idActualizar}`,params2).then((response) => {
+                  
+                  const nombreActualizar = response.data;  
+                  const precioActualizar = response.data;
+                  const categoriaProductoActualizar = response.data;                           
+                  this.$emit('update',nombreActualizar);
+                  this.$emit('update',precioActualizar);
+                  this.$emit('update',categoriaProductoActualizar);
+            });
+          
+            $('#modalForm').modal('hide')
+            Vue.swal("Producto Editado", "", "success");
+            setTimeout(function(){
+                    location.reload();
+            },1500);
+            
+          }, 
             GenerarPDF(){
                 confirm('PDF Generandose', 'Confirmación');
 

@@ -22,9 +22,13 @@ Vue.component('tablaproveedores-component', require('./components/TablaProveedor
 Vue.component('tablacategoriaproductos-component', require('./components/TablaCategoriaProductosComponent.vue').default);
 Vue.component('tablaproductos-component', require('./components/TablaProductosComponent.vue').default);
 Vue.component('tablaclientes-component', require('./components/TablaClientesComponent.vue').default);
-Vue.component('tablacategorias-component', require('./components/TablaCategoriasComponent.vue').default)
-Vue.component('tablacontactosproveedores-component', require('./components/TablaContactosProveedoresComponent.vue').default)
-Vue.component('tablametodospago-component', require('./components/TablaMetodosPagoComponent.vue').default)
+Vue.component('tablacategorias-component', require('./components/TablaCategoriasComponent.vue').default);
+Vue.component('tablacontactosproveedores-component', require('./components/TablaContactosProveedoresComponent.vue').default);
+Vue.component('tablametodospago-component', require('./components/TablaMetodosPagoComponent.vue').default);
+
+Vue.component('finanzas-component', require('./components/FinanzasComponent.vue').default);
+Vue.component('dashboard-component', require('./components/DashboardComponent.vue').default);
+
 
 Vue.component('v-select', VueSelect.VueSelect);
 
