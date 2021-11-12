@@ -1,4 +1,3 @@
-
 require('./bootstrap');
 
 window.Vue = require('vue').default;
@@ -28,6 +27,7 @@ Vue.component('tablametodospago-component', require('./components/TablaMetodosPa
 
 Vue.component('finanzas-component', require('./components/FinanzasComponent.vue').default);
 Vue.component('dashboard-component', require('./components/DashboardComponent.vue').default);
+Vue.component('mapaprestadores-component', require('./components/MapaPrestadoresComponent.vue').default);
 
 
 Vue.component('v-select', VueSelect.VueSelect);

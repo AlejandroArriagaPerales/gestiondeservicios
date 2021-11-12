@@ -34,7 +34,6 @@ class PrestadoresController extends Controller
         $prestador->nombre = $request->nombrePrestador;
         $prestador->apellido = $request->apellidoPrestador;
         $prestador->correo = $request->correoPrestador;
-        $prestador->ubicacion = $request->ubicacionPrestador;
         $prestador->telefono = $request->telefonoPrestador;
         $prestador->disponibilidad = $request->disponibilidadSeleccionada;
         $prestador->imagen = '0';
@@ -79,7 +78,6 @@ class PrestadoresController extends Controller
         $prestador->nombre = $request->nombreActualizar;
         $prestador->apellido = $request->apellidoActualizar;
         $prestador->correo = $request->correoActualizar;
-        $prestador->ubicacion = $request->ubicacionActualizar;
         $prestador->telefono = $request->telefonoActualizar;
         $prestador->estatus = $request->estatusActualizar;
         

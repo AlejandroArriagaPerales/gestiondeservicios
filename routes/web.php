@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FinanzasController;
+use App\Http\Controllers\MapaPrestadoresController;
 use App\Http\Controllers\MetodoPagosController;
 use App\Http\Controllers\PrestadoresController;
 use App\Http\Controllers\ProductosController;
@@ -113,6 +114,9 @@ Route::get('tablametodospago', TablaMetodosPagoController::class)->name('tablame
 
 Route::post('finanzas', FinanzasController::class)->name('finanzas');
 Route::get('finanzas', FinanzasController::class)->name('finanzas');
+
+Route::post('mapaprestadores', MapaPrestadoresController::class)->name('mapaprestadores');
+Route::get('mapaprestadores', MapaPrestadoresController::class)->name('mapaprestadores');
 
 
 

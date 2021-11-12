@@ -30,10 +30,12 @@
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" defer></script>
   <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js" defer></script>
   
-  <script src="{{ asset('js/app.js') }}" defer></script>
   
-
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script> 
+  <script src="{{ asset('js/app.js') }}" defer></script>
  
 </head>
 
@@ -180,6 +182,21 @@
       </li>
 
       <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class="fas fa-map-marker-alt"></i>
+            <span class="link_name">Mapa</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Mapa</a></li>
+          <li><a href="mapaprestadores">Mapa de Prestadores</a></li>
+         
+        </ul>
+      </li>
+
+      <li>
         <div class="profile-details">
         <div class="profile-content">
           
@@ -206,10 +223,16 @@
       @yield('content')
     </div>
 
+    
+
+    
+
 
 
   </section>
 
+  
+  
 
 
   
@@ -226,12 +249,11 @@
   sidebarBtn.addEventListener("click", ()=>{
     sidebar.classList.toggle("close");
   });
-  </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-<script src="./js/script.js"></script>
-  
+</script>
+
+
+
 
 
 

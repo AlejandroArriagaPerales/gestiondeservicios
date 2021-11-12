@@ -195,6 +195,21 @@
       </li>
 
       <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class="fas fa-map-marker-alt"></i>
+            <span class="link_name">Mapa</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Mapa</a></li>
+          <li><a href="mapaprestadores">Mapa de Prestadores</a></li>
+         
+        </ul>
+      </li>
+
+      <li>
         <div class="profile-details">
         <div class="profile-content">
           
@@ -244,7 +259,10 @@
   });
   </script>
 
-
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC89ZOzM4VYbpN4MNAM-X9YKv1grTUWmWA"></script>
+  <script>
+    
+  </script>
 
 
 </body>

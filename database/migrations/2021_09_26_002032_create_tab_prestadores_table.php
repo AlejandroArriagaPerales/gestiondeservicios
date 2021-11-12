@@ -18,7 +18,8 @@ class CreateTabPrestadoresTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('correo');
-            $table->string('ubicacion');
+            $table->float('latitud')->nullable();
+            $table->float('longitud')->nullable();
             $table->string('telefono');
             $table->integer('disponibilidad');
             $table->string('imagen');

@@ -33,15 +33,6 @@
                 <div class="espacio">
                   <div class="">
                     <div class="form-group">
-                      <label>Dirección</label>
-                      <input type="text" class="form-control" placeholder="Dirección" v-model="ubicacionPrestador">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="espacio">
-                  <div class="">
-                    <div class="form-group">
                       <label for="exampleInputEmail1">Teléfono</label>
                       <input type="tel" class="form-control" placeholder="Teléfono" v-model="telefonoPrestador">
                     </div>
@@ -203,7 +194,6 @@ import axios from "axios";
                 nombrePrestador: '',
                 apellidoPrestador: '',
                 correoPrestador: '',
-                ubicacionPrestador: '',
                 telefonoPrestador: '',
                 contrasenaPrestador: '',
                 categoriaSeleccionada: '',
@@ -238,7 +228,6 @@ import axios from "axios";
                     nombrePrestador: this.nombrePrestador,
                     apellidoPrestador: this.apellidoPrestador,
                     correoPrestador: this.correoPrestador,
-                    ubicacionPrestador: this.ubicacionPrestador,
                     telefonoPrestador: this.telefonoPrestador,
                     contrasenaPrestador: this.contrasenaPrestador,
                     disponibilidadSeleccionada: this.disponibilidadSeleccionada,
@@ -248,7 +237,6 @@ import axios from "axios";
                 this.nombrePrestador='';
                 this.apellidoPrestador='';
                 this.correoPrestador='';
-                this.ubicacionPrestador='';
                 this.telefonoPrestador='';
                 this.contrasenaPrestador='';
                 this.disponibilidadSeleccionada="";
@@ -258,7 +246,6 @@ import axios from "axios";
                   const nombrePrestador = response.data;
                   const apellidoPrestador = response.data;
                   const correoPrestador = response.data;
-                  const ubicacionPrestador = response.data;
                   const telefonoPrestador = response.data;
                   const contrasenaPrestador = response.data;
                   const disponibilidadSeleccionada = response.data;
@@ -267,7 +254,6 @@ import axios from "axios";
                   this.$emit('new',nombrePrestador);
                   this.$emit('new',apellidoPrestador);
                   this.$emit('new',correoPrestador);
-                  this.$emit('new',ubicacionPrestador);
                   this.$emit('new',telefonoPrestador);
                   this.$emit('new',disponibilidadSeleccionada);
                   this.$emit('new',contrasenaPrestador);
