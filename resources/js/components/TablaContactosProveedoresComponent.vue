@@ -163,6 +163,7 @@
             await axios.get('tab_proveedores').then(response => this.tab_proveedores = response.data);
           },
           tabla(){
+           
             this.$nextTick(() => {
             $('#example').DataTable();
             });

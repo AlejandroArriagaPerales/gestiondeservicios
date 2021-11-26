@@ -39,6 +39,7 @@
     export default {
       created(){
         axios.get('tab_categorias').then(response => this.tab_categorias = response.data);
+      
       },
         data(){
             return {

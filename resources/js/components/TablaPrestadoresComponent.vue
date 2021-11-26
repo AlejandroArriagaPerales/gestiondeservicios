@@ -312,6 +312,7 @@
             await axios.get('tab_servicios').then(res => this.tab_servicios = res.data);
           },
           crearTablaCompuesta(){
+            console.log(this.tab_prestadores);
             this.unionPrestadorCategoria = [];
             console.log("Contador de PrestadoresCategorias Array:");
             console.log(this.tab_prestadorescategorias.length);

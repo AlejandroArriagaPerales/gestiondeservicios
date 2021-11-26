@@ -10,7 +10,7 @@
     
   <div class="main-panel" id="main-panel">
     <div class="content">
-      <div class="row">
+      <div class="">
         <div class="col-lg-8">
           <div class="card">
 

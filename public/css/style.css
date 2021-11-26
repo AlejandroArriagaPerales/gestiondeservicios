@@ -170,3 +170,9 @@ body {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+
+nav ul li.active a{
+  color: cyan;
+  background: #1e1e1e;
+  border-left-color: cyan;
+}

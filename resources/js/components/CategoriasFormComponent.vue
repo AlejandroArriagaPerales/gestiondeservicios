@@ -3,7 +3,7 @@
                 <form action="" v-on:submit.prevent="newCategoria()">
                         
                   <div class="form-group">
-                    <label>Nombre(s)</label>
+                    <label>Nombre</label>
                     <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreCategoria">
                   </div>
                   <div class="form-group">

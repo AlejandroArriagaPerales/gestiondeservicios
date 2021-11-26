@@ -180,6 +180,7 @@
         },
         methods: {
           tabla(){
+          
             this.$nextTick(() => {
             $('#example').DataTable();
             });

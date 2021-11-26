@@ -74,7 +74,41 @@
                 </table>
 
                 <br><br>
-                <br>
+                <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Metodo de Pago
+                      </th>
+                      <th>
+                        Acción
+                      </th>
+                      
+                    </thead>
+                   
+
+                    <tbody>
+                      <!--
+                      <tr  v-for="(serviciosAgregado) in serviciosAgregados" :key="serviciosAgregado"> 
+                       
+                       
+
+                      </tr>
+                      -->
+
+                      <tr v-for="(pagosAgregado,index) in PagosAgregados" :key="index"  >
+                       <td>
+                        {{tab_metodopagos[pagosAgregado.nombre - 1 ].nombre}}  
+                        </td>
+                        
+                        <td>
+                           <button class="btn btn-success" style="background: #AD290B"  v-on:click.prevent="Eliminar(index)">Eliminar</button>
+                        </td>
+                       
+                      </tr>
+                        
+                      
+                    </tbody>
+                </table>
                 <br>
                 <input style="width: 120px; height: 50px; background:#F96332;" class="buttons" type="submit" name="" value="Agregar">
                               
@@ -101,6 +135,7 @@ import axios from "axios";
                 cantidadPagosAgregados: 0,
                 idClienteAgregado: [],
                 PagosAgregados: [],
+                nombre: '',
                 tab_metodopagos: [],
                 tab_clientes: []             
             }
@@ -155,9 +190,13 @@ import axios from "axios";
                 
             },
             AgregarMetodoPago(){
-                this.PagosAgregados[this.cantidadPagosAgregados] = this.PagosSeleccionado;
+                this.PagosAgregados.push({ nombre: this.PagosSeleccionado});
                 this.cantidadPagosAgregados = this.cantidadPagosAgregados+1;
-                confirm('Metodo de Pago Preparado', 'Confirmación');
+                Vue.swal("Metodo de Pago Agregado", "", "success");
+            },
+            Eliminar: function (posicion_id){
+                this.PagosAgregados.splice(posicion_id, 1);
+               
             }
 
         }

@@ -3,20 +3,20 @@
 
 
 
-@section('title', 'Registro Categorias')
+@section('title', 'Registro Proveedores')
     
 @section('content')
 
-@section('tituloBarra', 'Registro de Categorias')
+@section('tituloBarra', 'Registro de Proveedores')
 
-@section('tituloPagina', 'Registro de Categorias')
+@section('tituloPagina', 'Registro de Proveedores')
 
   <div class="main-panel" id="main-panel">
         
   
     
     <div class="content">
-      <div class="row">
+      <div class="">
          <div class="col-md-8">
             <div class="card">
 

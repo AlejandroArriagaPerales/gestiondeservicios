@@ -213,7 +213,7 @@
 .home-section{
   position: relative;
   background: #E4E9F7;
-  height: 100vh;
+  height: 100%;
   left: 312px;
   width: calc(100% - 312px);
   transition: all 0.5s ease;
@@ -269,4 +269,20 @@ margin-left: 200px;
   max-width: 100%;
   height: 90vh;
   max-height: 100vh;
+}
+
+.buttontabla {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  background: #8EC468;
+  border: none;
+  color: white;
+  margin-top: 5%;
+  
+}
+.buttontabla:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #82b35f;
+  border-color: #719c52; /*set the color you want here*/
 }

@@ -141,6 +141,7 @@
             await axios.get('tab_categorias').then(response => this.tab_categorias = response.data);
           },
           tabla(){
+           
             this.$nextTick(() => {
             $('#example').DataTable();
             });

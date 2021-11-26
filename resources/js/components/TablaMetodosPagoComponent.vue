@@ -127,7 +127,7 @@
           },
           tabla(){
             this.$nextTick(() => {
-            $('#example').DataTable();
+            $('#example').DataTable();  
             });
           },
           abrirModalEditar(datos){

@@ -10,7 +10,7 @@
 
 @section('tituloPagina', 'Dashboard')
 
-<div style="margin: auto;" class="col-md-11">
+<div style="margin: auto;" >
     <dashboard-component></dashboard-component>
 </div>
 

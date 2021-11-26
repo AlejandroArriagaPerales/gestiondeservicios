@@ -36,7 +36,7 @@
             
             
             //Lista la libreria
-            console.log("Aqui estoy");
+            
             var mapElement = document.getElementById('mapa');
             var map = new google.maps.Map(mapElement, {
                 center: {
@@ -49,19 +49,22 @@
             
             for (let i = 0; i < this.tab_prestadores.length; i++) {
               if(this.tab_prestadores[i].latitud!=null && this.tab_prestadores[i].longitud!=null){
-                var latitudRecogida = this.tab_prestadores[i].latitud;
-                var longitudRecogida = this.tab_prestadores[i].longitud;
-                var coordenadas = {lat: latitudRecogida, lng: longitudRecogida};
-                var nombrePrestador = this.tab_prestadores[i].nombre;
-                var apellidoPrestador = this.tab_prestadores[i].apellido;
+                if(this.tab_prestadores[i].disponibilidad==1){
+                  var latitudRecogida = this.tab_prestadores[i].latitud;
+                  var longitudRecogida = this.tab_prestadores[i].longitud;
+                  var coordenadas = {lat: latitudRecogida, lng: longitudRecogida};
+                  var nombrePrestador = this.tab_prestadores[i].nombre;
+                  var apellidoPrestador = this.tab_prestadores[i].apellido;
 
-                var marker = new google.maps.Marker({
-                  position: coordenadas,
-                  map,
-                  title: nombrePrestador + " " + apellidoPrestador
-                });
+                  var marker = new google.maps.Marker({
+                    position: coordenadas,
+                    map,
+                    title: nombrePrestador + " " + apellidoPrestador
+                  });
+                  
+                  marker.setPosition(coordenadas);
+                  }
                 
-                marker.setPosition(coordenadas);
               }
      
             }

@@ -7,7 +7,7 @@
   <title>@yield('title')</title>
   <!-- Custom fonts for this template -->
  
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
   <link
       href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
       rel="stylesheet">
@@ -29,6 +29,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.js" defer></script>
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" defer></script>
   <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   
   <script src="{{ asset('js/app.js') }}" defer></script>
   
@@ -47,12 +48,16 @@
 
 <body>
   
-  <div class="sidebar close" >
+  <div class="sidebar open" >
+
     <div class="logo-details">
       <i class="fas fa-hammer"></i>
       <span class="logo_name">Servicios Victoria</span>
     </div>
+
+
     <ul class="nav-links">
+      
       <li>
         <a href="dashboard">
           <i class="fa-solid fa-grip"></i>
@@ -69,7 +74,7 @@
             <i class="fas fa-desktop"></i>
             <span class="link_name">Administrador</span>
           </a>
-          <i class='bx bxs-chevron-down arrow' ></i>
+          <i class='bx bxs-chevron-down arrow ' ></i>
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Administrador</a></li>
@@ -85,7 +90,8 @@
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
-        <ul class="sub-menu">
+        <ul class="sub-menu ">
+        
           <li><a class="link_name" href="#">Prestador Servicio</a></li>
           <li><a href="registroprestadores">Registro Prestador</a></li>
           <li><a href="tablaprestadores">Tabla Prestador</a></li>
@@ -221,7 +227,7 @@
         <i class='bx bx-log-out' ></i>
       </div>
     </li>
-
+  
 </ul>
   </div>
 
@@ -246,17 +252,34 @@
   <script>
   let arrow = document.querySelectorAll(".arrow");
   for (var i = 0; i < arrow.length; i++) {
+    
     arrow[i].addEventListener("click", (e)=>{
-   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
-   arrowParent.classList.toggle("showMenu");
+    let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+    arrowParent.classList.toggle("showMenu");
+    
+   
     });
   }
+
+
+
   let sidebar = document.querySelector(".sidebar");
   let sidebarBtn = document.querySelector(".bx-menu");
-  console.log(sidebarBtn);
+ 
   sidebarBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("close");
+    sidebar.classList.toggle("close"); 
   });
+
+
+
+
+  
+  
+
+
+
+ 
+    
   </script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC89ZOzM4VYbpN4MNAM-X9YKv1grTUWmWA"></script>

@@ -49,7 +49,7 @@
 
 <body>
   
-  <div class="sidebar close" >
+  <div class="sidebar open" >
     <div class="logo-details">
       <i class="fas fa-hammer"></i>
       <span class="logo_name">Servicios Victoria</span>
