@@ -16,13 +16,13 @@
 
                 <div class="form-group">
                   <label>Nombre</label>
-                  <input type="text" class="form-control" placeholder="Nombre" v-model="nombreCategoriaProducto">
+                  <input type="text" class="form-control" placeholder="Nombre" v-model="nombreCategoriaProducto" required="required">
                 </div>
  
                 <br>
                 <br>
                     
-                <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Agregar">
+                <input style="width: 120px; height: 50px; background:#F96332; color:white" class="buttons" type="submit" name="" value="Agregar">
 
                 <br>  
               </form>
@@ -46,12 +46,15 @@
     export default {
       created(){
         axios.get('tab_proveedores').then(response => this.tab_proveedores = response.data);
+        axios.get('tab_categoriaproductos').then(response => this.tab_categoriaproductos = response.data);
       },
         data(){
             return {
                 nombreCategoriaProducto: '',
                 proveedorSeleccionado: '',
-                tab_proveedores: []
+                tab_proveedores: [],
+                tab_categoriaproductos: [],
+                encontrado: 0
             }
             
         },
@@ -60,6 +63,16 @@
         },
         methods: {
             newCategoriaProducto(){
+              for (let i = 0; i < this.tab_categoriaproductos.length; i++) {
+                  if(this.tab_categoriaproductos[i].nombre == this.nombreCategoriaProducto && this.tab_categoriaproductos[i].proveedore_id == this.proveedorSeleccionado){
+                    this.encontrado=1;
+                  } 
+              }
+              if (this.encontrado==1) {
+                  Vue.swal("Categoria de producto ya existente", "", "error");
+                  this.encontrado=0;
+                  
+              }else{
                 const params = {
                     nombreCategoriaProducto: this.nombreCategoriaProducto,
                     proveedorSeleccionado: this.proveedorSeleccionado
@@ -72,7 +85,11 @@
                   this.$emit('new',nombreCategoriaProducto);
                   this.$emit('new',proveedorSeleccionado);
                   Vue.swal("Categoria de Producto Agregada", "", "success");
+                  setTimeout(function(){
+                    location.reload();
+                  },1500);
                 });
+              }
              
                 
             },

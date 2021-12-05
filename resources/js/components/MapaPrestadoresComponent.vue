@@ -29,7 +29,6 @@
         methods: {
           async getData(){
             await axios.get('tab_prestadores').then(res => this.tab_prestadores = res.data);
-            console.log(this.tab_prestadores);
             
           },
           async getMapa(){

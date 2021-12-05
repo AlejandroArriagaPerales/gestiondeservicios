@@ -190,7 +190,6 @@
           },
           editarCliente(idClienteEditar){
             this.idActualizar = idClienteEditar;
-            console.log(this.idActualizar);
 
             const params2 = {
               nombreActualizar: this.datosCliente.nombreModal,
@@ -230,8 +229,7 @@
               $('#modalForm').modal('show');
             },
           GenerarPDF(){
-                confirm('PDF Generandose', 'Confirmación');
-
+                Vue.swal("PDF Generado", "", "success");
                 
 
                 var vm = this
@@ -253,6 +251,7 @@
                 
             },
             GenerarXLS(){
+              Vue.swal("Excel Generado", "", "success");
 
               let data = XLSX.utils.json_to_sheet(this.tab_clientes,
               {

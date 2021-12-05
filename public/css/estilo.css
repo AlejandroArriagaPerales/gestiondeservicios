@@ -286,3 +286,16 @@ margin-left: 200px;
   background-color: #82b35f;
   border-color: #719c52; /*set the color you want here*/
 }
+
+.ocultar {
+  display: none;
+}
+
+.mostrar {
+  display: block;
+}
+
+body {
+  background-color: #E4E9F7;
+  /*background-image: url('../img/bg.png');*/
+}

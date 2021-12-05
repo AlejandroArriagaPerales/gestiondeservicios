@@ -1,53 +1,25 @@
 <template>
     <div class="card-body">
-                <form action="" v-on:submit.prevent="newCategoria()">
+                <form action="" v-on:submit.prevent="validarImagen()">
                         
                   <div class="form-group">
                     <label>Nombre</label>
-                    <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreCategoria">
+                    <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreCategoria" required="required">
                   </div>
                   <div class="form-group">
                     <label>Costo de la visita</label>
-                    <input type="text" class="form-control" placeholder="Costo" v-model="costoVisitaCategoria">
+                    <input type="number" class="form-control" placeholder="Costo" v-model="costoVisitaCategoria" required="required">
                   </div>
-                  <br>
-
-                  
-                  <div class="seleccionar">
-                    <label for="img" class="negrita">Selecciona un icono:</label>   
-                    <br>          
-
-                      <div>
-                        <input name="img[]" type="file" id="img" multiple="multiple" >
-                        <br>
-                        <br>
-                        <!--
-                        @if ( !empty ( $bicicletas->imagenes) )
-                          <span>Imagen(es) Actual(es): </span>
-                          <br>
-
-                          @if(Session::has('message'))
-                            <div class="alert alert-primary" role="alert">
-                              {{ Session::get('message') }}
-                            </div>
-                          @endif
-
-                          @foreach($imagenes as $img)                    
-                            <img src="../../../uploads/{{ $img->nombre }}" width="200" class="img-fluid"> 
-                            <a href="{{ route('admin/bicicletas/eliminarimagen', [$img->id, $bicicletas->id]) }}" class="btn btn-danger btn-sm" onclick="return confirmarEliminar();">Eliminar</a> 
-                          @endforeach
-
-                        @else
-                        @endif 
-                        -->
-
-                      </div>
-            
+                  <div class="form-group">
+                    <label>Seleccione una imagen</label>
+                    <br>
+                    <input type="file" id="file" ref="file" v-on:change="onChangeFileUpload()"/>
                   </div>
+                
                   
        
                   <br>
-                  <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Agregar">
+                  <input style="width: 120px; height: 50px; background:#F96332; color:white" class="buttons" type="submit" name="" value="Agregar">
                   <br>
                 </form>
               </div>
@@ -57,25 +29,123 @@
 
 
     export default {
+      async mounted(){
+        await this.getDatos();
+      },
         data(){
             return {
                 nombreCategoria: '',
-                costoVisitaCategoria: ''
+                costoVisitaCategoria: '',
+                tab_categorias: [],
+                encontrado: 0,
+                file: '',
+                recibidoPHP: '',
+                archivo: ''
             }
             
         },
-        mounted() {
-        
-        },
         methods: {
+          async getDatos(){
+            await axios.get('tab_categorias').then(response => this.tab_categorias = response.data);
+          },
+          async guardarImagen(){
+                let formData = new FormData();
+                var self = this;
+                await self.newCategoria();
+                await self.getDatos();
+                let nuevaCategoria = this.tab_categorias.length;
+                let idCategoriaImagen = this.tab_categorias[nuevaCategoria-1].id;
+                let nombreCategoriaImagen = this.tab_categorias[nuevaCategoria-1].nombre;
+                let nombreImagenCategoria = idCategoriaImagen+"_"+nombreCategoriaImagen;
+
+
+                var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
+                var newFile = new File([blob], nombreImagenCategoria+'.png', {type: 'image/png'});
+                formData.append('file', newFile);
+
+                
+
+                axios.post('http://localhost/proyecto/resources/js/components/subirImagenesCategorias.php',
+                    formData,
+                    {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                  }
+                ).then(response => {
+                  
+                });
+
+                setTimeout(function(){
+                  Vue.swal("Categoria Agregada Exitosamente", "", "success");
+                  location.reload();
+                },1000);
+
+                
+
+               
+
+      },
+        validarImagen(){
+            let respuesta = null;
+            let formData = new FormData();
+            var self = this;
+            formData.append('file', this.file);
+            
+  
+            axios.post('http://localhost/proyecto/resources/js/components/validarImagenesCategorias.php',
+                formData,
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+              }
+            ).then(response => {
+              respuesta = response.data;
+              return respuesta;
+            });
+            
+
+
+            setTimeout(function(){
+              this.recibidoPHP = respuesta;
+              if (this.recibidoPHP=='error') {
+              Vue.swal("Imagen no válida", "", "error");
+              }else{
+              
+              self.guardarImagen();
+
+              }
+            },20);
+            
+            
+              
+              
+
+
+            
+          },
+  
+          onChangeFileUpload(){
+            this.file = this.$refs.file.files[0];
+          },
             newCategoria(){
+
+              for (let i = 0; i < this.tab_categorias.length; i++) {
+                  if(this.tab_categorias[i].nombre == this.nombreCategoria){
+                    this.encontrado=1;
+                  } 
+                }
+              if (this.encontrado==1) {
+                  Vue.swal("Categoria ya existente", "", "error");
+                  this.encontrado=0;
+                  
+              }else{
                 const params = {
                     nombreCategoria: this.nombreCategoria,
                     costoVisitaCategoria: this.costoVisitaCategoria
                     
                 };
-                this.nombreCategoria='';
-                this.costoVisitaCategoria='';
                 
                 
                 
@@ -84,9 +154,10 @@
                   const costoVisitaCategoria = response.data;
                   this.$emit('new',nombreCategoria);
                   this.$emit('new',costoVisitaCategoria);
-                  Vue.swal("Categoria Agregada", "", "success");
+                  setTimeout(function(){
+                  },100);
                 });
-                
+              }
              
                 
             }

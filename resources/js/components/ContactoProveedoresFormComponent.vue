@@ -16,31 +16,26 @@
 
                 <div class="form-group">
                   <label>Nombre(s)</label>
-                  <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreContactoProveedor">
+                  <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreContactoProveedor" required="required">
                 </div>
 
                 <div class="form-group">
                   <label>Correo Electrónico</label>
-                  <input type="mail" class="form-control" placeholder="Correo" v-model="correoContactoProveedor">
+                  <input type="mail" class="form-control" placeholder="Correo" v-model="correoContactoProveedor" required="required">
                 </div>
 
                 <div class="form-group">
-                  <label>Número Teléfono</label>
-                  <input type="tel" class="form-control" placeholder="Telefóno" v-model="telefonoContactoProveedor">
+                  <label>Teléfono</label>
+                  <input type="tel" class="form-control" placeholder="Telefóno" v-model="telefonoContactoProveedor" pattern="[0-9]{10}" title="El número telefónico contiene solo 10 dígitos" required="required">
                 </div>
  
                 <br>
                 <br>
                     
-                <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Agregar">
+                <input style="width: 120px; height: 50px; background:#F96332; color:white" class="buttons" type="submit" name="" value="Agregar">
 
                 <br>  
               </form>
-              <!--
-                <div v-for="tab_categoria in tab_categorias" v-bind:key="tab_categoria.id">
-                    {{tab_categorias}}
-                </div>
-              -->
               
             </div>
 
@@ -54,6 +49,8 @@
     export default {
       created(){
         axios.get('tab_proveedores').then(response => this.tab_proveedores = response.data);
+        axios.get('tab_contactos').then(response => this.tab_contactos = response.data);
+        
       },
         data(){
             return {
@@ -61,7 +58,9 @@
                 correoContactoProveedor: '',
                 telefonoContactoProveedor: '',
                 proveedorSeleccionado: '',
-                tab_proveedores: []
+                tab_proveedores: [],
+                tab_contactos: [],
+                encontrado: 0
             }
             
         },
@@ -70,6 +69,16 @@
         },
         methods: {
             newContactoProveedor(){
+              for (let i = 0; i < this.tab_contactos.length; i++) {
+                  if(this.tab_contactos[i].correo == this.correoContactoProveedor){
+                    this.encontrado=1;
+                  } 
+                }
+              if (this.encontrado==1) {
+                  Vue.swal("Contacto ya existente", "", "error");
+                  this.encontrado=0;
+                  
+              }else{
                 const params = {
                     nombreContactoProveedor: this.nombreContactoProveedor,
                     correoContactoProveedor: this.correoContactoProveedor,
@@ -91,7 +100,11 @@
                   this.$emit('new',telefonoContactoProveedor);
                   this.$emit('new',proveedorSeleccionado);
                   Vue.swal("Contacto de Proveedor Agregado", "", "success");
+                  setTimeout(function(){
+                    location.reload();
+                  },1500);
                 });
+              }
              
                 
             },

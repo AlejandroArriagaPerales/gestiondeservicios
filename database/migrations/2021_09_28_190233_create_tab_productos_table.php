@@ -17,9 +17,11 @@ class CreateTabProductosTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('precio');
+            $table->integer('proveedore_id')->unsigned();
             $table->integer('categoriaProducto_id')->unsigned();
             $table->string('estatus');
             $table->foreign('categoriaProducto_id')->references('id')->on('tab_categoriaproductos');
+            $table->foreign('proveedore_id')->references('id')->on('tab_proveedores');
             $table->timestamps();
         });
     }

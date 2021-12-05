@@ -17,13 +17,13 @@
 
                 <div class="form-group">
                   <label>Nombre(s)</label>
-                  <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreServicio">
+                  <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreServicio" required="required"> 
                 </div>
  
                 <br>
                 <br>
                     
-                <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Agregar">
+                <input style="width: 120px; height: 50px; background:#F96332; color:white" class="buttons" type="submit" name="" value="Agregar">
 
                 <br>  
               </form>
@@ -45,12 +45,15 @@
     export default {
       created(){
         axios.get('tab_categorias').then(response => this.tab_categorias = response.data);
+        axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
       },
         data(){
             return {
                 nombreServicio: '',
                 categoriaSeleccionada: '',
-                tab_categorias: []
+                tab_categorias: [],
+                tab_servicios: [],
+                encontrado: 0
             }
             
         },
@@ -59,6 +62,17 @@
         },
         methods: {
             newServicio(){
+
+              for (let i = 0; i < this.tab_servicios.length; i++) {
+                  if(this.tab_servicios[i].nombre == this.nombreServicio){
+                    this.encontrado=1;
+                  } 
+                }
+              if (this.encontrado==1) {
+                  Vue.swal("Servicio ya existente", "", "error");
+                  this.encontrado=0;
+                  
+              }else{
                 const params = {
                     nombreServicio: this.nombreServicio,
                     categoriaSeleccionada: this.categoriaSeleccionada
@@ -73,8 +87,11 @@
                   this.$emit('new',nombreServicio);
                   this.$emit('new',categoriaSeleccionada);
                   Vue.swal("Servicio Agregado", "", "success");
+                  setTimeout(function(){
+                    location.reload();
+                  },1500);
                 });
-             
+              }
                 
             },
             Recibido(){

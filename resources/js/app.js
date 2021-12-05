@@ -15,7 +15,6 @@ Vue.component('categoriaproductosform-component', require('./components/Categori
 Vue.component('metodopagoform-component', require('./components/MetodoPagoFormComponent.vue').default);
 Vue.component('productosform-component', require('./components/ProductosFormComponent.vue').default);
 
-Vue.component('tablaadministradores-component', require('./components/TablaAdministradoresComponent.vue').default);
 Vue.component('tablaprestadores-component', require('./components/TablaPrestadoresComponent.vue').default);
 Vue.component('tablaservicios-component', require('./components/TablaServiciosComponent.vue').default);
 Vue.component('tablaproveedores-component', require('./components/TablaProveedoresComponent.vue').default);

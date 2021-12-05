@@ -46,83 +46,83 @@ use Illuminate\Support\Facades\Route;
 Route::post('/', HomeController::class);
 Route::get('/', HomeController::class);
 
-Route::post('dashboard', DashboardController::class)->name('dashboard');
-Route::get('dashboard', DashboardController::class)->name('dashboard');
+Route::post('dashboard', DashboardController::class)->name('dashboard') -> middleware('auth');
+Route::get('dashboard', DashboardController::class)->name('dashboard') -> middleware('auth');
 
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::post('/logout', 'Auth\LoginController@logout');
 
-Route::post('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores');
-Route::get('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores');
+Route::post('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores') -> middleware('auth');
+Route::get('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores')-> middleware('auth');
 
-Route::post('registroadministradores', RegisterController::class)->name('registroadministradores');
-Route::get('registroadministradores', RegisterController::class)->name('registroadministradores');
+Route::post('registroadministradores', RegisterController::class)->name('registroadministradores')-> middleware('auth');
+Route::get('registroadministradores', RegisterController::class)->name('registroadministradores')-> middleware('auth');
 
-Route::post('registroclientes', RegistroClientesController::class)->name('registroclientes');
-Route::get('registroclientes', RegistroClientesController::class)->name('registroclientes');
+Route::post('registroclientes', RegistroClientesController::class)->name('registroclientes')-> middleware('auth');
+Route::get('registroclientes', RegistroClientesController::class)->name('registroclientes')-> middleware('auth');
 
-Route::post('registrocategorias', RegistroCategoriaController::class)->name('registrocategorias');
-Route::get('registrocategorias', RegistroCategoriaController::class)->name('registrocategorias');
+Route::post('registrocategorias', RegistroCategoriaController::class)->name('registrocategorias')-> middleware('auth');
+Route::get('registrocategorias', RegistroCategoriaController::class)->name('registrocategorias')-> middleware('auth');
 
-Route::post('registroservicios', RegistroServiciosController::class)->name('registroservicios');
-Route::get('registroservicios', RegistroServiciosController::class)->name('registroservicios');
+Route::post('registroservicios', RegistroServiciosController::class)->name('registroservicios')-> middleware('auth');
+Route::get('registroservicios', RegistroServiciosController::class)->name('registroservicios')-> middleware('auth');
 
-Route::post('registroproveedores', RegistroProveedorController::class)->name('registroproveedores');
-Route::get('registroproveedores', RegistroProveedorController::class)->name('registroproveedores');
+Route::post('registroproveedores', RegistroProveedorController::class)->name('registroproveedores')-> middleware('auth');
+Route::get('registroproveedores', RegistroProveedorController::class)->name('registroproveedores')-> middleware('auth');
 
-Route::post('registrocontactoproveedores', RegistroContactoProveedoresController::class)->name('registrocontactoproveedores');
-Route::get('registrocontactoproveedores', RegistroContactoProveedoresController::class)->name('registrocontactoproveedores');
+Route::post('registrocontactoproveedores', RegistroContactoProveedoresController::class)->name('registrocontactoproveedores')-> middleware('auth');
+Route::get('registrocontactoproveedores', RegistroContactoProveedoresController::class)->name('registrocontactoproveedores')-> middleware('auth');
 
-Route::post('registrocategoriaproductos', RegistroCategoriaProductosController::class)->name('registrocategoriaproductos');
-Route::get('registrocategoriaproductos', RegistroCategoriaProductosController::class)->name('registrocategoriaproductos');
+Route::post('registrocategoriaproductos', RegistroCategoriaProductosController::class)->name('registrocategoriaproductos')-> middleware('auth');
+Route::get('registrocategoriaproductos', RegistroCategoriaProductosController::class)->name('registrocategoriaproductos')-> middleware('auth');
 
-Route::post('registroproductos', RegistroProductosController::class)->name('registroproductos');
-Route::get('registroproductos', RegistroProductosController::class)->name('registroproductos');
+Route::post('registroproductos', RegistroProductosController::class)->name('registroproductos')-> middleware('auth');
+Route::get('registroproductos', RegistroProductosController::class)->name('registroproductos')-> middleware('auth');
 
-Route::post('registrometodopago', RegistroMetodoPagoController::class)->name('registrometodopago');
-Route::get('registrometodopago', RegistroMetodoPagoController::class)->name('registrometodopago');
+Route::post('registrometodopago', RegistroMetodoPagoController::class)->name('registrometodopago')-> middleware('auth');
+Route::get('registrometodopago', RegistroMetodoPagoController::class)->name('registrometodopago')-> middleware('auth');
 
-Route::post('tablaprestadores', TablaPrestadoresController::class)->name('tablaprestadores');
-Route::get('tablaprestadores', TablaPrestadoresController::class)->name('tablaprestadores');
+Route::post('tablaprestadores', TablaPrestadoresController::class)->name('tablaprestadores')-> middleware('auth');
+Route::get('tablaprestadores', TablaPrestadoresController::class)->name('tablaprestadores')-> middleware('auth');
 
-Route::post('tabladministradores', TablaAdministradoresController::class)->name('tabladministradores');
-Route::get('tabladministradores', TablaAdministradoresController::class)->name('tabladministradores');
+Route::post('tabladministradores', TablaAdministradoresController::class)->name('tabladministradores')-> middleware('auth');
+Route::get('tabladministradores', TablaAdministradoresController::class)->name('tabladministradores')-> middleware('auth');
 
-Route::post('tablaservicios', TablaServiciosController::class)->name('tablaservicios');
-Route::get('tablaservicios', TablaServiciosController::class)->name('tablaservicios');
+Route::post('tablaservicios', TablaServiciosController::class)->name('tablaservicios')-> middleware('auth');
+Route::get('tablaservicios', TablaServiciosController::class)->name('tablaservicios')-> middleware('auth');
 
-Route::post('tablaproveedores', TablaProveedoresController::class)->name('tablaproveedores');
-Route::get('tablaproveedores', TablaProveedoresController::class)->name('tablaproveedores');
+Route::post('tablaproveedores', TablaProveedoresController::class)->name('tablaproveedores')-> middleware('auth');
+Route::get('tablaproveedores', TablaProveedoresController::class)->name('tablaproveedores')-> middleware('auth');
 
-Route::post('tablacategoriaproductos', TablaCategoriaProductosController::class)->name('tablacategoriaproductos');
-Route::get('tablacategoriaproductos', TablaCategoriaProductosController::class)->name('tablacategoriaproductos');
+Route::post('tablacategoriaproductos', TablaCategoriaProductosController::class)->name('tablacategoriaproductos')-> middleware('auth');
+Route::get('tablacategoriaproductos', TablaCategoriaProductosController::class)->name('tablacategoriaproductos')-> middleware('auth');
 
-Route::post('tablaproductos', TablaProductosController::class)->name('tablaproductos');
-Route::get('tablaproductos', TablaProductosController::class)->name('tablaproductos');
+Route::post('tablaproductos', TablaProductosController::class)->name('tablaproductos')-> middleware('auth');
+Route::get('tablaproductos', TablaProductosController::class)->name('tablaproductos')-> middleware('auth');
 
-Route::post('tablaclientes', TablaClientesController::class)->name('tablaclientes');
-Route::get('tablaclientes', TablaClientesController::class)->name('tablaclientes');
+Route::post('tablaclientes', TablaClientesController::class)->name('tablaclientes')-> middleware('auth');
+Route::get('tablaclientes', TablaClientesController::class)->name('tablaclientes')-> middleware('auth');
 
-Route::post('tablacategorias', TablaCategoriasController::class)->name('tablacategorias');
-Route::get('tablacategorias', TablaCategoriasController::class)->name('tablacategorias');
+Route::post('tablacategorias', TablaCategoriasController::class)->name('tablacategorias')-> middleware('auth');
+Route::get('tablacategorias', TablaCategoriasController::class)->name('tablacategorias')-> middleware('auth');
 
-Route::post('tablacontactosproveedores', TablaContactosProveedoresController::class)->name('tablacontactosproveedores');
-Route::get('tablacontactosproveedores', TablaContactosProveedoresController::class)->name('tablacontactosproveedores');
+Route::post('tablacontactosproveedores', TablaContactosProveedoresController::class)->name('tablacontactosproveedores')-> middleware('auth');
+Route::get('tablacontactosproveedores', TablaContactosProveedoresController::class)->name('tablacontactosproveedores')-> middleware('auth');
 
-Route::post('tablametodospago', TablaMetodosPagoController::class)->name('tablametodospago');
-Route::get('tablametodospago', TablaMetodosPagoController::class)->name('tablametodospago');
+Route::post('tablametodospago', TablaMetodosPagoController::class)->name('tablametodospago')-> middleware('auth');
+Route::get('tablametodospago', TablaMetodosPagoController::class)->name('tablametodospago')-> middleware('auth');
 
-Route::post('finanzas', FinanzasController::class)->name('finanzas');
-Route::get('finanzas', FinanzasController::class)->name('finanzas');
+Route::post('finanzas', FinanzasController::class)->name('finanzas')-> middleware('auth');
+Route::get('finanzas', FinanzasController::class)->name('finanzas')-> middleware('auth');
 
-Route::post('mapaprestadores', MapaPrestadoresController::class)->name('mapaprestadores');
-Route::get('mapaprestadores', MapaPrestadoresController::class)->name('mapaprestadores');
+Route::post('mapaprestadores', MapaPrestadoresController::class)->name('mapaprestadores')-> middleware('auth');
+Route::get('mapaprestadores', MapaPrestadoresController::class)->name('mapaprestadores')-> middleware('auth');
 
 
 
 Auth::routes();
-Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
 
 Route::apiResource('tab_categorias',CategoriasController::class);
 Route::apiResource('tab_clientes',ClientesController::class);

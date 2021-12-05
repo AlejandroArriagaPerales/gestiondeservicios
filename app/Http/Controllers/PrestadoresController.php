@@ -9,6 +9,7 @@ use App\Models\tab_servicio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
 class PrestadoresController extends Controller
 {
     /**
@@ -41,7 +42,6 @@ class PrestadoresController extends Controller
         $prestador->contrasena = $request->contrasenaPrestador;
         $prestador->save();
 
-
         $ServiciosRecibidos = $request->serviciosAgregados;
         $CategoriasRecibidas = $request->categoriasAgregadas;
         $CantidadServicios = sizeof($ServiciosRecibidos);
@@ -53,6 +53,9 @@ class PrestadoresController extends Controller
             $categoriaprestadorservicio -> servicio_id = $ServiciosRecibidos[$i];
             $categoriaprestadorservicio -> save();
         }
+
+    
+        
 
 
         return $prestador;

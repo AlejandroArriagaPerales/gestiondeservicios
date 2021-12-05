@@ -1,11 +1,12 @@
 <template>
     <div class="card-body">
-              <form action="" v-on:submit.prevent="newPrestador()">
+              <form v-on:submit.prevent="validarImagen()" action="" >
                 <div class="">
                   <div class="">
                     <div class="form-group">
                       <label>Nombre(s)</label>
-                      <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombrePrestador">
+                      <input id="nombre" type="text" class="form-control" placeholder="Nombre(s)" v-model="nombrePrestador" required="required">
+                      
                     </div>
                   </div>
                 </div>
@@ -15,7 +16,7 @@
                   <div class="">
                     <div class="form-group">
                       <label>Apellidos</label>
-                      <input type="text" class="form-control" placeholder="Apellidos" v-model="apellidoPrestador">
+                      <input type="text" class="form-control" placeholder="Apellidos" v-model="apellidoPrestador" required="required">
                     </div>
                   </div>
                 </div>
@@ -25,7 +26,7 @@
                   <div class="">
                     <div class="form-group">
                       <label>Correo Electrónico</label>
-                      <input type="email" class="form-control" placeholder="Correo Electrónico" v-model="correoPrestador">
+                      <input type="email" class="form-control" placeholder="Correo Electrónico" v-model="correoPrestador" required="required">
                     </div>
                   </div>
                 </div>
@@ -33,49 +34,32 @@
                 <div class="espacio">
                   <div class="">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Teléfono</label>
-                      <input type="tel" class="form-control" placeholder="Teléfono" v-model="telefonoPrestador">
+                      <label>Teléfono</label>
+                      <input type="tel" class="form-control" placeholder="Teléfono" v-model="telefonoPrestador" pattern="[0-9]{10}" title="El número telefónico contiene solo 10 dígitos" required="required">
                     </div>
                   </div>
                 </div>
-
+                
+                
                 <div class="espacio">
                   <div class="">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Seleccione una imagen</label>
-                      
+                      <label>Seleccione una imagen</label>
+                      <br>
+                      <input type="file" id="file" ref="file" v-on:change="onChangeFileUpload()"/>
                     </div>
                   </div>
                 </div>
-                <input name="img[]" type="file" id="img" multiple="multiple" >
-                        <br>
-                        <br>
-                        <!--
-                        @if ( !empty ( $bicicletas->imagenes) )
-                          <span>Imagen(es) Actual(es): </span>
-                          <br>
-
-                          @if(Session::has('message'))
-                            <div class="alert alert-primary" role="alert">
-                              {{ Session::get('message') }}
-                            </div>
-                          @endif
-
-                          @foreach($imagenes as $img)                    
-                            <img src="../../../uploads/{{ $img->nombre }}" width="200" class="img-fluid"> 
-                            <a href="{{ route('admin/bicicletas/eliminarimagen', [$img->id, $bicicletas->id]) }}" class="btn btn-danger btn-sm" onclick="return confirmarEliminar();">Eliminar</a> 
-                          @endforeach
-
-                        @else
-                        @endif 
-                        -->
+                
+             
+                
 
                 
                 <div class="espacio">
                   <div class="">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Disponiblidad</label>
-                      <select class="form-control" v-model="disponibilidadSeleccionada" >
+                      <label>Disponiblidad</label>
+                      <select class="form-control" v-model="disponibilidadSeleccionada" required="required" >
                         <option :value="1">Disponible</option>
                         <option :value="0">No Disponible</option>
                       </select>
@@ -83,11 +67,18 @@
                   </div>
                 </div>
 
+                 
+              <div id="msg"></div>
+              
+              <!-- Mensajes de Verificación -->
+              <div id="error" class="alert alert-danger ocultar" role="alert">
+                  Las Contraseñas no coinciden, vuelve a intentar.
+              </div>
                 <div class="espacio">
                   <div class="">
                     <div class="form-group">
                       <label>Contraseña</label>
-                      <input type="password" class="form-control" placeholder="Contraseña" v-model="contrasenaPrestador">
+                      <input id="password" type="password" class="form-control" placeholder="Contraseña" v-model="contrasenaPrestador" required="required">
                     </div>
                   </div>
                 </div>
@@ -96,7 +87,7 @@
                   <div class="">
                     <div class="form-group">
                       <label>Confirmar Contraseña</label>
-                      <input type="password" class="form-control" placeholder="Confirmar Contraseña" >
+                      <input id="confirm-password" type="password" class="form-control" placeholder="Confirmar Contraseña" required="required" v-model="contrasenaConfirmar" :rules="[(contrasenaPrestador === contrasenaConfirmar) || 'Password must match']">
                     </div>
                   </div>
                 </div>
@@ -174,7 +165,7 @@
                 </table>
                 <br>
                 <br>
-                <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Guardar">
+                <input style="width: 120px; height: 50px; background:#F96332; color:white" class="buttons" type="submit" name="" value="Guardar">
               </form>
             </div>
 </template>
@@ -184,9 +175,8 @@
 
 import axios from "axios";
     export default {
-      created(){
-        axios.get('tab_categorias').then(response => this.tab_categorias = response.data);
-        axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
+      async mounted(){
+        await this.getDatos();
       },
         data(){
           
@@ -196,11 +186,14 @@ import axios from "axios";
                 correoPrestador: '',
                 telefonoPrestador: '',
                 contrasenaPrestador: '',
+                contrasenaConfirmar: '',
                 categoriaSeleccionada: '',
                 servicioSeleccionado: '',
+                imagenPrestador: '',
                 disponibilidadSeleccionada: '',
                 tab_categorias: [],
                 tab_servicios: [],
+                tab_prestadores: [],
                 serviciosAgregados: [],
                 cantidadServiciosAgregados: 0,
                 categoriasAgregadas: [],
@@ -208,22 +201,126 @@ import axios from "axios";
                 tab_servicios_modificada: [],
                 serviciosAgregadosModificados: [],
                 categoriasAgregadasModificadas: [],
-                
-                serviciosCategorias:[
-                ],
+                serviciosCategorias:[],
+                encontrado: 0,
                 categoria: '',
                 servicio: '',
+                image: '',
+                file: '',
+                recibidoPHP: '',
+                archivo: '',
+                
                 
             }
             
             
         },
-        mounted() {
-            console.log('Component mounted.')
-        },
         methods: {
-            newPrestador(){
+          async getDatos(){
+            await axios.get('tab_prestadores').then(res => this.tab_prestadores = res.data);
+            await axios.get('tab_categorias').then(response => this.tab_categorias = response.data);
+            await axios.get('tab_servicios').then(response => this.tab_servicios = response.data);
+          },
+          async guardarImagen(){
+                let formData = new FormData();
+                var self = this;
+                await self.newPrestador();
+                await self.getDatos();
+                let nuevoPrestador = this.tab_prestadores.length;
+                let idPrestadorImagen = this.tab_prestadores[nuevoPrestador-1].id;
+                let nombrePrestadorImagen = this.tab_prestadores[nuevoPrestador-1].nombre;
+                let nombreImagenPrestador = idPrestadorImagen+"_"+nombrePrestadorImagen;
+
+
+                var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
+                var newFile = new File([blob], nombreImagenPrestador+'.png', {type: 'image/png'});
+                formData.append('file', newFile);
+
+                
+
+                axios.post('http://167.99.139.12/var/www/html/SistemaGestor/gestiondeservicios/resources/js/components/subirImagenesPrestadores.php',
+                    formData,
+                    {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                  }
+                ).then(response => {
+                  
+                });
+
+                setTimeout(function(){
+                  Vue.swal("Prestador Agregado Exitosamente", "", "success");
+                  //location.reload();
+                },1000);
+
+                
+
+               
+
+      },
+        validarImagen(){
+            let respuesta = null;
+            let formData = new FormData();
+            var self = this;
+            formData.append('file', this.file);
+            
+  
+            axios.post('http://167.99.139.12/var/www/html/SistemaGestor/gestiondeservicios/resources/js/components/validarImagenesPrestadores.php',
+                formData,
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+              }
+            ).then(response => {
+              respuesta = response.data;
+              return respuesta;
+            });
+            
+
+
+            setTimeout(function(){
+              this.recibidoPHP = respuesta;
+              if (this.recibidoPHP=='error') {
+              Vue.swal("Imagen no válida", "", "error");
+              }else{
               
+              self.guardarImagen();
+
+              }
+            },20);
+            
+            
+              
+              
+
+
+            
+          },
+  
+          onChangeFileUpload(){
+            this.file = this.$refs.file.files[0];
+          },
+          newPrestador(){
+            var pass1 = document.getElementById('password');
+            var pass2 = document.getElementById('confirm-password');              
+              
+            if (pass1.value != pass2.value) {
+              document.getElementById("error").classList.add("mostrar");
+            }else{
+                for (let i = 0; i < this.tab_prestadores.length; i++) {
+                  if(this.tab_prestadores[i].correo == this.correoPrestador){
+                    this.encontrado=1;
+                  } 
+                }
+                if (this.encontrado==1) {
+                  Vue.swal("Prestador ya existente", "", "error");
+                  this.encontrado=0;
+                }else{
+                  
+                  document.getElementById("error").classList.add("ocultar");
+
                 const params = {
                     nombrePrestador: this.nombrePrestador,
                     apellidoPrestador: this.apellidoPrestador,
@@ -233,13 +330,8 @@ import axios from "axios";
                     disponibilidadSeleccionada: this.disponibilidadSeleccionada,
                     serviciosAgregados: this.serviciosAgregados,
                     categoriasAgregadas: this.categoriasAgregadas
+
                 };
-                this.nombrePrestador='';
-                this.apellidoPrestador='';
-                this.correoPrestador='';
-                this.telefonoPrestador='';
-                this.contrasenaPrestador='';
-                this.disponibilidadSeleccionada="";
                 
                 
                 axios.post('tab_prestadores',params).then((response) => {
@@ -259,10 +351,15 @@ import axios from "axios";
                   this.$emit('new',contrasenaPrestador);
                   this.$emit('new',serviciosAgregados);
                   this.$emit('new',categoriasAgregadas);
-                  Vue.swal("Prestador Agregado", "", "success");
-                  location.reload();
+                  setTimeout(function(){
+                    //location.reload();
+                  },100);
                 });
-                
+
+            
+
+                }
+            }
 
              
                 
@@ -280,12 +377,7 @@ import axios from "axios";
             this.cantidadServiciosAgregados = this.cantidadServiciosAgregados+1;
 
             this.serviciosCategorias.push({ categoria: this.categoriaSeleccionada, servicio: this.servicioSeleccionado});
-              
-            console.log(this.serviciosCategorias);
-
-            
-
-              confirm('Servicio Agregado', 'Confirmación');
+            Vue.swal("Servicio Agregado", "", "success");
                 
             },
             getServiciosCategorias(){

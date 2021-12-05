@@ -18,7 +18,14 @@
               <h5 class="title">Registrar Prestador de Servicio</h5>
             </div>
 
-            <prestadoresform-component></prestadoresform-component>
+            <prestadoresform-component> 
+              
+
+            </prestadoresform-component>
+
+            
+            
+
           </div>
         </div>      
       </div>     

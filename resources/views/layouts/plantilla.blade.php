@@ -220,11 +220,14 @@
         <div class="profile-content">
           
         </div>
+        <a href="{{ route('logout') }}">
         <div class="name-job">
           <div class="profile_name">Cerrar Sesión</div>
+          
         
         </div>
         <i class='bx bx-log-out' ></i>
+        </a>
       </div>
     </li>
   

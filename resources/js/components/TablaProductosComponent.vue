@@ -33,6 +33,13 @@
                       <v-select  v-model="datosProducto.categoriaProductoModal" label="nombre" :options="tab_categoriaproductos"  :reduce="nombre => nombre.id" :searchable="true"></v-select>
                     </div>
                 </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label for="nombre">Proveedor</label>
+                      <v-select  v-model="datosProducto.proveedorProductoModal" label="nombre" :options="tab_proveedores"  :reduce="nombre => nombre.id" :searchable="true"></v-select>
+                    </div>
+                </div>
                 
 
                 
@@ -82,6 +89,9 @@
                         Precio
                       </th>
                       <th>
+                        Proveedor
+                      </th>
+                      <th>
                         Categoria Producto
                       </th>
                       <th>
@@ -112,6 +122,10 @@
 
                         <td>
                           {{tab_producto.precio}}
+                        </td>
+
+                        <td>
+                          {{tab_proveedores[tab_productos[index].proveedore_id - 1 ].nombre}}                            
                         </td>
 
                         <td>
@@ -169,11 +183,14 @@
               nombreActualizar: '',
               precioActualizar: '',
               categoriaProductoActualizar: '',
+              proveedorActualizar: '',
               tab_productos: [],
               categoriaProductoSeleccionadaActualizar: '',
+              proveedorSeleccionadoActualizar: '',
               estatusActualizar: '',
               tab_categoriaproductos: [],
-              datosProducto: {idModal:'', nombreModal:'', precioModal:'',categoriaProductoModal:'', estatusModal:''},
+              tab_proveedores: [],
+              datosProducto: {idModal:'', nombreModal:'', precioModal:'',categoriaProductoModal:'', proveedorActualizar:'', estatusModal:''},
               btnEditar:false,
               idProductoEditar: ''
             }
@@ -186,6 +203,7 @@
           async getDatos(){
             await axios.get('tab_productos').then(response => this.tab_productos = response.data);
             await axios.get('tab_categoriaproductos').then(response => this.tab_categoriaproductos = response.data);
+            await axios.get('tab_proveedores').then(response => this.tab_proveedores = response.data);
           },
           tabla(){
              
@@ -194,7 +212,7 @@
             });
           },
           abrirModalEditar(datos){
-              this.datosProducto= {idModal: datos.id , nombreModal: datos.nombre, precioModal: datos.precio, categoriaProductoModal: datos.categoriaProducto_id, estatusModal: datos.estatus}
+              this.datosProducto= {idModal: datos.id , nombreModal: datos.nombre, precioModal: datos.precio, categoriaProductoModal: datos.categoriaProducto_id, proveedorProductoModal: datos.proveedore_id, estatusModal: datos.estatus}
               this.btnEditar=true;
               this.idProductoEditar=datos.id;
               $('#modalForm').modal('show');
@@ -203,9 +221,11 @@
             this.idActualizar = idProductoEditar;
 
             const params2 = {
+              estatusActualizar: this.datosProducto.estatusModal,
               nombreActualizar: this.datosProducto.nombreModal,
               precioActualizar: this.datosProducto.precioModal,
-              categoriaProductoActualizar: this.datosProducto.categoriaProductoModal
+              categoriaProductoActualizar: this.datosProducto.categoriaProductoModal,
+              proveedorActualizar: this.datosProducto.proveedorProductoModal
             }
             
 
@@ -213,21 +233,25 @@
                   
                   const nombreActualizar = response.data;  
                   const precioActualizar = response.data;
-                  const categoriaProductoActualizar = response.data;                           
+                  const categoriaProductoActualizar = response.data;    
+                  const proveedorActualizar = response.data;   
+                  const estatusActualizar = response.data;                    
                   this.$emit('update',nombreActualizar);
+                  this.$emit('update',estatusActualizar);
                   this.$emit('update',precioActualizar);
                   this.$emit('update',categoriaProductoActualizar);
+                  this.$emit('update',proveedorActualizar);
             });
           
             $('#modalForm').modal('hide')
             Vue.swal("Producto Editado", "", "success");
             setTimeout(function(){
-                    location.reload();
+                    //location.reload();
             },1500);
             
           }, 
             GenerarPDF(){
-                confirm('PDF Generandose', 'Confirmación');
+                Vue.swal("PDF Generado", "", "success");
 
                 
 
@@ -250,7 +274,7 @@
                 
             },
             GenerarXLS(){
-
+              Vue.swal("Excel Generado", "", "success");
               let data = XLSX.utils.json_to_sheet(this.tab_productos,
               {
                 header: ['id','nombre','precio','categoriaProducto_id','created_at','updated_at']
@@ -272,84 +296,40 @@
               XLSX.writeFile(workbook, `${filename}.xlsx`)
 
             },
-            verActualizar: function (posicion_id) {
-                // Antes de mostrar el formulario de actualizar, rellenamos sus campos
-                
-                this.idActualizar = posicion_id;
-                this.identificador = this.tab_productos[posicion_id].id;
-                
-                this.nombreActualizar = this.tab_productos[posicion_id].nombre;
-                this.precioActualizar = this.tab_productos[posicion_id].precio;
-                this.categoriaProductoSeleccionadaActualizar = this.tab_productos[posicion_id].categoriaProducto_id;
-                this.estatusActualizar = this.tab_clientes[posicion_id].estatus;
-                
-                // Mostramos el formulario
-                this. verActualizar = true;
-            },
-            Actualizar: function (posicion_id) {
-                // Antes de mostrar el formulario de actualizar, rellenamos sus campos
-                this.idActualizar = posicion_id;
-
-
-                const params = {
-                    nombreActualizar: this.nombreActualizar,
-                    precioActualizar: this.precioActualizar,
-                    categoriaProductoSeleccionadaActualizar: this.categoriaProductoSeleccionadaActualizar,
-                    estatusActualizar: this.estatusActualizar
-                };
-
-                axios.put(`tab_productos/${this.identificador}`,params).then((response) => {
-                  const nombreActualizar = response.data;
-                  const precioActualizar = response.data;
-                  const categoriaProductoSeleccionadaActualizar = response.data;
-                  const estatusActualizar = response.data;
-
-                  this.$emit('update',nombreActualizar);
-                  this.$emit('update',precioActualizar);
-                  this.$emit('update',categoriaProductoSeleccionadaActualizar);
-                  this.$emit('update',estatusActualizar);
-
-                  
-                  confirm('Producto Actualizado', 'Confirmación');
-
-                });
-                
-                location.reload();
-                /*
-                this.nombreActualizar = this.pacientes[paciente_id].nombre;
-                this.edadActualizar = this.pacientes[paciente_id].edad;
-                // Mostramos el formulario
-                this.formActualizar = true;
-                */
-            },
             Activar: function (posicion_id) {
                  
               
                 this.identificador = this.tab_productos[posicion_id].id;
                 this.nombreActualizar = this.tab_productos[posicion_id].nombre;
                 this.precioActualizar = this.tab_productos[posicion_id].precio;
-                this.categoriaProductoSeleccionadaActualizar = this.tab_productos[posicion_id].categoriaProducto_id;
+                this.categoriaProductoActualizar = this.tab_productos[posicion_id].categoriaProducto_id;
+                this.proveedorActualizar = this.tab_productos[posicion_id].proveedore_id;
                 
               
                 const params = {
                     estatusActualizar: '1',
                     nombreActualizar: this.nombreActualizar,
                     precioActualizar: this.precioActualizar,
-                    categoriaProductoSeleccionadaActualizar: this.categoriaProductoSeleccionadaActualizar
+                    categoriaProductoActualizar: this.categoriaProductoActualizar,
+                    proveedorActualizar: this.proveedorActualizar
                 };
 
                 axios.put(`tab_productos/${this.identificador}`,params).then((response) => {
                   const estatusActualizar = response.data;
                   const nombreActualizar = response.data;
                   const precioActualizar = response.data;
-                  const categoriaProductoSeleccionadaActualizar = response.data;
+                  const categoriaProductoActualizar = response.data;
+                  const proveedorActualizar = response.data;
                   this.$emit('update',estatusActualizar);
                   this.$emit('update',nombreActualizar);
                   this.$emit('update',precioActualizar);
-                  this.$emit('update',categoriaProductoSeleccionadaActualizar);
+                  this.$emit('update',categoriaProductoActualizar);
+                  this.$emit('update',proveedorActualizar);
                 });
-                location.reload();
-                confirm('Producto Habilitado', 'Confirmación');
+                Vue.swal("Producto Habilitada", "", "success");
+                  setTimeout(function(){
+                      location.reload();
+                  },1500);
 
 
             },
@@ -359,28 +339,33 @@
                 this.identificador = this.tab_productos[posicion_id].id;
                 this.nombreActualizar = this.tab_productos[posicion_id].nombre;
                 this.precioActualizar = this.tab_productos[posicion_id].precio;
-                this.categoriaProductoSeleccionadaActualizar = this.tab_productos[posicion_id].categoriaProducto_id;
-                
+                this.categoriaProductoActualizar = this.tab_productos[posicion_id].categoriaProducto_id;
+                this.proveedorActualizar = this.tab_productos[posicion_id].proveedore_id;
               
                 const params = {
                     estatusActualizar: '0',
                     nombreActualizar: this.nombreActualizar,
                     precioActualizar: this.precioActualizar,
-                    categoriaProductoSeleccionadaActualizar: this.categoriaProductoSeleccionadaActualizar
+                    categoriaProductoActualizar: this.categoriaProductoActualizar,
+                    proveedorActualizar: this.proveedorActualizar
                 };
 
                 axios.put(`tab_productos/${this.identificador}`,params).then((response) => {
                   const estatusActualizar = response.data;
                   const nombreActualizar = response.data;
                   const precioActualizar = response.data;
-                  const categoriaProductoSeleccionadaActualizar = response.data;
+                  const categoriaProductoActualizar = response.data;
+                  const proveedorActualizar = response.data;
                   this.$emit('update',estatusActualizar);
                   this.$emit('update',nombreActualizar);
                   this.$emit('update',precioActualizar);
-                  this.$emit('update',categoriaProductoSeleccionadaActualizar);
+                  this.$emit('update',categoriaProductoActualizar);
+                  this.$emit('update',proveedorActualizar);
                 });
-                location.reload();
-                confirm('Producto Deshabilitado', 'Confirmación');
+                Vue.swal("Producto Deshabilitado", "", "warning");
+                  setTimeout(function(){
+                      location.reload();
+                  },1500);
 
 
             }

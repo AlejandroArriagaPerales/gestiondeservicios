@@ -285,7 +285,6 @@
                     this.cantidadesCategorias.push({nombre: this.nombresCategorias[h], cantidad: 0, color: colorAleatorio})
                     this.coloresCategorias[h]= colorAleatorio;
                 }
-                console.log(this.nombresCategorias);
 
                 for (let j = 0; j < this.tab_trabajos.length; j++) {
                     
@@ -352,7 +351,6 @@
                 
             })
 
-            console.log("Llegue");
           }
           
         }

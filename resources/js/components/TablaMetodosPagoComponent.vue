@@ -158,7 +158,7 @@
             
           }, 
             GenerarPDF(){
-                confirm('PDF Generandose', 'Confirmación');
+                Vue.swal("PDF Generado", "", "success");
 
                 
 
@@ -179,7 +179,7 @@
                 
             },
             GenerarXLS(){
-
+              Vue.swal("Excel Generado", "", "success");
               let data = XLSX.utils.json_to_sheet(this.tab_metodopagos,
               {
                 header: ['id','nombre','created_at','updated_at'],

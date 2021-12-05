@@ -6,7 +6,7 @@
                   <div class="">
                     <div class="form-group">
                       <label>Nombre(s)</label>
-                      <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreCliente">
+                      <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreCliente" required="required">
                     </div>
                   </div>
                 </div>
@@ -15,7 +15,7 @@
                   <div class="">
                     <div class="form-group">
                       <label>Apellidos</label>
-                      <input type="text" class="form-control" placeholder="Apellidos" v-model="apellidoCliente">
+                      <input type="text" class="form-control" placeholder="Apellidos" v-model="apellidoCliente" required="required">
                     </div>
                   </div>
                 </div>
@@ -24,7 +24,7 @@
                   <div class="">
                     <div class="form-group">
                       <label>Registro Federal de Contribuyentes (RFC)</label>
-                      <input type="text" class="form-control" placeholder="RFC" v-model="rfcCliente">
+                      <input type="text" class="form-control" placeholder="RFC" v-model="rfcCliente" required="required">
                     </div>
                   </div>
                 </div>
@@ -33,16 +33,20 @@
                   <div class="">
                     <div class="form-group">
                       <label>Direccion</label>
-                      <input type="text" class="form-control" placeholder="Direccion" v-model="direccionCliente">
+                      <input type="text" class="form-control" placeholder="Direccion" v-model="direccionCliente" required="required">
                     </div>
                   </div>
                 </div>
+
+                <div id="error" class="alert alert-danger ocultar" role="alert">
+                  Las Contraseñas no coinciden, vuelve a intentar.
+              </div>
 
                 <div class="">
                   <div class="">
                     <div class="form-group">
                       <label>Contraseña</label>
-                      <input type="password" class="form-control" placeholder="Contraseña" v-model="contrasenaCliente" >
+                      <input id="password" type="password" class="form-control" placeholder="Contraseña" v-model="contrasenaCliente" required="required">
                     </div>
                   </div>
                 </div>
@@ -51,7 +55,7 @@
                   <div class="">
                     <div class="form-group">
                       <label>Confirmar Contraseña</label>
-                      <input type="password" class="form-control" placeholder="Confirmar Contraseña">
+                      <input id="confirm-password" type="password" class="form-control" placeholder="Confirmar Contraseña" v-model="contrasenaConfirmar" required="required">
                     </div>
                   </div>
                 </div>
@@ -95,7 +99,7 @@
                       </tr>
                       -->
 
-                      <tr v-for="(pagosAgregado,index) in PagosAgregados" :key="index"  >
+                      <tr v-for="(pagosAgregado,index) in PagosAgregadosTabla" :key="index"  >
                        <td>
                         {{tab_metodopagos[pagosAgregado.nombre - 1 ].nombre}}  
                         </td>
@@ -110,7 +114,7 @@
                     </tbody>
                 </table>
                 <br>
-                <input style="width: 120px; height: 50px; background:#F96332;" class="buttons" type="submit" name="" value="Agregar">
+                <input style="width: 120px; height: 50px; background:#F96332; color:white" class="buttons" type="submit" name="" value="Agregar">
                               
               </form>
             </div>
@@ -132,21 +136,42 @@ import axios from "axios";
                 contrasenaCliente: '',
                 direccionCliente: '',
                 PagosSeleccionado: '',
+                contrasenaConfirmar: '',
                 cantidadPagosAgregados: 0,
                 idClienteAgregado: [],
                 PagosAgregados: [],
+                PagosAgregadosTabla: [],
                 nombre: '',
                 tab_metodopagos: [],
-                tab_clientes: []             
+                tab_clientes: [],
+                encontrado: 0             
             }
             
         },
         mounted() {
-            console.log('Component mounted.')
             
         },
         methods: {
             newCliente(){
+              var pass1 = document.getElementById('password');
+              var pass2 = document.getElementById('confirm-password');  
+              
+              if (pass1.value != pass2.value) {
+              document.getElementById("error").classList.add("mostrar");
+              }else{
+                for (let i = 0; i < this.tab_clientes.length; i++) {
+                  if(this.tab_clientes[i].rfc == this.rfcCliente){
+                    this.encontrado=1;
+                  } 
+                }
+                if (this.encontrado==1) {
+                  Vue.swal("Cliente ya existente", "", "error");
+                  this.encontrado=0;
+                  
+                }else{
+                  
+                  document.getElementById("error").classList.add("ocultar");
+              
                 const params = {
                     nombreCliente: this.nombreCliente,
                     apellidoCliente: this.apellidoCliente,
@@ -160,6 +185,7 @@ import axios from "axios";
                 this.rfcCliente='';
                 this.contrasenaCliente='';
                 this.direccionCliente='';
+                this.contrasenaConfirmar="";
                 
                 
                 axios.post('tab_clientes',params).then((response) => {
@@ -177,8 +203,12 @@ import axios from "axios";
                   this.$emit('new',direccionCliente);
                   this.$emit('new',PagosAgregados);
                   Vue.swal("Cliente Agregado", "", "success");
-                  
+                  setTimeout(function(){
+                    location.reload();
+                  },1500);
                 });
+                }
+              }
 
                 
 
@@ -190,7 +220,8 @@ import axios from "axios";
                 
             },
             AgregarMetodoPago(){
-                this.PagosAgregados.push({ nombre: this.PagosSeleccionado});
+                this.PagosAgregadosTabla.push({ nombre: this.PagosSeleccionado});
+                this.PagosAgregados[this.cantidadPagosAgregados] = this.PagosSeleccionado;
                 this.cantidadPagosAgregados = this.cantidadPagosAgregados+1;
                 Vue.swal("Metodo de Pago Agregado", "", "success");
             },

@@ -4,7 +4,7 @@
                         
                   <div class="form-group">
                     <label>Nombre(s)</label>
-                    <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreMetodoPago">
+                    <input type="text" class="form-control" placeholder="Nombre(s)" v-model="nombreMetodoPago" required="required">
                   </div>
                   <br>
 
@@ -13,7 +13,7 @@
                   
        
                   <br>
-                  <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Agregar">
+                  <input style="width: 120px; height: 50px; background:#F96332; color:white" class="buttons" type="submit" name="" value="Agregar">
                   <br>
                 </form>
               </div>
@@ -23,17 +23,32 @@
 
 
     export default {
+        created(){
+        axios.get('tab_metodopagos').then(response => this.tab_metodopagos = response.data);
+      },
         data(){
             return {
-                nombreMetodoPago: ''
+                nombreMetodoPago: '',
+                tab_metodopagos: [],
+                encontrado: 0
             }
             
         },
-        mounted() {
-            console.log('Component mounted.')
+        mounted(){
+
         },
         methods: {
             newMetodoPago(){
+                for (let i = 0; i < this.tab_metodopagos.length; i++) {
+                  if(this.tab_metodopagos[i].nombre == this.nombreMetodoPago){
+                    this.encontrado=1;
+                  } 
+              }
+              if (this.encontrado==1) {
+                  Vue.swal("Método de pago ya existente", "", "error");
+                  this.encontrado=0;
+                  
+              }else{
                 const params = {
                     nombreMetodoPago: this.nombreMetodoPago
                     
@@ -46,7 +61,11 @@
                   const nombreMetodoPago = response.data;
                   this.$emit('new',nombreMetodoPago);
                   Vue.swal("Metodo de Pago Agregado", "", "success");
+                  setTimeout(function(){
+                    location.reload();
+                  },1500);
                 });
+              }
                 
              
                 

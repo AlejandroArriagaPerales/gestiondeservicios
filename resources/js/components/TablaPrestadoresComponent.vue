@@ -19,19 +19,19 @@
               <div class="modal-body">
                   <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control"  placeholder="" required="" v-model="datosPrestador.nombreModal">
+                    <input type="text" class="form-control"  placeholder="" v-model="datosPrestador.nombreModal" required="required">
                   </div>
                   <div class="form-group">
                     <label for="email">Apellidos</label>
-                    <input type="email" class="form-control" placeholder="" required="" v-model="datosPrestador.apellidoModal">
+                    <input type="email" class="form-control" placeholder="" v-model="datosPrestador.apellidoModal" required="required">
                   </div>
                   <div class="form-group">
                     <label for="clave">Correo Electrónico</label>
-                    <input type="email" class="form-control"   placeholder="" v-model="datosPrestador.correoModal" >
+                    <input type="email" class="form-control"   placeholder="" v-model="datosPrestador.correoModal" required="required" >
                   </div>
                   <div class="form-group">
                     <label for="clave">Telefono</label>
-                    <input type="text" class="form-control"  placeholder="" v-model="datosPrestador.telefonoModal" >
+                    <input type="text" class="form-control"  placeholder="" v-model="datosPrestador.telefonoModal" required="required">
                   </div>
 
                   <table class="tabla">
@@ -312,12 +312,7 @@
             await axios.get('tab_servicios').then(res => this.tab_servicios = res.data);
           },
           crearTablaCompuesta(){
-            console.log(this.tab_prestadores);
             this.unionPrestadorCategoria = [];
-            console.log("Contador de PrestadoresCategorias Array:");
-            console.log(this.tab_prestadorescategorias.length);
-            console.log("Contador de Prestadores Array:");
-            console.log(this.tab_prestadores.length);
             for (let i = 0; i < this.tab_prestadorescategorias.length; i++) {
               var idRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).id;
               var nombreRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).nombre;
@@ -333,8 +328,6 @@
           
               
             }
-          console.log("Desplegando Array:");
-          console.log(this.unionPrestadorCategoria);
 
           
 
@@ -349,7 +342,6 @@
               telefonoActualizar: this.datosPrestador.telefonoModal,
               estatusActualizar: this.datosPrestador.estatusModal
             }
-            console.log(this.nombreActualizar);
 
             axios.put(`tab_prestadores/${this.idActualizar}`,params2).then((response) => {
                   const nombreActualizar = response.data;
@@ -376,7 +368,6 @@
               }
               
             }
-            console.log("Aqui llege; "+ this.serviciosCategorias)
 
             for (let i = 0; i < this.serviciosCategorias.length; i++) {
               this.serviciosAgregados[i]= this.serviciosCategorias[i].servicio;
@@ -434,7 +425,6 @@
 
             this.serviciosCategorias.push({ categoria: this.categoriaSeleccionada, servicio: this.servicioSeleccionado});
               
-            console.log(this.serviciosCategorias);
 
             
 
@@ -479,7 +469,7 @@
             },        
             
             GenerarPDF(){
-                confirm('PDF Generandose', 'Confirmación');
+                Vue.swal("PDF Generado", "", "success");
 
                 
 
@@ -502,6 +492,7 @@
                 
             },
             GenerarXLS(){
+              Vue.swal("Excel Generado", "", "success");
 
               let data = XLSX.utils.json_to_sheet(this.tab_prestadores,
               {

@@ -75,7 +75,7 @@
                                 </div>
 
                                <br>
-                                <button style="width: 120px; height: 50px;" type="submit" class="buttons">
+                                <button style="width: 120px; height: 50px; background:#F96332; color:white" type="submit" class="buttons">
                                     {{ __('Agregar') }}
                                 </button>
                                     

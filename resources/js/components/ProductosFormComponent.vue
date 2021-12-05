@@ -22,10 +22,6 @@
                               </v-select>
                             </div>               
                     </td>
-                    <td>
-                            <button class="buttontabla" v-on:click.prevent="AgregarServicio()">Aceptar</button>   
-                             
-                    </td>
                   </tr>
                 </table>
 
@@ -36,18 +32,18 @@
 
                 <div class="form-group">
                   <label>Nombre</label>
-                  <input type="text" class="form-control" placeholder="Nombre" v-model="nombreProducto">
+                  <input type="text" class="form-control" placeholder="Nombre" v-model="nombreProducto" required="required">
                 </div>
 
                 <div class="form-group">
                   <label>Precio</label>
-                  <input type="text" class="form-control" placeholder="Precio" v-model="precioProducto">
+                  <input type="number" class="form-control" placeholder="Precio" v-model="precioProducto" required="required">
                 </div>
  
                 <br>
                 <br>
                     
-                <input style="width: 120px; height: 50px;" class="buttons" type="submit" name="" value="Agregar">
+                <input style="width: 120px; height: 50px; background:#F96332; color:white" class="buttons" type="submit" name="" value="Agregar">
 
                 <br>  
               </form>
@@ -70,6 +66,7 @@
       created(){
         axios.get('tab_proveedores').then(response => this.tab_proveedores = response.data);
         axios.get('tab_categoriaproductos').then(response => this.tab_categoriaproductos = response.data);
+        axios.get('tab_productos').then(response => this.tab_productos = response.data);
       },
         data(){
             return {
@@ -79,7 +76,9 @@
                 proveedorSeleccionado: '',
                 tab_categoriaproductos: [],
                 tab_proveedores: [],
-                tab_categoriaproductosmodificada: []
+                tab_categoriaproductosmodificada: [],
+                tab_productos: [],
+                encontrado: 0
             }
             
         },
@@ -88,23 +87,41 @@
         },
         methods: {
             newProducto(){
+              for (let i = 0; i < this.tab_productos.length; i++) {
+                  if(this.tab_productos[i].nombre == this.nombreProducto && this.tab_productos[i].proveedore_id == this.proveedorSeleccionado){
+                    this.encontrado=1;
+                  } 
+                }
+              if (this.encontrado==1) {
+                  Vue.swal("Producto ya existente", "", "error");
+                  this.encontrado=0;
+                  
+              }else{
                 const params = {
                     nombreProducto: this.nombreProducto,
                     precioProducto: this.precioProducto,
-                    categoriaProductoSeleccionada: this.categoriaProductoSeleccionada
+                    categoriaProductoSeleccionada: this.categoriaProductoSeleccionada,
+                    proveedorSeleccionado: this.proveedorSeleccionado
                 };
                 this.nombreProducto='';
                 this.precioProducto='';
                 this.categoriaProductoSeleccionada='';
+                this.proveedorSeleccionado='';
                 axios.post('tab_productos',params).then((response) => {
                   const nombreProducto = response.data;
                   const precioProducto = response.data;
-                  const categoriaProductoSeleccionada = response.data;                  
+                  const categoriaProductoSeleccionada = response.data;     
+                  const proveedorSeleccionado = response.data;                
                   this.$emit('new',nombreProducto);
                   this.$emit('new',precioProducto);
                   this.$emit('new',categoriaProductoSeleccionada);
+                  this.$emit('new',proveedorSeleccionado);
                   Vue.swal("Producto Agregado", "", "success");
+                  setTimeout(function(){
+                    location.reload();
+                  },1500);
                 });
+              }
              
                 
             },
