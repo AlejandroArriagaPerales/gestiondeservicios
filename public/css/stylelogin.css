@@ -13,7 +13,7 @@ body {
           rgba(0, 0, 0, 0.7)
         ),
         /* bottom, image */
-        url('../../gestiondeservicios/resources/images/bg.jpg');
+        url('../gestiondeservicios/resources/images/bg.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
