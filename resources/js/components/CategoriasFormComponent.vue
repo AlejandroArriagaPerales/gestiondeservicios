@@ -82,8 +82,7 @@
                     
                 });
                 
-                Vue.swal("Guardando categoría, porfavor espere...", "", "success");
-                
+                Vue.swal("Guardando categoría, porfavor espere...", "", "success");                
                 setTimeout(function(){
                   location.reload();
                 },2000);

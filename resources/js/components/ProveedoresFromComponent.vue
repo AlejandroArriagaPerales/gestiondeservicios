@@ -80,7 +80,9 @@
                 encontrado: 0,
                 file: '',
                 recibidoPHP: '',
-                archivo: ''
+                archivo: '',
+                idProveedorImagen: 0,
+                nombreProveedorImagen: ''
             }
             
         },
@@ -93,17 +95,21 @@
                 var self = this;
                 await self.newProveedor();
                 await self.getDatos();
-                let nuevoProveedor = this.tab_proveedores.length;
-                let idProveedorImagen = this.tab_proveedores[nuevoProveedor-1].id;
-                let nombreProveedorImagen = this.tab_proveedores[nuevoProveedor-1].nombre;
-                let nombreImagenProveedor = idProveedorImagen+"_"+nombreProveedorImagen;
 
+                if (this.tab_proveedores.length==0) {
+                  this.idProveedorImagen = 1;                  
+                  
+                }else{
+                  let cantidadProveedores = this.tab_proveedores.length; 
+                  this.idProveedorImagen = this.tab_proveedores[cantidadProveedores-1].id + 1;
+                  
+                }
+                this.nombreProveedorImagen = this.nombreProveedor;
+                let nombreImagenProveedor = this.idProveedorImagen+"_"+this.nombreProveedorImagen;
 
                 var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
                 var newFile = new File([blob], nombreImagenProveedor+'.png', {type: 'image/png'});
-                formData.append('file', newFile);
-
-                
+                formData.append('file', newFile);                
 
                 axios.post('php/subirImagenesProveedores.php',
                     formData,
@@ -116,10 +122,10 @@
                   
                 });
 
+                Vue.swal("Guardando proveedor, porfavor espere...", "", "success");   
                 setTimeout(function(){
-                  Vue.swal("Proveedor Agregado Exitosamente", "", "success");
                   location.reload();
-                },1000);
+                },2000);
 
                 
 

@@ -209,8 +209,8 @@ import axios from "axios";
                 file: '',
                 recibidoPHP: '',
                 archivo: '',
-                idCategoriaImagen: 0,
-                nombreCategoriaImagen: ''
+                idPrestadorImagen: 0,
+                nombrePrestadorImagen: ''
                 
             }
             
@@ -228,32 +228,23 @@ import axios from "axios";
                 await self.newPrestador();
                 await self.getDatos();
 
-                if (this.tab_categorias.length==0) {
-                  console.log("Entro aqui porque categorias es nulo");
-                  this.idCategoriaImagen = 1;                  
+                if (this.tab_prestadores.length==0) {
+                  this.idPrestadorImagen = 1;                  
                   
                 }else{
-                  console.log("Entro aqui porque categorias no es nulo");
-                  console.log(this.tab_categorias);
-                  let cantidadCategorias = this.tab_categorias.length; 
-                  console.log(this.tab_categorias[cantidadCategorias].id);
-                  this.idCategoriaImagen = this.tab_categorias[cantidadCategorias].id + 1;
+                  let cantidadPrestadores = this.tab_prestadores.length; 
+                  this.idPrestadorImagen = this.tab_prestadores[cantidadPrestadores-1].id + 1;
                   
                 }
-                this.nombreCategoriaImagen = this.nombreCategoria;
-                let nombreImagenCategoria = this.idCategoriaImagen+"_"+this.nombreCategoriaImagen;
-
-
-
-                let nuevoPrestador = this.tab_prestadores.length;
-                let idPrestadorImagen = this.tab_prestadores[nuevoPrestador-1].id;
-                let nombrePrestadorImagen = this.tab_prestadores[nuevoPrestador-1].nombre;
-                let nombreImagenPrestador = idPrestadorImagen+"_"+nombrePrestadorImagen;
-
+                this.nombrePrestadorImagen = this.nombrePrestador;
+                let nombreImagenPrestador = this.idPrestadorImagen+"_"+this.nombrePrestadorImagen;
 
                 var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
                 var newFile = new File([blob], nombreImagenPrestador+'.png', {type: 'image/png'});
                 formData.append('file', newFile);
+
+
+
 
                 
 
@@ -268,8 +259,9 @@ import axios from "axios";
                   
                 });
 
+                Vue.swal("Guardando prestador, porfavor espere...", "", "success");   
                 setTimeout(function(){
-                  Vue.swal("Prestador Agregado Exitosamente", "", "success");
+                  
                 },2000);
 
                 
