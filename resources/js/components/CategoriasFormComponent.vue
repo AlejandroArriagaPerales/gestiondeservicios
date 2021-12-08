@@ -84,7 +84,7 @@
 
                 setTimeout(function(){
                   Vue.swal("Categoria Agregada Exitosamente", "", "success");
-                  location.reload();
+                  //location.reload();
                 },1000);
 
                 
