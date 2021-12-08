@@ -119,6 +119,12 @@ Route::get('finanzas', FinanzasController::class)->name('finanzas')-> middleware
 Route::post('mapaprestadores', MapaPrestadoresController::class)->name('mapaprestadores')-> middleware('auth');
 Route::get('mapaprestadores', MapaPrestadoresController::class)->name('mapaprestadores')-> middleware('auth');
 
+Auth::routes();
+
+Route::middleware('auth')->group(function () {
+    Route::post('/index/dashboard/', 'Auth\LoginController@postlogin')->name('postlogin');
+    Route::post('/index/logout', 'Auth\LoginController@postlogout')->name('postlogout');
+});
 
 Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
