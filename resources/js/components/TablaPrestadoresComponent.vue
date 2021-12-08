@@ -166,6 +166,9 @@
                         Categoria
                       </th>
                       <th>
+                        Imagen
+                      </th>
+                      <th>
                         Estatus
                       </th>
                       <th>
@@ -200,6 +203,10 @@
 
                         <td >
                             {{tab_prestadore.categoria}}
+                        </td>
+
+                        <td>
+                          <img :src="tab_prestadore.imagen" class="img-responsive" height="70" width="90">
                         </td>
 
                         <td>

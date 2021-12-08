@@ -138,7 +138,7 @@
                         </td>
 
                         <td>                          
-                          {{tab_proveedore.logo}}
+                          <img :src="tab_proveedore.logo" class="img-responsive" height="70" width="90">                          
                         </td>
 
                         <td>
