@@ -206,7 +206,7 @@
                         </td>
 
                         <td>
-                          <img :src="tab_prestadore.imagen" class="img-responsive" height="70" width="90"> 
+                          <img :src="tab_prestadore.imagen" class="img-responsive" height="50" width="60"> 
                           
                         </td>
 
