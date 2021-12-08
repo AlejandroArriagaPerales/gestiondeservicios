@@ -116,7 +116,7 @@
                   this.$emit('new',precioProducto);
                   this.$emit('new',categoriaProductoSeleccionada);
                   this.$emit('new',proveedorSeleccionado);
-                  Vue.swal("Producto Agregado", "", "success");
+                  Vue.swal("Guardando producto, porfavor espere...", "", "success");   
                   setTimeout(function(){
                     location.reload();
                   },1500);

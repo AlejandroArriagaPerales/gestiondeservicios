@@ -84,7 +84,7 @@
                   const proveedorSeleccionado = response.data;                  
                   this.$emit('new',nombreCategoriaProducto);
                   this.$emit('new',proveedorSeleccionado);
-                  Vue.swal("Categoria de Producto Agregada", "", "success");
+                  Vue.swal("Guardando categoría de producto, porfavor espere...", "", "success");   
                   setTimeout(function(){
                     location.reload();
                   },1500);

@@ -99,7 +99,7 @@
                   this.$emit('new',correoContactoProveedor);
                   this.$emit('new',telefonoContactoProveedor);
                   this.$emit('new',proveedorSeleccionado);
-                  Vue.swal("Contacto de Proveedor Agregado", "", "success");
+                  Vue.swal("Guardando contacto, porfavor espere...", "", "success");   
                   setTimeout(function(){
                     location.reload();
                   },1500);

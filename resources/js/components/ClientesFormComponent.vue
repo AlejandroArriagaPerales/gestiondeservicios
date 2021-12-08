@@ -202,7 +202,7 @@ import axios from "axios";
                   this.$emit('new',contrasenaCliente);
                   this.$emit('new',direccionCliente);
                   this.$emit('new',PagosAgregados);
-                  Vue.swal("Cliente Agregado", "", "success");
+                  Vue.swal("Guardando cliente, porfavor espere...", "", "success");   
                   setTimeout(function(){
                     location.reload();
                   },1500);

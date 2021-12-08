@@ -261,7 +261,7 @@ import axios from "axios";
 
                 Vue.swal("Guardando prestador, porfavor espere...", "", "success");   
                 setTimeout(function(){
-                  
+                  location.reload();
                 },2000);
 
                 

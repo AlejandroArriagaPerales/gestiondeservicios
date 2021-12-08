@@ -86,7 +86,7 @@
                   
                   this.$emit('new',nombreServicio);
                   this.$emit('new',categoriaSeleccionada);
-                  Vue.swal("Servicio Agregado", "", "success");
+                  Vue.swal("Guardando servicio, porfavor espere...", "", "success");   
                   setTimeout(function(){
                     location.reload();
                   },1500);

@@ -60,7 +60,7 @@
                 axios.post('tab_metodopagos',params).then((response) => {
                   const nombreMetodoPago = response.data;
                   this.$emit('new',nombreMetodoPago);
-                  Vue.swal("Metodo de Pago Agregado", "", "success");
+                  Vue.swal("Guardando método de pago, porfavor espere...", "", "success");   
                   setTimeout(function(){
                     location.reload();
                   },1500);
