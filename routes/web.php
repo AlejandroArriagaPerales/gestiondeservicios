@@ -50,6 +50,8 @@ Route::get('/', HomeController::class);
 Route::post('dashboard', DashboardController::class)->name('dashboard') -> middleware('auth');
 Route::get('dashboard', DashboardController::class)->name('dashboard') -> middleware('auth');
 
+Route::get('logout', 'Auth\LoginController@logout');
+Route::post('logout', 'Auth\LoginController@logout');
 
 Route::post('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores') -> middleware('auth');
 Route::get('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores')-> middleware('auth');
@@ -118,10 +120,6 @@ Route::post('mapaprestadores', MapaPrestadoresController::class)->name('mapapres
 Route::get('mapaprestadores', MapaPrestadoresController::class)->name('mapaprestadores')-> middleware('auth');
 
 
-Route::middleware('auth')->group(function () {
-    Route::post('/index/dashboard/', 'Auth\LoginController@postlogin')->name('postlogin');
-    Route::post('/index/logout', 'Auth\LoginController@postlogout')->name('postlogout');
-});
 
 Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
