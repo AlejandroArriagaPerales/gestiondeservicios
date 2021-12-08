@@ -42,8 +42,7 @@
                 recibidoPHP: '',
                 archivo: '',
                 idCategoriaImagen: 0,
-                nombreCategoriaImagen: '',
-                nombreImagenCategoria: ''
+                nombreCategoriaImagen: ''
             }
             
         },
@@ -66,6 +65,7 @@
                   console.log("Entro aqui porque categorias no es nulo");
                   console.log(this.tab_categorias);
                   let cantidadCategorias = this.tab_categorias.length; 
+                  console.log(this.tab_categorias[cantidadCategorias].id);
                   this.idCategoriaImagen = this.tab_categorias[cantidadCategorias].id + 1;
                   
                 }

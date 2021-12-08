@@ -209,7 +209,8 @@ import axios from "axios";
                 file: '',
                 recibidoPHP: '',
                 archivo: '',
-                
+                idCategoriaImagen: 0,
+                nombreCategoriaImagen: ''
                 
             }
             
@@ -226,6 +227,24 @@ import axios from "axios";
                 var self = this;
                 await self.newPrestador();
                 await self.getDatos();
+
+                if (this.tab_categorias.length==0) {
+                  console.log("Entro aqui porque categorias es nulo");
+                  this.idCategoriaImagen = 1;                  
+                  
+                }else{
+                  console.log("Entro aqui porque categorias no es nulo");
+                  console.log(this.tab_categorias);
+                  let cantidadCategorias = this.tab_categorias.length; 
+                  console.log(this.tab_categorias[cantidadCategorias].id);
+                  this.idCategoriaImagen = this.tab_categorias[cantidadCategorias].id + 1;
+                  
+                }
+                this.nombreCategoriaImagen = this.nombreCategoria;
+                let nombreImagenCategoria = this.idCategoriaImagen+"_"+this.nombreCategoriaImagen;
+
+
+
                 let nuevoPrestador = this.tab_prestadores.length;
                 let idPrestadorImagen = this.tab_prestadores[nuevoPrestador-1].id;
                 let nombrePrestadorImagen = this.tab_prestadores[nuevoPrestador-1].nombre;
