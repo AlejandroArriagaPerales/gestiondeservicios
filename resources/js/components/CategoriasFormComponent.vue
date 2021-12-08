@@ -69,7 +69,8 @@
                   console.log(cantidadCategorias);
                   console.log("id="+this.tab_categorias[cantidadCategorias-1].id);
                   console.log("Ola");
-                  //this.idCategoriaImagen = this.tab_categorias[cantidadCategorias].id + 1;
+                  this.idCategoriaImagen = this.tab_categorias[cantidadCategorias].id + 1;
+                  console.log(this.idCategoriaImagen);
                   
                   
                 }
