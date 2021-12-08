@@ -122,8 +122,8 @@ Route::get('mapaprestadores', MapaPrestadoresController::class)->name('mapaprest
 
 
 Auth::routes();
-Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
+Route::post('/home', [HomeController::class, 'index'])->name('home') -> middleware('auth');
+Route::get('/home', [HomeController::class, 'index'])->name('home') -> middleware('auth');
 
 Route::apiResource('tab_categorias',CategoriasController::class);
 Route::apiResource('tab_clientes',ClientesController::class);
