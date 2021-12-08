@@ -56,33 +56,33 @@
                
                 
 
-                setTimeout(function(){
-                  self.getDatos();
-                  Vue.swal("Guardado en proceso", "", "warning");
+                
+                self.getDatos();
+                console.log(this.tab_categorias);
+                Vue.swal("Guardado en proceso", "", "warning");
                   
-                  let nuevaCategoria = this.tab_categorias.length;
-                  let idCategoriaImagen = this.tab_categorias[nuevaCategoria-1].id;
-                  let nombreCategoriaImagen = this.tab_categorias[nuevaCategoria-1].nombre;
-                  let nombreImagenCategoria = idCategoriaImagen+"_"+nombreCategoriaImagen;
+                let nuevaCategoria = this.tab_categorias.length;
+                let idCategoriaImagen = this.tab_categorias[nuevaCategoria-1].id;
+                let nombreCategoriaImagen = this.tab_categorias[nuevaCategoria-1].nombre;
+                let nombreImagenCategoria = idCategoriaImagen+"_"+nombreCategoriaImagen;
 
 
-                  var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
-                  var newFile = new File([blob], nombreImagenCategoria+'.png', {type: 'image/png'});
-                  formData.append('file', newFile);
+                var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
+                var newFile = new File([blob], nombreImagenCategoria+'.png', {type: 'image/png'});
+                formData.append('file', newFile);
 
                   
 
-                  axios.post('php/subirImagenesCategorias.php',
+                axios.post('php/subirImagenesCategorias.php',
                       formData,
                       {
                       headers: {
                           'Content-Type': 'multipart/form-data'
                       }
                     }
-                  ).then(response => {
+                ).then(response => {
                     
-                  });
-                },3000);
+                });
 
                 
 
