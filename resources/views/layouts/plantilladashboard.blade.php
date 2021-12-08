@@ -184,6 +184,21 @@
       <li>
         <div class="iocn-link">
           <a href="#">
+            <i class="fas fa-chart-pie"></i>
+            <span class="link_name">Finanzas</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Finanzas</a></li>
+          <li><a href="finanzas">Finanzas de Prestadores</a></li>
+         
+        </ul>
+      </li>
+
+      <li>
+        <div class="iocn-link">
+          <a href="#">
             <i class="fas fa-map-marker-alt"></i>
             <span class="link_name">Mapa</span>
           </a>

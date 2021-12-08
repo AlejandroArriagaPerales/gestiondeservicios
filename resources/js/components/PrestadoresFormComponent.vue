@@ -224,7 +224,7 @@ import axios from "axios";
           async guardarImagen(){
                 let formData = new FormData();
                 var self = this;
-                await self.newPrestador();
+                //await self.newPrestador();
                 await self.getDatos();
                 let nuevoPrestador = this.tab_prestadores.length;
                 let idPrestadorImagen = this.tab_prestadores[nuevoPrestador-1].id;
@@ -238,7 +238,7 @@ import axios from "axios";
 
                 
 
-                axios.post('http://167.99.139.12/var/www/html/SistemaGestor/gestiondeservicios/resources/js/components/subirImagenesPrestadores.php',
+                axios.post('php/subirImagenesPrestadores.php',
                     formData,
                     {
                     headers: {
@@ -266,7 +266,7 @@ import axios from "axios";
             formData.append('file', this.file);
             
   
-            axios.post('http://167.99.139.12/var/www/html/SistemaGestor/gestiondeservicios/resources/js/components/validarImagenesPrestadores.php',
+            axios.post('php/validarImagenesPrestadores.php',
                 formData,
                 {
                 headers: {
