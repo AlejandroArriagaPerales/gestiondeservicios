@@ -94,7 +94,7 @@
                           ${{tab_categoria.costovisita}}
                         </td>
                         <td>
-                          {{tab_categoria.icono}}
+                          <img src="{{tab_categoria.icono}}">
                         </td>
 
                         <td>
