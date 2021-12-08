@@ -210,7 +210,9 @@ import axios from "axios";
                 recibidoPHP: '',
                 archivo: '',
                 idPrestadorImagen: 0,
-                nombrePrestadorImagen: ''
+                nombrePrestadorImagen: '',
+                imagenPrestador: '',
+                nombreImagenPrestador
                 
             }
             
@@ -227,20 +229,11 @@ import axios from "axios";
                 var self = this;
                 await self.newPrestador();
                 await self.getDatos();
-
-                if (this.tab_prestadores.length==0) {
-                  this.idPrestadorImagen = 1;                  
-                  
-                }else{
-                  let cantidadPrestadores = this.tab_prestadores.length; 
-                  this.idPrestadorImagen = this.tab_prestadores[cantidadPrestadores-1].id + 1;
-                  
-                }
-                this.nombrePrestadorImagen = this.nombrePrestador;
-                let nombreImagenPrestador = this.idPrestadorImagen+"_"+this.nombrePrestadorImagen;
+                
+                
 
                 var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
-                var newFile = new File([blob], nombreImagenPrestador+'.png', {type: 'image/png'});
+                var newFile = new File([blob], this.nombreImagenPrestador+'.png', {type: 'image/png'});
                 formData.append('file', newFile);
 
 
@@ -316,6 +309,18 @@ import axios from "axios";
             var pass1 = document.getElementById('password');
             var pass2 = document.getElementById('confirm-password');              
               
+            if (this.tab_prestadores.length==0) {
+                  this.idPrestadorImagen = 1;                  
+                  
+                }else{
+                  let cantidadPrestadores = this.tab_prestadores.length; 
+                  this.idPrestadorImagen = this.tab_prestadores[cantidadPrestadores-1].id + 1;
+                  
+                }
+                this.nombrePrestadorImagen = this.nombrePrestador;
+                this.nombreImagenPrestador = this.idPrestadorImagen+"_"+this.nombrePrestadorImagen;
+
+
             if (pass1.value != pass2.value) {
               document.getElementById("error").classList.add("mostrar");
             }else{
@@ -337,9 +342,11 @@ import axios from "axios";
                     correoPrestador: this.correoPrestador,
                     telefonoPrestador: this.telefonoPrestador,
                     contrasenaPrestador: this.contrasenaPrestador,
+                    imagenPrestador: 'http://167.99.139.12/images/prestadores/'+this.nombreImagenPrestador+".png",
                     disponibilidadSeleccionada: this.disponibilidadSeleccionada,
                     serviciosAgregados: this.serviciosAgregados,
-                    categoriasAgregadas: this.categoriasAgregadas
+                    categoriasAgregadas: this.categoriasAgregadas,
+                    
 
                 };
                 
@@ -350,19 +357,21 @@ import axios from "axios";
                   const correoPrestador = response.data;
                   const telefonoPrestador = response.data;
                   const contrasenaPrestador = response.data;
+                  const imagenPrestador = response.data;
                   const disponibilidadSeleccionada = response.data;
                   const serviciosAgregados = response.data;
                   const categoriasAgregadas = response.data;
+                 
                   this.$emit('new',nombrePrestador);
                   this.$emit('new',apellidoPrestador);
                   this.$emit('new',correoPrestador);
                   this.$emit('new',telefonoPrestador);
                   this.$emit('new',disponibilidadSeleccionada);
                   this.$emit('new',contrasenaPrestador);
+                  this.$emit('new',imagenPrestador);
                   this.$emit('new',serviciosAgregados);
                   this.$emit('new',categoriasAgregadas);
                   setTimeout(function(){
-                    //location.reload();
                   },100);
                 });
 

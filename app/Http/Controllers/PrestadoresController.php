@@ -37,7 +37,7 @@ class PrestadoresController extends Controller
         $prestador->correo = $request->correoPrestador;
         $prestador->telefono = $request->telefonoPrestador;
         $prestador->disponibilidad = $request->disponibilidadSeleccionada;
-        $prestador->imagen = '0';
+        $prestador->imagen = $request->imagenPrestador;
         $prestador->estatus = '1';
         $prestador->contrasena = $request->contrasenaPrestador;
         $prestador->save();
