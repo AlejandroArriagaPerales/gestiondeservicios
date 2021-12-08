@@ -58,12 +58,13 @@
                 await self.getDatos();
                   
                 //let nuevaCategoria = this.tab_categorias.length;
-                if (this.tab_categorias==null) {
+                if (this.tab_categorias.length==undefined) {
                   console.log("Entro aqui porque categorias es nulo");
                   idCategoriaImagen = 1;                  
                   
                 }else{
                   console.log("Entro aqui porque categorias no es nulo");
+                  console.log(this.tab_categorias);
                   let cantidadCategorias = this.tab_categorias.length; 
                   idCategoriaImagen = this.tab_categorias[cantidadCategorias].id + 1;
                   
