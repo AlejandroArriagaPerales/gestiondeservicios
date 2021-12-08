@@ -50,8 +50,8 @@ Route::get('/', HomeController::class);
 Route::post('dashboard', DashboardController::class)->name('dashboard') -> middleware('auth');
 Route::get('dashboard', DashboardController::class)->name('dashboard') -> middleware('auth');
 
-Route::get('/logout', 'Auth\LoginController@logout');
-Route::post('/logout', 'Auth\LoginController@logout');
+Route::get('/logout', HomeController::class);
+Route::post('/logout', HomeController::class);
 
 Route::post('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores') -> middleware('auth');
 Route::get('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores')-> middleware('auth');
