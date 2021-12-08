@@ -94,7 +94,7 @@
                           ${{tab_categoria.costovisita}}
                         </td>
                         <td>
-                          <img src={{tab_categoria.nombre}}>
+                          <img src="../images/system/bg.jpg" alt="texto descriptivo">
                         </td>
 
                         <td>
