@@ -55,34 +55,21 @@
                 var self = this;
                 await self.newCategoria();
                 await self.getDatos();
-                  
-                //let nuevaCategoria = this.tab_categorias.length;
+
                 if (this.tab_categorias.length==0) {
-                  console.log("Entro aqui porque categorias es nulo");
                   this.idCategoriaImagen = 1;                  
                   
                 }else{
-                  console.log("Entro aqui porque categorias no es nulo");
-                  
                   let cantidadCategorias = this.tab_categorias.length; 
-                  console.log(this.tab_categorias);
-                  console.log(cantidadCategorias);
-                  console.log("id="+this.tab_categorias[cantidadCategorias-1].id);
-                  console.log("Ola");
                   this.idCategoriaImagen = this.tab_categorias[cantidadCategorias-1].id + 1;
-                  console.log(this.idCategoriaImagen);
-                  
                   
                 }
                 this.nombreCategoriaImagen = this.nombreCategoria;
                 let nombreImagenCategoria = this.idCategoriaImagen+"_"+this.nombreCategoriaImagen;
 
-
                 var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
                 var newFile = new File([blob], nombreImagenCategoria+'.png', {type: 'image/png'});
                 formData.append('file', newFile);
-
-                  
 
                 axios.post('php/subirImagenesCategorias.php',
                       formData,
@@ -96,10 +83,9 @@
                 });
 
                 
-
                 setTimeout(function(){
                   Vue.swal("Categoria Agregada Exitosamente", "", "success");
-                  //location.reload();
+                  location.reload();
                 },2000);
 
                 
