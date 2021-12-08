@@ -212,7 +212,7 @@ import axios from "axios";
                 idPrestadorImagen: 0,
                 nombrePrestadorImagen: '',
                 imagenPrestador: '',
-                nombreImagenPrestador
+                nombreImagenPrestador: ''
                 
             }
             
