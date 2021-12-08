@@ -41,7 +41,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
 
-Auth::routes();
+
 
 Route::post('/', HomeController::class);
 Route::get('/', HomeController::class);
@@ -121,7 +121,7 @@ Route::get('mapaprestadores', MapaPrestadoresController::class)->name('mapaprest
 
 
 
-
+Auth::routes();
 Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
 
