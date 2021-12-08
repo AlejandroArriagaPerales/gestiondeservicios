@@ -224,7 +224,7 @@ import axios from "axios";
           async guardarImagen(){
                 let formData = new FormData();
                 var self = this;
-                //await self.newPrestador();
+                await self.newPrestador();
                 await self.getDatos();
                 let nuevoPrestador = this.tab_prestadores.length;
                 let idPrestadorImagen = this.tab_prestadores[nuevoPrestador-1].id;
@@ -251,7 +251,7 @@ import axios from "axios";
 
                 setTimeout(function(){
                   Vue.swal("Prestador Agregado Exitosamente", "", "success");
-                  //location.reload();
+                  location.reload();
                 },1000);
 
                 

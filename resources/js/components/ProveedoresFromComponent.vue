@@ -105,7 +105,7 @@
 
                 
 
-                axios.post('http://localhost/proyecto/resources/js/components/subirImagenesProveedores.php',
+                axios.post('php/subirImagenesProveedores.php',
                     formData,
                     {
                     headers: {
@@ -133,7 +133,7 @@
             formData.append('file', this.file);
             
   
-            axios.post('http://localhost/proyecto/resources/js/components/validarImagenesProveedores.php',
+            axios.post('php/validarImagenesProveedores.php',
                 formData,
                 {
                 headers: {

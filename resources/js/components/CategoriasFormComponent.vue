@@ -65,7 +65,7 @@
 
                 
 
-                axios.post('http://localhost/proyecto/resources/js/components/subirImagenesCategorias.php',
+                axios.post('php/subirImagenesCategorias.php',
                     formData,
                     {
                     headers: {
@@ -93,7 +93,7 @@
             formData.append('file', this.file);
             
   
-            axios.post('http://localhost/proyecto/resources/js/components/validarImagenesCategorias.php',
+            axios.post('php/validarImagenesCategorias.php',
                 formData,
                 {
                 headers: {

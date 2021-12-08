@@ -6,9 +6,8 @@
   
 
   $file_name=$_FILES['file']['name'];
-  $add="../../images/categorias/$file_name";
   if($uploadedfileload=="true"){
-    if (move_uploaded_file($_FILES["file"]["tmp_name"], "../../images/categorias/".$_FILES['file']['name'])) {
+    if (move_uploaded_file($_FILES["file"]["tmp_name"], "../images/categorias/".$_FILES['file']['name'])) {
       echo "success";
       exit;
     }
