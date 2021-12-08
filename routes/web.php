@@ -50,8 +50,8 @@ Route::get('/', HomeController::class);
 Route::post('dashboard', DashboardController::class)->name('dashboard') -> middleware('auth');
 Route::get('dashboard', DashboardController::class)->name('dashboard') -> middleware('auth');
 
-Route::get('/logout', 'Auth\LoginController@logout');
-Route::post('/logout', 'Auth\LoginController@logout');
+Route::get('/logout', 'App\\Http\\ControllersAuth\LoginController@logout');
+Route::post('/logout', 'App\\Http\\ControllersAuth\LoginController@logout');
 
 Route::post('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores') -> middleware('auth');
 Route::get('registroprestadores', RegistroPrestadoresController::class)->name('registroprestadores')-> middleware('auth');
@@ -122,8 +122,8 @@ Route::get('mapaprestadores', MapaPrestadoresController::class)->name('mapaprest
 
 
 Auth::routes();
-Route::post('/home', [HomeController::class, 'index'])->name('home') -> middleware('auth');
-Route::get('/home', [HomeController::class, 'index'])->name('home') -> middleware('auth');
+Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home') -> middleware('auth');
 
 Route::apiResource('tab_categorias',CategoriasController::class);
 Route::apiResource('tab_clientes',ClientesController::class);
