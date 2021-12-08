@@ -52,13 +52,14 @@
                 let formData = new FormData();
                 var self = this;
                 self.newCategoria();
+                console.log(this.tab_categorias);
                
                 
 
                 setTimeout(function(){
                   self.getDatos();
                   Vue.swal("Guardado en proceso", "", "warning");
-                  console.log(this.tab_categorias);
+                  
                   let nuevaCategoria = this.tab_categorias.length;
                   let idCategoriaImagen = this.tab_categorias[nuevaCategoria-1].id;
                   let nombreCategoriaImagen = this.tab_categorias[nuevaCategoria-1].nombre;
