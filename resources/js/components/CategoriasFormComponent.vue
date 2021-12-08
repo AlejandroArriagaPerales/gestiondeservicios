@@ -59,12 +59,14 @@
                   
                 //let nuevaCategoria = this.tab_categorias.length;
                 if (this.tab_categorias==null) {
-                  idCategoriaImagen = 1;                  
                   console.log("Entro aqui porque categorias es nulo");
+                  idCategoriaImagen = 1;                  
+                  
                 }else{
+                  console.log("Entro aqui porque categorias no es nulo");
                   let cantidadCategorias = this.tab_categorias.length; 
                   idCategoriaImagen = this.tab_categorias[cantidadCategorias].id + 1;
-                  console.log("Entro aqui porque categorias no es nulo");
+                  
                 }
                 nombreCategoriaImagen = this.nombreCategoria;
                 let nombreImagenCategoria = idCategoriaImagen+"_"+nombreCategoriaImagen;
