@@ -56,7 +56,7 @@
                 
 
                 setTimeout(function(){
-                  await self.getDatos();
+                  self.getDatos();
                   Vue.swal("Guardado en proceso", "", "warning");
                   let nuevaCategoria = this.tab_categorias.length;
                   let idCategoriaImagen = this.tab_categorias[nuevaCategoria-1].id;
