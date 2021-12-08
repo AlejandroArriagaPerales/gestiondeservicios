@@ -81,10 +81,10 @@
                 ).then(response => {
                     
                 });
-
+                
+                Vue.swal("Guardando categoría, porfavor espere...", "", "success");
                 
                 setTimeout(function(){
-                  Vue.swal("Categoria Agregada Exitosamente", "", "success");
                   location.reload();
                 },2000);
 
