@@ -58,7 +58,7 @@
                 await self.getDatos();
                   
                 //let nuevaCategoria = this.tab_categorias.length;
-                if (this.tab_categorias.length==undefined) {
+                if (this.tab_categorias.length==0) {
                   console.log("Entro aqui porque categorias es nulo");
                   idCategoriaImagen = 1;                  
                   
