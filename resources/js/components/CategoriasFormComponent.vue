@@ -63,9 +63,9 @@
                   
                 }else{
                   console.log("Entro aqui porque categorias no es nulo");
-                  console.log(this.tab_categorias);
+                  //console.log(this.tab_categorias);
                   let cantidadCategorias = this.tab_categorias.length; 
-                  console.log(this.tab_categorias[cantidadCategorias].id);
+                  console.log("id="+this.tab_categorias[cantidadCategorias].id);
                   this.idCategoriaImagen = this.tab_categorias[cantidadCategorias].id + 1;
                   
                 }
