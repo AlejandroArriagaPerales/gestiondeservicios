@@ -40,7 +40,10 @@
                 encontrado: 0,
                 file: '',
                 recibidoPHP: '',
-                archivo: ''
+                archivo: '',
+                idCategoriaImagen: 0,
+                nombreCategoriaImagen: '',
+                nombreImagenCategoria: ''
             }
             
         },
@@ -52,18 +55,16 @@
                 let formData = new FormData();
                 var self = this;
                 await self.newCategoria();
-                console.log(this.tab_categorias);
-               
-                
-
-                
                 await self.getDatos();
-                console.log(this.tab_categorias);
-                Vue.swal("Guardado en proceso", "", "warning");
                   
-                let nuevaCategoria = this.tab_categorias.length;
-                let idCategoriaImagen = this.tab_categorias[nuevaCategoria-1].id;
-                let nombreCategoriaImagen = this.tab_categorias[nuevaCategoria-1].nombre;
+                //let nuevaCategoria = this.tab_categorias.length;
+                if (this.tab_categorias==null) {
+                  idCategoriaImagen = 1;                  
+                }else{
+                  let cantidadCategorias = this.tab_categorias.length; 
+                  idCategoriaImagen = this.tab_categorias[cantidadCategorias].id + 1;
+                }
+                nombreCategoriaImagen = this.nombreCategoria;
                 let nombreImagenCategoria = idCategoriaImagen+"_"+nombreCategoriaImagen;
 
 
@@ -87,9 +88,9 @@
                 
 
                 setTimeout(function(){
-                  //Vue.swal("Categoria Agregada Exitosamente", "", "success");
+                  Vue.swal("Categoria Agregada Exitosamente", "", "success");
                   //location.reload();
-                },1000);
+                },2000);
 
                 
 
