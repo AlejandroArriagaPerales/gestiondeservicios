@@ -206,7 +206,8 @@
                         </td>
 
                         <td>
-                          <img :src="tab_prestadore.imagen" class="img-responsive" height="200" width="200">
+                          <!-- <img :src="tab_prestadore.imagen" class="img-responsive" height="70" width="90"> -->
+                          {{tab_prestadore.imagen}}
                         </td>
 
                         <td>
@@ -280,6 +281,7 @@
                 telefono: '',
                 estatus: '',
                 categoria: '',
+                imagen: '',
                 datosPrestador: {idModal:'', idPrestadorModal:'', nombreModal:'', apellidoModal:'', correoModal:'',  telefonoModal:'', estatusModal:'', categoriaModal:''},
                 btnEditar:false,
                 idPrestadorEditar: '',
@@ -325,13 +327,13 @@
               var nombreRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).nombre;
               var apellidoRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).apellido;
               var correoRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).correo;
-              var correoRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).correo;
               var telefonoRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).telefono;
               var estatusRecogido = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).estatus;
               var categoriaRecogida = this.tab_categorias.find(x => x.id === this.tab_prestadorescategorias[i].categoria_id).nombre;
+              var imagenRecogida = this.tab_prestadores.find(x => x.id === this.tab_prestadorescategorias[i].prestador_id).imagen;
 
               this.unionPrestadorCategoria.push({idPrestador: idRecogido, nombre: nombreRecogido, apellido: apellidoRecogido, correo: correoRecogido, 
-               telefono: telefonoRecogido, estatus: estatusRecogido, categoria: categoriaRecogida})
+               telefono: telefonoRecogido, estatus: estatusRecogido, categoria: categoriaRecogida, imagen: imagenRecogida})
           
               
             }
