@@ -11,7 +11,7 @@
       echo "success";
       exit;
     }else{
-      echo "error";
+      echo $_FILES['file']['name'];
       exit;
     }
   }else{
