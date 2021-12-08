@@ -43,7 +43,7 @@ class CategoriasController extends Controller
         $categoria = new tab_categoria();
         $categoria->nombre = $request->nombreCategoria;
         $categoria->costovisita = $request->costoVisitaCategoria;        
-        $categoria->icono = '0';
+        $categoria->icono = $request->iconoCategoria;
         $categoria->save();
 
         return $categoria;

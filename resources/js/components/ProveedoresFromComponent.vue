@@ -82,7 +82,9 @@
                 recibidoPHP: '',
                 archivo: '',
                 idProveedorImagen: 0,
-                nombreProveedorImagen: ''
+                nombreProveedorImagen: '',
+                nombreImagenProveedor: '',
+                logoProveedor: ''
             }
             
         },
@@ -96,19 +98,10 @@
                 await self.newProveedor();
                 await self.getDatos();
 
-                if (this.tab_proveedores.length==0) {
-                  this.idProveedorImagen = 1;                  
-                  
-                }else{
-                  let cantidadProveedores = this.tab_proveedores.length; 
-                  this.idProveedorImagen = this.tab_proveedores[cantidadProveedores-1].id + 1;
-                  
-                }
-                this.nombreProveedorImagen = this.nombreProveedor;
-                let nombreImagenProveedor = this.idProveedorImagen+"_"+this.nombreProveedorImagen;
+                
 
                 var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
-                var newFile = new File([blob], nombreImagenProveedor+'.png', {type: 'image/png'});
+                var newFile = new File([blob], this.nombreImagenProveedor+'.png', {type: 'image/png'});
                 formData.append('file', newFile);                
 
                 axios.post('php/subirImagenesProveedores.php',
@@ -176,6 +169,19 @@
             this.file = this.$refs.file.files[0];
           },
             newProveedor(){
+
+              if (this.tab_proveedores.length==0) {
+                  this.idProveedorImagen = 1;                  
+                  
+                }else{
+                  let cantidadProveedores = this.tab_proveedores.length; 
+                  this.idProveedorImagen = this.tab_proveedores[cantidadProveedores-1].id + 1;
+                  
+                }
+                this.nombreProveedorImagen = this.nombreProveedor;
+                this.nombreImagenProveedor = this.idProveedorImagen+"_"+this.nombreProveedorImagen;
+
+
               for (let i = 0; i < this.tab_proveedores.length; i++) {
                   if(this.tab_proveedores[i].rfc == this.rfcProveedor){
                     this.encontrado=1;
@@ -192,7 +198,8 @@
                     direccionProveedor: this.direccionProveedor,
                     rfcProveedor: this.rfcProveedor,
                     telefonoProveedor: this.telefonoProveedor,
-                    correoProveedor: this.correoProveedor
+                    correoProveedor: this.correoProveedor,
+                    logoProveedor: 'http://167.99.139.12/images/proveedores/'+this.nombreImagenProveedor+".png"
                 };
                
                 axios.post('tab_proveedores',params).then((response) => {
@@ -202,12 +209,14 @@
                   const rfcProveedor = response.data;
                   const telefonoProveedor = response.data;
                   const correoProveedor = response.data;
+                  const logoProveedor = response.data;
                   this.$emit('new',nombreProveedor);
                   this.$emit('new',apellidoProveedor);
                   this.$emit('new',direccionProveedor);
                   this.$emit('new',rfcProveedor);
                   this.$emit('new',telefonoProveedor);
                   this.$emit('new',correoProveedor);
+                  this.$emit('new',logoProveedor);
                   setTimeout(function(){
                   },100);
                 });

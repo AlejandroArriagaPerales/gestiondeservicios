@@ -42,7 +42,9 @@
                 recibidoPHP: '',
                 archivo: '',
                 idCategoriaImagen: 0,
-                nombreCategoriaImagen: ''
+                nombreCategoriaImagen: '',
+                nombreImagenCategoria: '',
+                iconoCategoria: ''
             }
             
         },
@@ -56,19 +58,10 @@
                 await self.newCategoria();
                 await self.getDatos();
 
-                if (this.tab_categorias.length==0) {
-                  this.idCategoriaImagen = 1;                  
-                  
-                }else{
-                  let cantidadCategorias = this.tab_categorias.length; 
-                  this.idCategoriaImagen = this.tab_categorias[cantidadCategorias-1].id + 1;
-                  
-                }
-                this.nombreCategoriaImagen = this.nombreCategoria;
-                let nombreImagenCategoria = this.idCategoriaImagen+"_"+this.nombreCategoriaImagen;
+                
 
                 var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
-                var newFile = new File([blob], nombreImagenCategoria+'.png', {type: 'image/png'});
+                var newFile = new File([blob], this.nombreImagenCategoria+'.png', {type: 'image/png'});
                 formData.append('file', newFile);
 
                 axios.post('php/subirImagenesCategorias.php',
@@ -137,6 +130,18 @@
           },
             newCategoria(){
 
+              if (this.tab_categorias.length==0) {
+                  this.idCategoriaImagen = 1;                  
+                  
+                }else{
+                  let cantidadCategorias = this.tab_categorias.length; 
+                  this.idCategoriaImagen = this.tab_categorias[cantidadCategorias-1].id + 1;
+                  
+                }
+                this.nombreCategoriaImagen = this.nombreCategoria;
+                this.nombreImagenCategoria = this.idCategoriaImagen+"_"+this.nombreCategoriaImagen;
+              
+
               for (let i = 0; i < this.tab_categorias.length; i++) {
                   if(this.tab_categorias[i].nombre == this.nombreCategoria){
                     this.encontrado=1;
@@ -149,7 +154,8 @@
               }else{
                 const params = {
                     nombreCategoria: this.nombreCategoria,
-                    costoVisitaCategoria: this.costoVisitaCategoria
+                    costoVisitaCategoria: this.costoVisitaCategoria,
+                    iconoCategoria: 'http://167.99.139.12/images/categorias/'+this.nombreImagenCategoria+".png"
                     
                 };
                 
@@ -158,8 +164,10 @@
                 axios.post('tab_categorias',params).then((response) => {
                   const nombreCategoria = response.data;
                   const costoVisitaCategoria = response.data;
+                  const iconoCategoria = response.data;
                   this.$emit('new',nombreCategoria);
                   this.$emit('new',costoVisitaCategoria);
+                  this.$emit('new',iconoCategoria);
                   setTimeout(function(){
                   },100);
                 });

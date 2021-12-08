@@ -33,7 +33,7 @@ class ProveedoresController extends Controller
         $proveedor->telefono = $request->telefonoProveedor;
         $proveedor->correo = $request->correoProveedor;
         $proveedor->estatus = '1';
-        $proveedor->logo = '0';
+        $proveedor->logo = $request->logoProveedor;
         $proveedor->save();
 
         return $proveedor;
