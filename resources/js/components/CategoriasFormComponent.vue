@@ -51,10 +51,12 @@
           async guardarImagen(){
                 let formData = new FormData();
                 var self = this;
-                await self.newCategoria();
-                await self.getDatos();
+                self.newCategoria();
+               
+                
 
                 setTimeout(function(){
+                  await self.getDatos();
                   Vue.swal("Guardado en proceso", "", "warning");
                   let nuevaCategoria = this.tab_categorias.length;
                   let idCategoriaImagen = this.tab_categorias[nuevaCategoria-1].id;
@@ -83,7 +85,7 @@
                 
 
                 setTimeout(function(){
-                  Vue.swal("Categoria Agregada Exitosamente", "", "success");
+                  //Vue.swal("Categoria Agregada Exitosamente", "", "success");
                   //location.reload();
                 },1000);
 
