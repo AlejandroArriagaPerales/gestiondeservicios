@@ -94,7 +94,7 @@
                           ${{tab_categoria.costovisita}}
                         </td>
                         <td>
-                          <img src="../images/system/bg.jpg" alt="texto descriptivo">
+                          <img :src="tab_categoria.icono" class="img-responsive" height="70" width="90">
                         </td>
 
                         <td>
