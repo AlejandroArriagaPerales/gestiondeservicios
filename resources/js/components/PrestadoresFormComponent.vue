@@ -226,37 +226,32 @@ import axios from "axios";
                 var self = this;
                 await self.newPrestador();
                 await self.getDatos();
-                setTimeout(function(){
-                  let nuevoPrestador = this.tab_prestadores.length;
-                  let idPrestadorImagen = this.tab_prestadores[nuevoPrestador-1].id;
-                  let nombrePrestadorImagen = this.tab_prestadores[nuevoPrestador-1].nombre;
-                  let nombreImagenPrestador = idPrestadorImagen+"_"+nombrePrestadorImagen;
-                  var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
-                  var newFile = new File([blob], nombreImagenPrestador+'.png', {type: 'image/png'});
-                  formData.append('file', newFile);
+                let nuevoPrestador = this.tab_prestadores.length;
+                let idPrestadorImagen = this.tab_prestadores[nuevoPrestador-1].id;
+                let nombrePrestadorImagen = this.tab_prestadores[nuevoPrestador-1].nombre;
+                let nombreImagenPrestador = idPrestadorImagen+"_"+nombrePrestadorImagen;
 
-                  
 
-                  axios.post('php/subirImagenesPrestadores.php',
-                      formData,
-                      {
-                      headers: {
-                          'Content-Type': 'multipart/form-data'
-                      }
+                var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
+                var newFile = new File([blob], nombreImagenPrestador+'.png', {type: 'image/png'});
+                formData.append('file', newFile);
+
+                
+
+                axios.post('php/subirImagenesPrestadores.php',
+                    formData,
+                    {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
                     }
-                  ).then(response => {
-                    
-                  });
-                },1500);
-                
-
-
-                
+                  }
+                ).then(response => {
+                  
+                });
 
                 setTimeout(function(){
                   Vue.swal("Prestador Agregado Exitosamente", "", "success");
-                  location.reload();
-                },1000);
+                },2000);
 
                 
 
