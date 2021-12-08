@@ -51,13 +51,13 @@
           async guardarImagen(){
                 let formData = new FormData();
                 var self = this;
-                self.newCategoria();
+                await self.newCategoria();
                 console.log(this.tab_categorias);
                
                 
 
                 
-                self.getDatos();
+                await self.getDatos();
                 console.log(this.tab_categorias);
                 Vue.swal("Guardado en proceso", "", "warning");
                   
