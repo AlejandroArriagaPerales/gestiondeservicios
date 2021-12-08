@@ -70,7 +70,7 @@
                   
                 }
                 this.nombreCategoriaImagen = this.nombreCategoria;
-                let nombreImagenCategoria = idCategoriaImagen+"_"+nombreCategoriaImagen;
+                let nombreImagenCategoria = this.idCategoriaImagen+"_"+this.nombreCategoriaImagen;
 
 
                 var blob = file.files[0].slice(0, file.files[0].size, 'image/png'); 
